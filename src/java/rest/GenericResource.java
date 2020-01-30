@@ -89,6 +89,6 @@ public class GenericResource {
             //Logger.getLogger(GenericResource_1.class.getName()).log(Level.SEVERE, null, ex);
         //}
 
-        return "Invalid username, password combination entered.";
+        return "Invalid";
     }
 }
