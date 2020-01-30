@@ -5,7 +5,9 @@
  */
 package services;
 
-import domain.User;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.User;
 /**
  *
  * @author 553185
@@ -16,32 +18,19 @@ public class AccountService {
     }
     
     public User login(String username, String password){
-        boolean validUser = isUsernameValid(username);
-        boolean validPassword = isPasswordValid(password);
-        
-        if(validUser && validPassword){
-            User user = new User(username, null);
-            return user;
-        }
-        else{
+        UserService us = new UserService();
+        try {
+            User user = us.get(username);
+            
+            if(user.getPassword().equals(password)){
+                return user;
+            }
+        } catch (Exception ex) {
             return null;
+            //Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    private boolean isUsernameValid(String username) {
-        boolean valid = false;
-        if(username.equals("Adam") || username.equals("Betty")){
-            valid = true;
-        }
-       return valid;
-    }
-    
-    private boolean isPasswordValid(String password) {
-        boolean valid = false;
-        if(password.equals("password")){
-            valid = true;
-        }
-       return valid;
+        
+        return null;
     }
     
 }
