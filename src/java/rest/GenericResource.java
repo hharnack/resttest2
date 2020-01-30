@@ -5,7 +5,7 @@
  */
 package rest;
 
-import domain.User;
+import models.User;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
