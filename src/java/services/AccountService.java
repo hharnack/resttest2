@@ -33,4 +33,20 @@ public class AccountService {
         return null;
     }
     
+    public boolean register(String username, String password, String fname, String lname, String email){
+        UserService us = new UserService();
+        try {
+            int inserted = us.insert(username, password, fname, lname, email);
+            
+            if(inserted > 0){
+                return true;
+            }
+        } catch (Exception ex) {
+            return false;
+            //Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+    
 }
