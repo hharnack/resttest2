@@ -40,6 +40,7 @@ public class UserService {
 
     public int insert(String username, String password, String firstname, String lastname, String email) throws Exception {
         User user = new User(username, password, firstname, lastname, email);
+        System.out.println("Before userDB.insert");
         return userDB.insert(user);
     }
 }
