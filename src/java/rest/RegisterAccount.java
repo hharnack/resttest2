@@ -68,6 +68,10 @@ public class RegisterAccount {
         
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
+        String parsedConfirmPassword = parser.getString();
+        
+        event = parser.next();       // KEY_NAME
+        event = parser.next();       // VALUE_STRING
         String parsedFirstName = parser.getString();
         
         event = parser.next();       // KEY_NAME
@@ -80,6 +84,7 @@ public class RegisterAccount {
         
         System.out.println(parsedName);
         System.out.println(parsedPassword);
+         System.out.println(parsedConfirmPassword);
         System.out.println(parsedFirstName);
         System.out.println(parsedLastName);
         System.out.println(parsedEmail);
@@ -87,8 +92,13 @@ public class RegisterAccount {
         AccountService as = new AccountService();
         boolean registered = false;
         
-        registered = as.register(parsedName, parsedPassword, parsedFirstName, parsedLastName, parsedEmail);
+        if (!(as.validatePassword(parsedPassword, parsedConfirmPassword))) {
+            return "Passwords do not match";
+        };
         
+        System.out.print("before register");
+        registered = as.register(parsedName, parsedPassword, parsedFirstName, parsedLastName, parsedEmail);
+        System.out.print("after register");
         if(registered){
             return "account registered";
         }
