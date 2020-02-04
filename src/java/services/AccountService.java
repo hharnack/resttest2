@@ -26,8 +26,9 @@ public class AccountService {
                 return user;
             }
         } catch (Exception ex) {
+            
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-            //Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return null;
@@ -36,17 +37,29 @@ public class AccountService {
     public boolean register(String username, String password, String fname, String lname, String email){
         UserService us = new UserService();
         try {
+            System.out.println("Before UserService.insert");
             int inserted = us.insert(username, password, fname, lname, email);
+            System.out.println("After UserService.insert");
             
             if(inserted > 0){
                 return true;
             }
         } catch (Exception ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-            //Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return false;
+    }
+
+    public boolean validatePassword(String parsedPassword, String parsedConfirmPassword) {
+        
+        if (parsedPassword.equals(parsedConfirmPassword)) {
+            return true;
+        } else {
+            return false;
+        }
+        
     }
     
 }
