@@ -9,4 +9,5 @@
     <property name="User" value="dog"/>
     <property name="Password" value="password"/>
   </jdbc-connection-pool>
+
 </resources>
