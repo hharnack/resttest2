@@ -97,9 +97,7 @@ public class RegisterAccount {
             return "Passwords do not match";
         };
         
-        System.out.print("before register");
         registered = as.register(parsedName, parsedPassword, parsedFirstName, parsedLastName, parsedEmail);
-        System.out.print("after register");
         if(registered){
             return "account registered";
         }
