@@ -1,6 +1,6 @@
 USE DogsDB;
 
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
     USERNAME VARCHAR(20) PRIMARY KEY,
@@ -16,7 +16,7 @@ CREATE TABLE users (
 );
 
 INSERT INTO users
-VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', 1, 1);
+VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', 1, 0);
 COMMIT;
 
 DROP TABLE IF EXISTS user_address (
