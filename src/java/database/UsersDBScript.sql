@@ -1,4 +1,4 @@
-USING DogsDB;
+USE DogsDB;
 
 DROP TABLE IF EXISTS users;
 
