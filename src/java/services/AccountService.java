@@ -56,16 +56,22 @@ public class AccountService {
         return false;
     }
 
+    /**
+     * 
+     * @param username
+     * @return true if an account with the specified username exists
+     */
     public boolean checkExisting(String username) {
         UserDB udb = new UserDB();
         try {
             if (udb.getUser(username) != null) {
-                return false;
+                return true;
             }
         } catch (Exception e) {
+            
         }
 
-        return true;
+        return false;
     }
 
     public boolean validatePassword(String parsedPassword, String parsedConfirmPassword) {
