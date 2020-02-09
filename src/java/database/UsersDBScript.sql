@@ -1,7 +1,7 @@
-DROP TABLE USER_ADDRESS;
-DROP TABLE USERS;
+DROP TABLE app.USER_ADDRESS;
+DROP TABLE app.USERS;
 
-CREATE TABLE users (
+CREATE TABLE app.users (
     USERNAME VARCHAR(20) PRIMARY KEY,
     PASSWORD VARCHAR(20) NOT NULL,
     FIRST_NAME VARCHAR(20) NOT NULL,
@@ -14,23 +14,22 @@ CREATE TABLE users (
     ISDISABLED BOOLEAN NOT NULL
 );
 
-CREATE TABLE user_address (
+CREATE TABLE app.user_address (
     USERNAME VARCHAR(20),
     BUILDING_NUM NUMERIC(5),
     HOUSE_APT_NUM NUMERIC(10),
     STREET VARCHAR(20),
     CITY VARCHAR(20),
     PROVINCE VARCHAR(20),
-    COUNTRY VARCHAR(20),
     POSTAL VARCHAR(6)
 );
 
-Alter Table USER_ADDRESS
+Alter Table app.USER_ADDRESS
 Add FOREIGN KEY (USERNAME)
-References USERS (USERNAME);
+References app.USERS (USERNAME);
 
-INSERT INTO users
+INSERT INTO app.users
 VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false);
 
-INSERT INTO user_address
-VALUES ('admin', 8, 123, 'Senator Burns', 'Calgary', 'Alberta', 'Canada', 'A1A1A1');
+INSERT INTO app.user_address
+VALUES ('admin', 8, 123, 'Senator Burns', 'Calgary', 'Alberta', 'A1A1A1');
