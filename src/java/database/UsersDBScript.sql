@@ -27,9 +27,9 @@ DROP TABLE IF EXISTS user_address (
     CITY VARCHAR(20),
     PROVINCE VARCHAR(20),
     COUNTRY VARCHAR(20),
-    POSTAL VARCHAR(8),
+    POSTAL VARCHAR(6),
     FOREIGN KEY USERNAME REFERENCES users(USERNAME)
 );
 
 INSERT INTO user_address
-VALUES ();
+VALUES ('admin', 8, 123, 'Senator Burns', 'Calgary', 'Alberta', 'Canada', 'A1A1A1');
