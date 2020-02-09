@@ -71,7 +71,7 @@ public class RegisterAccountV2 {
         event = parser.next();       // VALUE_STRING
         user.setUsername(parser.getString());
 
-        // Password first
+        // Password
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
         parser.getString(); // Password first
@@ -96,6 +96,11 @@ public class RegisterAccountV2 {
         event = parser.next();       // VALUE_STRING
         user.getAddress().setHouseNum(parser.getInt());
 
+        // Building number
+        event = parser.next();
+        event = parser.next();
+        user.getAddress().setBuildingNum(parser.getInt());
+        
         // Street name
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
