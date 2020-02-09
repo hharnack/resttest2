@@ -72,6 +72,7 @@ public class RegisterAccountV2 {
         event = parser.next();       // VALUE_STRING
         parser.getString(); // Password first
         
+        // Password confirm
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
         user.setPassword(parser.getString()); // Password confirm
