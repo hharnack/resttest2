@@ -85,7 +85,7 @@ public class RegisterAccount {
         
         System.out.println(parsedName);
         System.out.println(parsedPassword);
-         System.out.println(parsedConfirmPassword);
+        System.out.println(parsedConfirmPassword);
         System.out.println(parsedFirstName);
         System.out.println(parsedLastName);
         System.out.println(parsedEmail);
