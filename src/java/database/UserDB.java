@@ -117,8 +117,8 @@ public class UserDB {
             while (rs.next()) {
                 user = new User(rs.getString("username"),
                         rs.getString("password"),
-                        rs.getString("firstname"),
-                        rs.getString("lastname"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
                         rs.getString("email"));
             }
             pool.freeConnection(connection);
