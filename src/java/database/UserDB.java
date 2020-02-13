@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Address;
+import models.UserV2;
 
 public class UserDB {
 
@@ -115,8 +117,8 @@ public class UserDB {
             while (rs.next()) {
                 user = new User(rs.getString("username"),
                         rs.getString("password"),
-                        rs.getString("firstname"),
-                        rs.getString("lastname"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
                         rs.getString("email"));
             }
             pool.freeConnection(connection);
@@ -151,5 +153,45 @@ public class UserDB {
         } finally {
             pool.freeConnection(connection);
         }
+    }
+
+    public int insertV2(UserV2 user) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryAccount = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String queryAddress = "INSERT INTO user_address VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connection.prepareCall(queryAccount);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getFirstName());
+            ps.setString(4, user.getLastName());
+            ps.setString(5, user.getEmail());
+            ps.setString(6, user.getPhoneNumber());
+            ps.setString(7, user.getEmergencyPhone());
+            ps.setString(8, user.getEmergencyName());
+            ps.setBoolean(9, true);
+            ps.setBoolean(10, user.isIsDisabled());
+            
+            if (ps.executeUpdate() != 0) {
+                ps = connection.prepareCall(queryAddress);
+                ps.setString(1, user.getUsername());
+                ps.setString(2, user.getAddress().getBuildingNum());
+                ps.setString(3, user.getAddress().getHouseNum());
+                ps.setString(4, user.getAddress().getStreetName());
+                ps.setString(5, user.getAddress().getCity());
+                ps.setString(6, user.getAddress().getProvince());
+                ps.setString(7, user.getAddress().getPostal());
+                return ps.executeUpdate();
+            }
+            return 0;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot insert " + user.toString(), ex);
+        } finally {
+            pool.freeConnection(connection);
+        }
+
+        return 0;
     }
 }
