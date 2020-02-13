@@ -10,8 +10,8 @@ package models;
  * @author 703174
  */
 public class Address {
-    private int buildingNum;
-    private int houseNum;
+    private String buildingNum;
+    private String houseNum;
     private String streetName;
     private String city;
     private String province;
@@ -20,7 +20,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(int buildingNum, int houseNum, String streetName, String city, String province, String postal) {
+    public Address(String buildingNum, String houseNum, String streetName, String city, String province, String postal) {
         this.buildingNum = buildingNum;
         this.houseNum = houseNum;
         this.streetName = streetName;
@@ -29,19 +29,19 @@ public class Address {
         this.postal = postal;
     }
 
-    public int getBuildingNum() {
+    public String getBuildingNum() {
         return buildingNum;
     }
 
-    public void setBuildingNum(int buildingNum) {
+    public void setBuildingNum(String buildingNum) {
         this.buildingNum = buildingNum;
     }
 
-    public int getHouseNum() {
+    public String getHouseNum() {
         return houseNum;
     }
 
-    public void setHouseNum(int houseNum) {
+    public void setHouseNum(String houseNum) {
         this.houseNum = houseNum;
     }
 

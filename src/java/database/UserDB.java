@@ -170,14 +170,14 @@ public class UserDB {
             ps.setString(6, user.getPhoneNumber());
             ps.setString(7, user.getEmergencyPhone());
             ps.setString(8, user.getEmergencyName());
-            ps.setBoolean(9, user.isIsActive());
+            ps.setBoolean(9, true);
             ps.setBoolean(10, user.isIsDisabled());
             
             if (ps.executeUpdate() != 0) {
                 ps = connection.prepareCall(queryAddress);
                 ps.setString(1, user.getUsername());
-                ps.setInt(2, user.getAddress().getBuildingNum());
-                ps.setInt(3, user.getAddress().getHouseNum());
+                ps.setString(2, user.getAddress().getBuildingNum());
+                ps.setString(3, user.getAddress().getHouseNum());
                 ps.setString(4, user.getAddress().getStreetName());
                 ps.setString(5, user.getAddress().getCity());
                 ps.setString(6, user.getAddress().getProvince());

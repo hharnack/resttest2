@@ -16,8 +16,8 @@ CREATE TABLE app.users (
 
 CREATE TABLE app.user_address (
     USERNAME VARCHAR(20),
-    BUILDING_NUM NUMERIC(5),
-    HOUSE_APT_NUM NUMERIC(10),
+    BUILDING_NUM VARCHAR(5),
+    HOUSE_APT_NUM VARCHAR(10),
     STREET VARCHAR(20),
     CITY VARCHAR(20),
     PROVINCE VARCHAR(20),
@@ -32,4 +32,4 @@ INSERT INTO app.users
 VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false);
 
 INSERT INTO app.user_address
-VALUES ('admin', 8, 123, 'Senator Burns', 'Calgary', 'Alberta', 'A1A1A1');
+VALUES ('admin', '111a', '123b', 'Senator Burns', 'Calgary', 'Alberta', 'A1A1A1');
