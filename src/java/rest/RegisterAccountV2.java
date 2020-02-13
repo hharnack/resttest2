@@ -94,14 +94,14 @@ public class RegisterAccountV2 {
         // Appt/House number
         event = parser.next();       // KEY_NAME
         event = parser.next();  
-        int houseNum = Integer.parseInt(parser.getString());
+        String houseNum = parser.getString();
         user.getAddress().setHouseNum(houseNum);
 
         // Building number
         event = parser.next();
         event = parser.next();
         parser.getString();
-        int buildingNum = Integer.parseInt(parser.getString());
+        String buildingNum = parser.getString();
         user.getAddress().setBuildingNum(buildingNum);
         
         // Street name
