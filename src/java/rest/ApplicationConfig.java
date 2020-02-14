@@ -31,9 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(filters.NewCrossOriginResourceSharingFilter.class);
         resources.add(rest.CheckAccount.class);
-        resources.add(rest.GenericResource.class);
         resources.add(rest.RegisterAccount.class);
-        resources.add(rest.RegisterAccountV2.class);
     }
     
 }

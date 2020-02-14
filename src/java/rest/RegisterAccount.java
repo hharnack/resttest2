@@ -1,10 +1,10 @@
+package rest;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rest;
-
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
@@ -16,12 +16,12 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
+import models.User;
 import services.AccountService;
 
 /**
- * REST Web Service
  *
- * @author 553185
+ * @author 703174
  */
 @Path("register")
 public class RegisterAccount {
@@ -30,13 +30,14 @@ public class RegisterAccount {
     private UriInfo context;
 
     /**
-     * Creates a new instance of RegisterAccount
+     * Creates a new instance of RegisterAccountV2
      */
     public RegisterAccount() {
     }
 
     /**
-     * Retrieves representation of an instance of rest.RegisterAccount
+     * Retrieves representation of an instance of rest.RegisterAccountV2
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -48,57 +49,98 @@ public class RegisterAccount {
     }
 
     /**
-     * PUT method for updating or creating an instance of RegisterAccount
+     * PUT method for updating or creating an instance of RegisterAccountV2
+     *
      * @param content representation for the resource
+     * @return
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
         System.out.println(content);
-        
+        User user = new User();
+
         JsonParser parser = Json.createParser(new StringReader(content));
-        
+
         JsonParser.Event event = parser.next(); // START_OBJECT
+
+        // { username , password , fname , lname , email, appt, building, street, city, province, postcode, phone, emergencyphone, emergencyname });
+        
+        // Username
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
-        String parsedName = parser.getString();
-        
+        user.setUsername(parser.getString());
+
+        // Password
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
-        String parsedPassword = parser.getString();
-        
+        user.setPassword(parser.getString()); // Password first
+
+        // First Name
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
-        String parsedConfirmPassword = parser.getString();
-        
+        user.setFirstName(parser.getString());
+
+        // Last Name
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
-        String parsedFirstName = parser.getString();
-        
+        user.setLastName(parser.getString());
+
+        // Email
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
-        String parsedLastName = parser.getString();
+        user.setEmail(parser.getString());
+
+        // Appt/House number
+        event = parser.next();       // KEY_NAME
+        event = parser.next();  
+        String houseNum = parser.getString();
+        user.getAddress().setHouseNum(houseNum);
+
+        // Building number
+        event = parser.next();
+        event = parser.next();
+        parser.getString();
+        String buildingNum = parser.getString();
+        user.getAddress().setBuildingNum(buildingNum);
         
+        // Street name
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
-        String parsedEmail = parser.getString();
+        user.getAddress().setStreetName(parser.getString());
+
+        // City
+        event = parser.next();       // KEY_NAME
+        event = parser.next();       // VALUE_STRING
+        user.getAddress().setCity(parser.getString());
+
+        // Province
+        event = parser.next();       // KEY_NAME
+        event = parser.next();       // VALUE_STRING
+        user.getAddress().setProvince(parser.getString());
+
+        // Postal
+        event = parser.next();       // KEY_NAME
+        event = parser.next();       // VALUE_STRING
+        user.getAddress().setPostal(parser.getString());
         
-        System.out.println(parsedName);
-        System.out.println(parsedPassword);
-        System.out.println(parsedConfirmPassword);
-        System.out.println(parsedFirstName);
-        System.out.println(parsedLastName);
-        System.out.println(parsedEmail);
+        // Phone
+        event = parser.next();       // KEY_NAME
+        event = parser.next();       // VALUE_STRING
+        user.setPhoneNumber(parser.getString());
+
+        // Emergency phone
+        event = parser.next();       // KEY_NAME
+        event = parser.next();       // VALUE_STRING
+        user.setEmergencyPhone(parser.getString());
+
+        // Emergency name
+        event = parser.next();       // KEY_NAME
+        event = parser.next();       // VALUE_STRING
+        user.setEmergencyName(parser.getString());
 
         AccountService as = new AccountService();
-        boolean registered = false;
-        
-        if (!(as.validatePassword(parsedPassword, parsedConfirmPassword))) {
-            return "Passwords do not match";
-        };
-        
-        registered = as.register(parsedName, parsedPassword, parsedFirstName, parsedLastName, parsedEmail);
-        if(registered){
+        if (as.register(user)) {
             return "account registered";
         }
         return "Username already taken.";

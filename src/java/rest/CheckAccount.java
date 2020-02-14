@@ -57,29 +57,38 @@ public class CheckAccount {
         System.out.println(content);
         
         JsonParser parser = Json.createParser(new StringReader(content));
-        JsonParser.Event event = parser.next(); // START_OBJECT
+        
+        parser.next(); // START_OBJECT
         
         // Username
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         String parsedUserName = parser.getString();
         
         AccountService as = new AccountService();
-        if (as.checkExisting(parsedUserName)) {
+        if (as.checkUsername(parsedUserName)) {
             return "Username Already Exists";
         }
         
         // Password
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         String parsedPassword = parser.getString();
         
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         String parsedConfirmPassword = parser.getString();
         
         if (!parsedPassword.equals(parsedConfirmPassword)) {
             return "Passwords do not match";
+        }
+        
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        String parsedEmail = parser.getString();
+        
+        if (as.checkEmail(parsedEmail)) {
+            return "Email Already in Use";
         }
 
         return "Valid";
