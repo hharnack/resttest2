@@ -6,11 +6,7 @@
 package services;
 
 import database.UserDB;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import models.Address;
 import models.User;
-import models.UserV2;
 
 /**
  *
@@ -21,72 +17,24 @@ public class AccountService {
     public AccountService() {
     }
 
-    public User login(String username, String password) {
-        UserService us = new UserService();
-        try {
-            User user = us.get(username);
-
-            if (user.getPassword().equals(password)) {
-                return user;
-            }
-        } catch (Exception ex) {
-
-            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-
-        return null;
-    }
-
-    public boolean register(String username, String password, String fname, String lname, String email) {
-        UserService us = new UserService();
-        try {
-            System.out.println("Before UserService.insert");
-            int inserted = us.insert(username, password, fname, lname, email);
-            System.out.println("After UserService.insert");
-
-            if (inserted > 0) {
-                return true;
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-
-        return false;
-    }
-
     /**
-     * 
+     *
      * @param username
      * @return true if an account with the specified username exists
      */
-    public boolean checkExisting(String username) {
+    public boolean checkUsername(String username) {
         UserDB udb = new UserDB();
-        try {
-            if (udb.getUser(username) != null) {
-                return true;
-            }
-        } catch (Exception e) {
-            
-        }
-
-        return false;
+        return udb.checkUsername(username);
     }
 
-    public boolean validatePassword(String parsedPassword, String parsedConfirmPassword) {
-
-        if (parsedPassword.equals(parsedConfirmPassword)) {
-            return true;
-        } else {
-            return false;
-        }
-
+    public boolean checkEmail(String email) {
+        UserDB udb = new UserDB();
+        return udb.checkEmail(email);
     }
 
-    public boolean registerV2(UserV2 user) {
+    public boolean register(User user) {
         UserDB udb = new UserDB();
-        if (udb.insertV2(user) > 0) {
+        if (udb.insert(user) > 0) {
             return true;
         }
         return false;
