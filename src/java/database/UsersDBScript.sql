@@ -1,7 +1,9 @@
-DROP TABLE app.USER_ADDRESS;
-DROP TABLE app.USERS;
+DROP DATABASE if exists DogsDB;
+CREATE DATABASE DogsDB;
 
-CREATE TABLE app.users (
+USE DogsDB;
+
+CREATE TABLE users (
     USERNAME VARCHAR(20) PRIMARY KEY,
     PASSWORD VARCHAR(20) NOT NULL,
     FIRST_NAME VARCHAR(20) NOT NULL,
@@ -14,7 +16,7 @@ CREATE TABLE app.users (
     ISDISABLED BOOLEAN NOT NULL
 );
 
-CREATE TABLE app.user_address (
+CREATE TABLE user_address (
     USERNAME VARCHAR(20),
     BUILDING_NUM VARCHAR(5),
     HOUSE_APT_NUM VARCHAR(10),
@@ -24,12 +26,14 @@ CREATE TABLE app.user_address (
     POSTAL VARCHAR(6)
 );
 
-Alter Table app.USER_ADDRESS
+Alter Table USER_ADDRESS
 Add FOREIGN KEY (USERNAME)
-References app.USERS (USERNAME);
+References USERS (USERNAME);
 
-INSERT INTO app.users
+INSERT INTO users
 VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false);
 
-INSERT INTO app.user_address
+INSERT INTO user_address
 VALUES ('admin', '111a', '123b', 'Senator Burns', 'Calgary', 'Alberta', 'A1A1A1');
+
+COMMIT;
