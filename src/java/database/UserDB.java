@@ -104,4 +104,60 @@ public class UserDB {
         }
         return 0;
     }
+    
+    public int updateUser(User user) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryAcctUpdate = "UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ?, emergency_phone = ?, emergency_name = ? WHERE username = ?";
+        String queryAddrUpdate = "UPDATE user_address SET building_num = ?, house_apt_num = ?, street = ?, city = ?, province = ?, postal = ? WHERE username = ?";
+        
+        try {
+            // Query account update
+            PreparedStatement ps = connection.prepareCall(queryAcctUpdate);
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getPhoneNumber());
+            ps.setString(5, user.getEmergencyPhone());
+            ps.setString(6, user.getEmergencyName());
+            ps.setString(7, user.getUsername());
+            ps.executeUpdate();
+            
+            // Query address update
+            ps = connection.prepareCall(queryAddrUpdate);
+            ps.setString(1, user.getAddress().getBuildingNum());
+            ps.setString(2, user.getAddress().getHouseNum());
+            ps.setString(3, user.getAddress().getStreetName());
+            ps.setString(4, user.getAddress().getCity());
+            ps.setString(5, user.getAddress().getProvince());
+            ps.setString(6, user.getAddress().getPostal());
+            ps.setString(7, user.getUsername());
+            
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot insert " + user.toString(), e);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        
+        return 0;
+    }
+    
+    public int changePassword(String username, String password) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryPassword = "UPDATE users SET password = ? WHERE username = ?";
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(queryPassword);
+            ps.setString(1, password);
+            ps.setString(2, username);
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot update password", e);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        return 0;
+    }
 }

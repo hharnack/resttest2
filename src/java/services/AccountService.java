@@ -40,4 +40,22 @@ public class AccountService {
         return false;
     }
 
+    public boolean updateUser(User user) {
+        UserDB udb = new UserDB();
+        if (udb.updateUser(user) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean changePassword(String username, String password) {
+        UserDB udb = new UserDB();
+
+        if (udb.changePassword(username, password) > 0) {
+            return true;
+        }
+        
+        return false;
+    }
+
 }

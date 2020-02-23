@@ -18,25 +18,25 @@ import services.AccountService;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author 703174
  */
 @Path("verify")
 public class CheckAccount {
-    
-    @Context
-    private UriInfo context;
 
     /**
-     * Creates a new instance of RegisterAccount
+     * Creates a new instance of CheckAccount
      */
     public CheckAccount() {
     }
 
+    @Context
+    private UriInfo context;
+
     /**
-     * Retrieves representation of an instance of rest.RegisterAccount
+     * Retrieves representation of an instance of rest.CheckAccount
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -49,44 +49,45 @@ public class CheckAccount {
 
     /**
      * PUT method for updating or creating an instance of RegisterAccount
+     *
      * @param content representation for the resource
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
         System.out.println(content);
-        
+
         JsonParser parser = Json.createParser(new StringReader(content));
-        
+
         parser.next(); // START_OBJECT
-        
+
         // Username
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String parsedUserName = parser.getString();
-        
+
         AccountService as = new AccountService();
         if (as.checkUsername(parsedUserName)) {
             return "Username Already Exists";
         }
-        
+
         // Password
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String parsedPassword = parser.getString();
-        
+
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String parsedConfirmPassword = parser.getString();
-        
+
         if (!parsedPassword.equals(parsedConfirmPassword)) {
             return "Passwords do not match";
         }
-        
+
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String parsedEmail = parser.getString();
-        
+
         if (as.checkEmail(parsedEmail)) {
             return "Email Already in Use";
         }
