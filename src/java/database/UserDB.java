@@ -160,4 +160,27 @@ public class UserDB {
         }
         return 0;
     }
+
+    public boolean login(String username, String password) {
+       ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryPassword = "SELECT username FROM users WHERE password = ? AND username = ?";
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(queryPassword);
+            ps.setString(1, password);
+            ps.setString(2, username);
+            ResultSet rs = ps.executeQuery();
+            if(rs != null){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot find login match", e);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        return false;
+    }
 }

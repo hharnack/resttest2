@@ -58,4 +58,9 @@ public class AccountService {
         return false;
     }
 
+    public boolean login(String username, String password) {
+        UserDB udb = new UserDB();
+        return udb.login(username, password);
+    }
+
 }
