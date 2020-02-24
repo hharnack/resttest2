@@ -1,42 +1,39 @@
-package rest;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package rest;
+
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import models.UserV2;
+import javax.ws.rs.core.UriInfo;
+import models.User;
 import services.AccountService;
 
 /**
  *
  * @author 703174
  */
-@Path("register2")
-public class RegisterAccountV2 {
+@Path("update")
+public class UpdateAccount {
 
+    public UpdateAccount() {
+    }
+    
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of RegisterAccountV2
-     */
-    public RegisterAccountV2() {
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.RegisterAccountV2
+     * Retrieves representation of an instance of rest.
      *
      * @return an instance of java.lang.String
      */
@@ -49,7 +46,7 @@ public class RegisterAccountV2 {
     }
 
     /**
-     * PUT method for updating or creating an instance of RegisterAccountV2
+     * PUT method for updating or creating an instance of
      *
      * @param content representation for the resource
      * @return
@@ -57,25 +54,17 @@ public class RegisterAccountV2 {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
-        System.out.println(content);
-        UserV2 user = new UserV2();
-
+        User user = new User();
         JsonParser parser = Json.createParser(new StringReader(content));
-
         JsonParser.Event event = parser.next(); // START_OBJECT
 
-        // { username , password , fname , lname , email, appt, building, street, city, province, postcode, phone, emergencyphone, emergencyname });
+        // { username, fname , lname , email, appt/house, building, street, city, province, postcode, phone, emergencyphone, emergencyname });
         
         // Username
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
         user.setUsername(parser.getString());
-
-        // Password
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
-        user.setPassword(parser.getString()); // Password first
-
+        
         // First Name
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
@@ -93,17 +82,15 @@ public class RegisterAccountV2 {
 
         // Appt/House number
         event = parser.next();       // KEY_NAME
-        event = parser.next();  
-        String houseNum = parser.getString();
-        user.getAddress().setHouseNum(houseNum);
+        event = parser.next();
+        user.getAddress().setHouseNum(parser.getString());
 
         // Building number
         event = parser.next();
         event = parser.next();
         parser.getString();
-        String buildingNum = parser.getString();
-        user.getAddress().setBuildingNum(buildingNum);
-        
+        user.getAddress().setBuildingNum(parser.getString());
+
         // Street name
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
@@ -123,7 +110,7 @@ public class RegisterAccountV2 {
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
         user.getAddress().setPostal(parser.getString());
-        
+
         // Phone
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
@@ -138,11 +125,12 @@ public class RegisterAccountV2 {
         event = parser.next();       // KEY_NAME
         event = parser.next();       // VALUE_STRING
         user.setEmergencyName(parser.getString());
-
+        
         AccountService as = new AccountService();
-        if (as.registerV2(user)) {
-            return "account registered";
+        if (as.updateUser(user)) {
+            return "Updated";
         }
-        return "Username already taken.";
+        
+        return "Not Updated";
     }
 }

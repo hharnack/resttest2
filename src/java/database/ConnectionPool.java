@@ -21,7 +21,7 @@ public class ConnectionPool {
     private ConnectionPool() {
         try{
             InitialContext ic = new InitialContext();
-            dataSource = (DataSource) ic.lookup("_dogs");
+            dataSource = (DataSource) ic.lookup("jdbc/dogsdb");
         } catch (NamingException e) {
             System.out.println(e);
         }
