@@ -60,4 +60,7 @@ CREATE TABLE user_accttype (
 INSERT INTO user_accttype
 VALUES ('admin', 1);
 
+INSERT INTO user_accttype
+VALUES ('customer', 2);
+
 COMMIT;
