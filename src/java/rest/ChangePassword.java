@@ -54,21 +54,22 @@ public class ChangePassword {
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
         JsonParser parser = Json.createParser(new StringReader(content));
-        JsonParser.Event event = parser.next(); // START_OBJECT
+        
+        parser.next(); // START_OBJECT
         
         // Username
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         String username = parser.getString();
 
         // Password First
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         String passwordFirst = parser.getString(); // Password first
         
         // Password Confirm
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         String passwordConfirm = parser.getString(); // Password first
         
         if (!passwordFirst.equals(passwordConfirm)) {

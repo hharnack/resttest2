@@ -62,79 +62,79 @@ public class RegisterAccount {
 
         JsonParser parser = Json.createParser(new StringReader(content));
 
-        JsonParser.Event event = parser.next(); // START_OBJECT
+        parser.next(); // START_OBJECT
 
         // { username , password , fname , lname , email, appt/house, building, street, city, province, postcode, phone, emergencyphone, emergencyname });
         // Username
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.setUsername(parser.getString());
 
         // Password
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.setPassword(parser.getString()); // Password first
 
         // First Name
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.setFirstName(parser.getString());
 
         // Last Name
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.setLastName(parser.getString());
 
         // Email
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.setEmail(parser.getString());
 
         // Appt/House number
-        event = parser.next();       // KEY_NAME
-        event = parser.next();
+        parser.next();       // KEY_NAME
+        parser.next();
         String houseNum = parser.getString();
         user.getAddress().setHouseNum(houseNum);
 
         // Appt/House number
-        event = parser.next();       // KEY_NAME
-        event = parser.next();
+        parser.next();       // KEY_NAME
+        parser.next();
         user.getAddress().setHouseNum(parser.getString());
 
         // Building number
-        event = parser.next();
-        event = parser.next();
+        parser.next();
+        parser.next();
         parser.getString();
         user.getAddress().setBuildingNum(parser.getString());
 
         // City
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.getAddress().setCity(parser.getString());
 
         // Province
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.getAddress().setProvince(parser.getString());
 
         // Postal
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.getAddress().setPostal(parser.getString());
 
         // Phone
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.setPhoneNumber(parser.getString());
 
         // Emergency phone
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.setEmergencyPhone(parser.getString());
 
         // Emergency name
-        event = parser.next();       // KEY_NAME
-        event = parser.next();       // VALUE_STRING
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         user.setEmergencyName(parser.getString());
 
         AccountService as = new AccountService();
