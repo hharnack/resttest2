@@ -1,4 +1,4 @@
-DROP DATABASE if exists DogsDB;
+DROP DATABASE IF EXISTS DogsDB;
 CREATE DATABASE DogsDB;
 
 USE DogsDB;
@@ -16,6 +16,9 @@ CREATE TABLE users (
     ISDISABLED BOOLEAN NOT NULL
 );
 
+INSERT INTO users
+VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false);
+
 CREATE TABLE user_address (
     USERNAME VARCHAR(20),
     BUILDING_NUM VARCHAR(5),
@@ -26,14 +29,35 @@ CREATE TABLE user_address (
     POSTAL VARCHAR(6)
 );
 
-Alter Table USER_ADDRESS
-Add FOREIGN KEY (USERNAME)
-References USERS (USERNAME);
-
-INSERT INTO users
-VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false);
+ALTER TABLE user_address
+ADD FOREIGN KEY (USERNAME)
+REFERENCES users (USERNAME);
 
 INSERT INTO user_address
 VALUES ('admin', '111a', '123b', 'Senator Burns', 'Calgary', 'Alberta', 'A1A1A1');
+
+-- account_type table, never inserted into
+CREATE TABLE account_type (
+    USER_TYPE TINYINT PRIMARY KEY,
+    DESCRIPTION VARCHAR(10) NOT NULL
+);
+
+INSERT INTO account_type
+VALUES (1, 'Admin');
+
+INSERT INTO account_type
+VALUES (2, 'Customer');
+
+-- account_type to users bridge table
+CREATE TABLE user_accttype (
+    USERNAME VARCHAR(20),
+    USER_TYPE TINYINT,
+    PRIMARY KEY (USERNAME, USER_TYPE),
+    FOREIGN KEY (USERNAME) REFERENCES users (USERNAME),
+    FOREIGN KEY (USER_TYPE) REFERENCES account_type (USER_TYPE)
+);
+
+INSERT INTO user_accttype
+VALUES ('admin', 1);
 
 COMMIT;
