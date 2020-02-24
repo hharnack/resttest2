@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import services.AccountService;
 
 /**
  *
@@ -74,7 +75,12 @@ public class ChangePassword {
             return "Passwords do not match";
         }
         
-        return "Password updated";
+        AccountService as = new AccountService();
+        if (as.changePassword(username, passwordFirst)) {
+            return "Password changed";
+        }
+        
+        return null;
     }
     
 }
