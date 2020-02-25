@@ -57,20 +57,7 @@ public class Login {
         String password = parser.getString();
 
         AccountService as = new AccountService();
-        boolean login = false;
-
-        as.login(username, password);
-        return login;
+  
+        return as.login(username, password);
     }
-
-    /**
-     * PUT method for updating or creating an instance of RegisterAccount
-     *
-     * @param content representation for the resource
-     */
-//    @PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public String putJson(String content) {
-//        return null;
-//    }
 }
