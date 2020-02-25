@@ -39,7 +39,8 @@ public class Login {
      */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean getJson(String content) {
+    public String getJson(String content) {
+        System.out.print(content);
         JsonParser parser = Json.createParser(new StringReader(content));
 
         parser.next(); // START_OBJECT
@@ -55,7 +56,12 @@ public class Login {
         String password = parser.getString();
 
         AccountService as = new AccountService();
-  
-        return as.login(username, password);
+        
+        if (as.login(username,password)) {
+          return "yes";
+        } else {
+            return "no";
+        }
+ 
     }
 }
