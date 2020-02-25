@@ -10,6 +10,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import services.AccountService;
+import services.JWT;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -58,9 +59,9 @@ public class Login {
         AccountService as = new AccountService();
         
         if (as.login(username,password)) {
-          return "yes";
+          return JWT.createJWT("testID", "testIssuer", username, 0);
         } else {
-            return "no";
+            return "invalid login";
         }
  
     }

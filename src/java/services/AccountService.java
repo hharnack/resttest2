@@ -55,7 +55,6 @@ public class AccountService {
     }
 
     public boolean login(String username, String password) {
-        System.out.print(username + " " + password);
         return udb.login(username, password);
     }
 
