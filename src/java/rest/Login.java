@@ -3,9 +3,7 @@ package rest;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -22,7 +20,7 @@ import services.AccountService;
  *
  * @author 703174
  */
-@Path("verify")
+@Path("login")
 public class Login {
 
     /**
@@ -39,7 +37,7 @@ public class Login {
      *
      * @return an instance of java.lang.String
      */
-    @GET
+    @POST
     @Produces(MediaType.APPLICATION_JSON)
     public boolean getJson(String content) {
         JsonParser parser = Json.createParser(new StringReader(content));
