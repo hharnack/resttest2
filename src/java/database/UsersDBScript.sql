@@ -3,6 +3,7 @@ CREATE DATABASE DogsDB;
 
 USE DogsDB;
 
+-- users table
 CREATE TABLE users (
     USERNAME VARCHAR(20) PRIMARY KEY,
     PASSWORD VARCHAR(20) NOT NULL,
@@ -19,6 +20,7 @@ CREATE TABLE users (
 INSERT INTO users
 VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false);
 
+-- user_address table
 CREATE TABLE user_address (
     USERNAME VARCHAR(20),
     BUILDING_NUM VARCHAR(5),
@@ -59,5 +61,120 @@ CREATE TABLE user_accttype (
 
 INSERT INTO user_accttype
 VALUES ('admin', 1);
+
+-- dogs table
+CREATE TABLE dogs (
+    PET_ID INT AUTO_INCREMENT PRIMARY KEY,
+    NAME VARCHAR(20),
+    BREED VARCHAR(20),
+    WEIGHT DECIMAL(5, 2),
+    BIRTH_DATE DATE,
+    GENDER VARCHAR(6),
+    SPAYED_NEUTERED BOOLEAN,
+    STRANGER_FRIENDLY BOOLEAN,
+    LARGE_FRIENDLY BOOLEAN,
+    SMALL_FRIENDLY BOOLEAN,
+    PUPPY_FRIENDLY BOOLEAN
+);
+
+INSERT INTO dogs (NAME, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY)
+VALUES ('Max', 'Boston Terrier', 4.20, '2019-12-25', 'Male', true, true, true, true, true);
+
+-- users to dogs bridge table
+CREATE TABLE users_dogs (
+    USERNAME VARCHAR(20),
+    PET_ID INT,
+    PRIMARY KEY (USERNAME, PET_ID),
+    FOREIGN KEY (USERNAME) REFERENCES users (USERNAME),
+    FOREIGN KEY (PET_ID) REFERENCES dogs (PET_ID)
+);
+
+INSERT INTO users_dogs
+VALUES ('admin', 1);
+
+-- dogs_allergy table
+CREATE TABLE dogs_allergy (
+    PET_ID INT,
+    ALLERGY VARCHAR(20),
+    DETAILS VARCHAR(100),
+    FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
+);
+
+INSERT INTO dogs_allergy
+VALUES (1, 'Coffee', 'Crisp');
+
+-- dogs_vaccine table
+CREATE TABLE dogs_vaccine (
+    PET_ID INT,
+    VACCINE VARCHAR(20),
+    EXPIRATION DATE,
+    FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
+);
+
+INSERT INTO dogs_vaccine
+VALUES (1, 'Corona Virus Vaccine', '2023-12-25');
+
+-- dogs_medication table
+CREATE TABLE dogs_medication (
+    PET_ID INT,
+    MEDICATION VARCHAR(20),
+    DETAILS VARCHAR(100),
+    FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
+);
+
+INSERT INTO dogs_medication
+VALUES (1, 'Advil', 'Every 8 hours');
+
+-- appointments table
+CREATE TABLE appointments (
+    APPT_ID INT AUTO_INCREMENT PRIMARY KEY,
+    DATE_START DATETIME,
+    DATE_END DATETIME,
+    TOTAL_COST DECIMAL(7, 2),
+    AMOUNT_PAID DECIMAL(7, 2),
+    ISAPPROVED BOOLEAN,
+    COMMENTS VARCHAR(100)
+);
+
+-- users to appointments bridge table
+CREATE TABLE users_apppointments (
+    USERNAME VARCHAR(20),
+    APPT_ID INT,
+    PRIMARY KEY (USERNAME, APPT_ID),
+    FOREIGN KEY (USERNAME) REFERENCES users(USERNAME),
+    FOREIGN KEY (APPT_ID) REFERENCES appointments(APPT_ID)
+);
+
+-- appointment_type table, never inserted into
+CREATE TABLE appointment_type (
+    APPT_TYPE TINYINT PRIMARY KEY,
+    APPT_DESC VARCHAR(20)
+);
+
+-- appointment to appointment_type bridge table
+CREATE TABLE appt_appttype (
+    APPT_ID INT,
+    APPT_TYPE TINYINT,
+    PRIMARY KEY (APPT_ID, APPT_TYPE),
+    FOREIGN KEY (APPT_ID) REFERENCES appointments(APPT_ID),
+    FOREIGN KEY (APPT_TYPE) REFERENCES appointment_type(APPT_TYPE)
+);
+
+-- veterinarians table
+CREATE TABLE veterinarians (
+    VET_ID INT AUTO_INCREMENT PRIMARY KEY,
+    NAME VARCHAR(30),
+    CLINIC VARCHAR(30),
+    PHONE_NUMBER VARCHAR(10)
+);
+
+-- users veterinarians bridge table
+CREATE TABLE users_vets (
+    USERNAME VARCHAR(20),
+    VET_ID INT,
+    PRIMARY KEY (USERNAME, VET_ID),
+    FOREIGN KEY (USERNAME) REFERENCES users(USERNAME),
+    FOREIGN KEY (VET_ID) REFERENCES veterinarians(VET_ID)
+);
 
 COMMIT;
