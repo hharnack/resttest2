@@ -25,8 +25,8 @@ public class UserDB {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, username);
             rs = ps.executeQuery();
-            
-            if (rs.getFetchSize() != 0) {
+            rs.last();
+            if(rs.getRow() != 0){
                 return true;
             }
             
@@ -52,7 +52,8 @@ public class UserDB {
             ps.setString(1, email);
             rs = ps.executeQuery();
             
-            if (rs.getFetchSize() != 0) {
+            rs.last();
+            if(rs.getRow() != 0){
                 return true;
             }
             
@@ -171,7 +172,8 @@ public class UserDB {
             ps.setString(1, password);
             ps.setString(2, username);
             ResultSet rs = ps.executeQuery();
-            if(rs.getFetchSize() != 0){
+            rs.last();
+            if(rs.getRow() != 0){
                 return true;
             }
         } catch (SQLException e) {
