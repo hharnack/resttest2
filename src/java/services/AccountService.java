@@ -34,28 +34,23 @@ public class AccountService {
     }
 
     public boolean register(User user) {
-        if (udb.insert(user) > 0) {
-            return true;
-        }
-        return false;
+        return udb.insert(user) > 0;
     }
 
     public boolean updateUser(User user) {
-        if (udb.updateUser(user) > 0) {
-            return true;
-        }
-        return false;
+        return udb.updateUser(user) > 0;
     }
 
     public boolean changePassword(String username, String password) {
-        if (udb.changePassword(username, password) > 0) {
-            return true;
-        }
-        return false;
+        return udb.changePassword(username, password) > 0;
     }
 
     public boolean login(String username, String password) {
         return udb.login(username, password);
+    }
+    
+    public User getUser(String username) {
+        return udb.getUser(username);
     }
 
 }
