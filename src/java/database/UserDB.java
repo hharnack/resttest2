@@ -186,20 +186,26 @@ public class UserDB {
     }
 
     public User getUser(String username) {
-        // TODO query users table, get all except password
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String queryUser = "SELECT * FROM users WHERE username = ?";
-        
+
         try {
             PreparedStatement ps = connection.prepareStatement(queryUser);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             rs.last();
+            
             if (rs.getRow() > 0) {
                 User user = new User();
-                rs.first();
-                // TODO process result set
+                user.setUsername(rs.getString("username"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("phone_number"));
+                user.setEmergencyName(rs.getString("emergency_name"));
+                user.setEmergencyPhone(rs.getString("emergency_phone"));
+                user.setAddress(getUserAddress(username));
                 return user;
             }
         } catch (SQLException e) {
@@ -212,7 +218,31 @@ public class UserDB {
 
     public Address getUserAddress(String username) {
         // TODO query address table using username
-
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryAddress = "SELECT * FROM user_address WHERE username = ?";
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(username);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery(queryAddress);
+            rs.last();
+            
+            if (rs.getRow() > 0) {
+                Address add = new Address();
+                add.setBuildingNum(rs.getString("building_num"));
+                add.setHouseNum(rs.getString("house_apt_num"));
+                add.setStreetName(rs.getString("street"));
+                add.setCity(rs.getString("city"));
+                add.setProvince(rs.getString("province"));
+                add.setPostal(rs.getString("postal"));
+                return add;
+            }
+        } catch (SQLException e) {
+            
+        } finally {
+            pool.freeConnection(connection);
+        }
         return null;
     }
 }

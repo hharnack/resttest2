@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import services.AccountService;
 
 /**
  *
@@ -43,9 +44,8 @@ public class RetrieveUser {
         parser.next();       // VALUE_STRING
         String username = parser.getString();
         
-        
-        
+        AccountService as = new AccountService();
         // TODO query database and send JSON use .toJSON() method provided
-        return "Boo";
+        return as.getUser(username).toJSON().toString();
     }
 }

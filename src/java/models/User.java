@@ -10,7 +10,6 @@ public class User {
     private String firstName;
     private String lastName;
     private Address address;
-    private Veterinarian veterinarian; // Unused at the time
     private String email;
     private String phoneNumber;
     private String emergencyPhone;
@@ -60,14 +59,6 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public Veterinarian getVeterinarian() {
-        return veterinarian;
-    }
-
-    public void setVeterinarian(Veterinarian veterinarian) {
-        this.veterinarian = veterinarian;
     }
 
     public String getEmail() {
@@ -129,7 +120,6 @@ public class User {
                 .add("emergencyPhone", emergencyPhone)
                 .add("emergencyName", emergencyName)
                 .add("address", address.toJSON())
-                .add("veterinarian", veterinarian.toJSON())
                 .build();
         return jo;
     }

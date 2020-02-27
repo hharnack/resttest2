@@ -6,7 +6,6 @@
 
 import models.Address;
 import models.User;
-import models.Veterinarian;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -65,7 +64,6 @@ public class toJSONTest {
         user.setEmergencyName("Peepeepoopoo");
         user.setEmergencyPhone("0987654321");
         user.setAddress(add);
-        user.setVeterinarian(new Veterinarian());
         
         System.out.println(user.toJSON().toString());
     }
