@@ -43,6 +43,8 @@ public class RetrieveUser {
         parser.next();       // VALUE_STRING
         String username = parser.getString();
         
+        
+        
         // TODO query database and send JSON use .toJSON() method provided
         return "Boo";
     }
