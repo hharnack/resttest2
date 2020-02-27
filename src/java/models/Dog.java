@@ -7,6 +7,8 @@ package models;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import javax.json.Json;
+import javax.json.JsonObject;
 
 /**
  *
@@ -142,6 +144,13 @@ public class Dog {
 
     public void setPuppyFriendly(boolean puppyFriendly) {
         this.puppyFriendly = puppyFriendly;
+    }
+    
+    public javax.json.JsonObject toJSON() {
+        JsonObject jo = Json.createObjectBuilder()
+                .add("name", name)
+                .build();
+        return jo;
     }
 
 }
