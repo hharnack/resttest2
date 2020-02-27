@@ -95,6 +95,7 @@ public class DogDB {
             ps.setBoolean(9, dog.isSmallDogFriendly());
             ps.setBoolean(10, dog.isPuppyFriendly());
             ps.setInt(11, dog.getIdNumber());
+            return ps.executeUpdate();
         } catch (SQLException e) {
             
         } finally {
