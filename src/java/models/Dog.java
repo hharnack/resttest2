@@ -30,6 +30,7 @@ public class Dog {
     private boolean largeDogFriendly;
     private boolean smallDogFriendly;
     private boolean puppyFriendly;
+    private Veterinarian veterinarian;
 
     public Dog() {
     }
@@ -145,7 +146,15 @@ public class Dog {
     public void setPuppyFriendly(boolean puppyFriendly) {
         this.puppyFriendly = puppyFriendly;
     }
-    
+
+    public Veterinarian getVeterinarian() {
+        return veterinarian;
+    }
+
+    public void setVeterinarian(Veterinarian veterinarian) {
+        this.veterinarian = veterinarian;
+    }
+
     public javax.json.JsonObject toJSON() {
         JsonObject jo = Json.createObjectBuilder()
                 .add("name", name)
