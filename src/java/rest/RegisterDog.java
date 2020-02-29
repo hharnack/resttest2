@@ -19,6 +19,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import models.Dog;
 import models.Veterinarian;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 
 /**
@@ -44,78 +46,59 @@ public class RegisterDog {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
-        JsonParser parser = Json.createParser(new StringReader(content));
-        Dog dog = new Dog();
-
-        parser.next();       // START_OBJECT
-
-        // {dogname, breed, dob, gender, weight, neuteredspayed, medication, allergies, physlimit, veterinarian, stranger, larger, small, puppy, da2pp, rabies, bordetella}
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        dog.setName(parser.getString());
-
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        dog.setBreed(parser.getString());
-
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        Date dob = Date.valueOf(parser.getString());
-        dog.setDateOfBirth(dob);
-
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        dog.setGender(parser.getString());
-
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        dog.setWeight(Double.parseDouble(parser.getString()));
-
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        if (parser.getString().equals("yes")) {
-            dog.setSpayedNeutered(true);
-        } else {
-            dog.setSpayedNeutered(false);
-        }
-        //medications parsing
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        String medInfo = parser.getString();
+        //JsonParser parser = Json.createParser(new StringReader(content));
         Gson gson = new Gson();
-        ArrayList<String> medList;
-        try (JsonParser parserMeds = Json.createParser(new StringReader(medInfo))) {
-            medList = gson.fromJson(medInfo, ArrayList.class);
-//        boolean flag = true;
-//        parserMeds.next();
-//        while (flag) {
-//            try {
-//                parserMeds.next();
-//                parserMeds.next();
+        Dog dog = gson.fromJson(content, Dog.class);
+        System.out.println(dog.getDateOfBirth());
+
+
+//        System.out.println(dog.getVeterinarian().getName());
+//       parser.next();       // START_OBJECT
 //
-//                medList.add(parser.getString());
-//            } catch (Exception e) {
-//                flag = false;
-//            }
-//        }
-for(int x = 0; x < medList.size(); x++){
-    System.out.println(medList.get(x));
-}
-        }
-//        boolean flag = true;
-//        parserMeds.next();
-//        while (flag) {
-//            try {
-//                parserMeds.next();
-//                parserMeds.next();
+//        // {dogname, breed, dob, gender, weight, neuteredspayed, medication, allergies, physlimit, veterinarian, stranger, larger, small, puppy, da2pp, rabies, bordetella}
+//        parser.next();       // KEY_NAME
+//        parser.next();       // VALUE_STRING 1
+//        dog.setName(parser.getString());
 //
-//                medList.add(parser.getString());
-//            } catch (Exception e) {
-//                flag = false;
-//            }
+//        parser.next();       // KEY_NAME
+//        parser.next();       // VALUE_STRING 2
+//        dog.setBreed(parser.getString());
+//
+//        parser.next();       // KEY_NAME
+//        parser.next();       // VALUE_STRING 3
+//        Date dob = Date.valueOf(parser.getString());
+//        dog.setDateOfBirth(dob);
+//
+//        parser.next();       // KEY_NAME
+//        parser.next();       // VALUE_STRING 4
+//        dog.setGender(parser.getString());
+//
+//        parser.next();       // KEY_NAME
+//        parser.next();       // VALUE_STRING 5
+//        dog.setWeight(Double.parseDouble(parser.getString()));
+//
+//        parser.next();       // KEY_NAME
+//        parser.next();       // VALUE_STRING 6
+//        if (parser.getString().equals("yes")) {
+//            dog.setSpayedNeutered(true);
+//        } else {
+//            dog.setSpayedNeutered(false);
 //        }
-        dog.setMedications(medList);
-        
+//        //medications parsing
+//        parser.next();       // KEY_NAME
+//        parser.next();       // VALUE_STRING 7
+//        String meds = parser.getString();
+//        System.out.println(meds);
+//        String[] arr = {meds};
+//        ArrayList<String> medList = new ArrayList<>();
+//        for(int x = 0; x < arr.length-1; x++){
+//            medList.add(arr[x]);
+//        }
+//        for(int x = 0; x < medList.size(); x++){
+//        System.out.println(medList.get(x));
+//        }
+//         dog.setMedications(medList);
+//     
 //        allergies parsing
 //        parser.next();       // KEY_NAME
 //        parser.next();       // VALUE_STRING
@@ -136,13 +119,16 @@ for(int x = 0; x < medList.size(); x++){
 //        }
 //        parserAller.close();
 //        dog.setAllergies(allerList);
+//        for(int x = 0; x < medList.size(); x++){
+//            System.out.println(allerList.get(x));
+//        }
         
         //vet parsing
 //        parser.next();       // KEY_NAME
 //        parser.next();       // VALUE_STRING
 //        String vetInfo = parser.getString();
 //        
-//        gson = new Gson();
+//        Gson gson = new Gson();
 //        Veterinarian vet = gson.fromJson(vetInfo, Veterinarian.class);
 //        dog.setVeterinarian(vet);
         return null;

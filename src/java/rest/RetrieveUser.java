@@ -5,6 +5,7 @@
  */
 package rest;
 
+import io.jsonwebtoken.Claims;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
@@ -15,8 +16,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import models.Address;
 import models.User;
 import services.AccountService;
+import services.JWT;
 
 /**
  *
@@ -31,15 +34,16 @@ public class RetrieveUser {
     /**
      * Retrieves representation of an instance of rest.
      *
-     * @param content
+     * @param token
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("{content}")
+    @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson(@PathParam("content") String content) {
+    public String getJson(@PathParam("token") String token) {
 
-        String username = content;
+        Claims claims = JWT.decodeJWT(token);
+        String username = claims.getSubject();
         
         AccountService as = new AccountService();
         // TODO query database and send JSON use .toJSON() method provided
