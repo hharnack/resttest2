@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import models.Address;
 import models.User;
 import services.AccountService;
 import services.JWT;
