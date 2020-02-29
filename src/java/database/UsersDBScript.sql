@@ -171,11 +171,11 @@ CREATE TABLE veterinarians (
 );
 
 -- users veterinarians bridge table
-CREATE TABLE users_vets (
-    USERNAME VARCHAR(20),
+CREATE TABLE dogs_vets (
+    PET_ID INT,
     VET_ID INT,
-    PRIMARY KEY (USERNAME, VET_ID),
-    FOREIGN KEY (USERNAME) REFERENCES users(USERNAME),
+    PRIMARY KEY (PET_ID, VET_ID),
+    FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID),
     FOREIGN KEY (VET_ID) REFERENCES veterinarians(VET_ID)
 );
 

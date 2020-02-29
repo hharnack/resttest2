@@ -79,11 +79,7 @@ public class RegisterDog {
         
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
-        JSONArray arr = new JSONArray(parser.getString());
-        List<String> list = new ArrayList<String>();
-        for(int i = 0; i < arr.length(); i++){
-            list.add(arr.getJSONObject(i).getString());
-        }
+        // something
         
         return null;
     }
