@@ -5,19 +5,20 @@ package rest;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.google.gson.Gson;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
 import javax.ws.rs.Consumes;
 import java.sql.Date;
 import java.util.ArrayList;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import models.Dog;
+import models.Veterinarian;
 
 
 /**
@@ -81,47 +82,69 @@ public class RegisterDog {
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String medInfo = parser.getString();
-        JsonParser parserMeds = Json.createParser(new StringReader(medInfo));
-        ArrayList<String> medList = new ArrayList<String>();
-        boolean flag = true;
-        parserMeds.next();
-        while (flag) {
-            try {
-                parserMeds.next();
-                parserMeds.next();
-
-                medList.add(parser.getString());
-            } catch (Exception e) {
-                flag = false;
-            }
+        Gson gson = new Gson();
+        ArrayList<String> medList;
+        try (JsonParser parserMeds = Json.createParser(new StringReader(medInfo))) {
+            medList = gson.fromJson(medInfo, ArrayList.class);
+//        boolean flag = true;
+//        parserMeds.next();
+//        while (flag) {
+//            try {
+//                parserMeds.next();
+//                parserMeds.next();
+//
+//                medList.add(parser.getString());
+//            } catch (Exception e) {
+//                flag = false;
+//            }
+//        }
+for(int x = 0; x < medList.size(); x++){
+    System.out.println(medList.get(x));
+}
         }
-        
-        for(int x = 0; x < medList.size(); x++){
-        System.out.println(medList.get(x));
-        }
-        parserMeds.close();
+//        boolean flag = true;
+//        parserMeds.next();
+//        while (flag) {
+//            try {
+//                parserMeds.next();
+//                parserMeds.next();
+//
+//                medList.add(parser.getString());
+//            } catch (Exception e) {
+//                flag = false;
+//            }
+//        }
         dog.setMedications(medList);
         
-        //allergies parsing
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        String allerInfo = parser.getString();
-        JsonParser parserAller = Json.createParser(new StringReader(allerInfo));
-        ArrayList<String> allerList = new ArrayList<String>();
-        flag = true;
-        parserAller.next();
-        while (flag) {
-            try {
-                parserAller.next();
-                parserAller.next();
-
-                allerList.add(parser.getString());
-            } catch (Exception e) {
-                flag = false;
-            }
-        }
-        parserAller.close();
-        dog.setAllergies(allerList);
+//        allergies parsing
+//        parser.next();       // KEY_NAME
+//        parser.next();       // VALUE_STRING
+//        String allerInfo = parser.getString();
+//        JsonParser parserAller = Json.createParser(new StringReader(allerInfo));
+//        ArrayList<String> allerList = new ArrayList<>();
+//        flag = true;
+//        parserAller.next();
+//        while (flag) {
+//            try {
+//                parserAller.next();
+//                parserAller.next();
+//
+//                allerList.add(parser.getString());
+//            } catch (Exception e) {
+//                flag = false;
+//            }
+//        }
+//        parserAller.close();
+//        dog.setAllergies(allerList);
+        
+        //vet parsing
+//        parser.next();       // KEY_NAME
+//        parser.next();       // VALUE_STRING
+//        String vetInfo = parser.getString();
+//        
+//        gson = new Gson();
+//        Veterinarian vet = gson.fromJson(vetInfo, Veterinarian.class);
+//        dog.setVeterinarian(vet);
         return null;
     }
 }
