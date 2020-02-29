@@ -199,10 +199,11 @@ public class UserDB {
             if (rs.getRow() > 0) {
                 User user = new User();
                 user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
                 user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("phone_number"));
+                user.setPhoneNumber(rs.getString("phone_number"));
                 user.setEmergencyName(rs.getString("emergency_name"));
                 user.setEmergencyPhone(rs.getString("emergency_phone"));
                 user.setAddress(getUserAddress(username));
