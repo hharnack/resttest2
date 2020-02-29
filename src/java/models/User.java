@@ -1,13 +1,15 @@
 package models;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 
 public class User {
+
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private Address address;
-    private Veterinarian veterinarian; // Unused at the time
     private String email;
     private String phoneNumber;
     private String emergencyPhone;
@@ -59,14 +61,6 @@ public class User {
         this.address = address;
     }
 
-    public Veterinarian getVeterinarian() {
-        return veterinarian;
-    }
-
-    public void setVeterinarian(Veterinarian veterinarian) {
-        this.veterinarian = veterinarian;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -113,5 +107,20 @@ public class User {
 
     public void setIsDisabled(boolean isDisabled) {
         this.isDisabled = isDisabled;
+    }
+    
+    public javax.json.JsonObject toJSON() {
+        JsonObject jo = Json.createObjectBuilder()
+                .add("username", username)
+                .add("password", password)
+                .add("firstName", firstName)
+                .add("lastName", lastName)
+                .add("email", email)
+                .add("phone", phoneNumber)
+                .add("emergencyPhone", emergencyPhone)
+                .add("emergencyName", emergencyName)
+                //.add("address", address.toJSON())
+                .build();
+        return jo;
     }
 }

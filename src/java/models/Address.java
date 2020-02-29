@@ -5,11 +5,15 @@
  */
 package models;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+
 /**
  *
  * @author 703174
  */
 public class Address {
+
     private String buildingNum;
     private String houseNum;
     private String streetName;
@@ -77,5 +81,16 @@ public class Address {
         this.postal = postal;
     }
 
-    
+    public javax.json.JsonObject toJSON() {
+        JsonObject jo = Json.createObjectBuilder()
+                .add("appt", houseNum)
+                .add("building", buildingNum)
+                .add("street", streetName)
+                .add("city", city)
+                .add("province", province)
+                .add("post", postal)
+                .build();
+        return jo;
+    }
+
 }

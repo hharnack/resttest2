@@ -141,4 +141,8 @@ public class Dog {
         this.puppyFriendly = puppyFriendly;
     }
 
+    public javax.json.JsonObject toJSON() {
+        // TODO
+        return null;
+    }
 }
