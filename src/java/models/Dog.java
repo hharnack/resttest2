@@ -7,6 +7,8 @@ package models;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import javax.json.Json;
+import javax.json.JsonObject;
 
 /**
  *
@@ -16,8 +18,10 @@ public class Dog {
 
     private int idNumber;
     private String name;
+    private String breed;
     private Date dateOfBirth;
     private double weight;
+    private String gender;
     private boolean spayedNeutered;
     private ArrayList<String> medications;
     private ArrayList<String> allergies;
@@ -26,29 +30,21 @@ public class Dog {
     private boolean largeDogFriendly;
     private boolean smallDogFriendly;
     private boolean puppyFriendly;
-
+    private Veterinarian veterinarian;
+    private String physLimit;
     public Dog() {
-    }
-
-    public Dog(int idNumber, String name, Date dateOfBirth, double weight, boolean spayedNeutered, ArrayList<String> medications, ArrayList<String> allergies, ArrayList<Vaccine> vaccines, boolean strangerComfortable, boolean largeDogFriendly, boolean smallDogFriendly, boolean puppyFriendly) {
-        this.idNumber = idNumber;
-        this.name = name;
-        this.dateOfBirth = dateOfBirth;
-        this.weight = weight;
-        this.spayedNeutered = spayedNeutered;
-        this.medications = medications;
-        this.allergies = allergies;
-        this.vaccines = vaccines;
-        this.strangerComfortable = strangerComfortable;
-        this.largeDogFriendly = largeDogFriendly;
-        this.smallDogFriendly = smallDogFriendly;
-        this.puppyFriendly = puppyFriendly;
     }
 
     public int getIdNumber() {
         return idNumber;
     }
+    public void setPhysLimit(String lim) {
+        this.physLimit = lim;
+    }
 
+    public String getPhysLimit() {
+        return this.physLimit;
+    }
     public void setIdNumber(int idNumber) {
         this.idNumber = idNumber;
     }
@@ -59,6 +55,14 @@ public class Dog {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
     }
 
     public Date getDateOfBirth() {
@@ -75,6 +79,14 @@ public class Dog {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public boolean isSpayedNeutered() {
@@ -140,9 +152,19 @@ public class Dog {
     public void setPuppyFriendly(boolean puppyFriendly) {
         this.puppyFriendly = puppyFriendly;
     }
+  
+    public Veterinarian getVeterinarian() {
+        return veterinarian;
+    }
+
+    public void setVeterinarian(Veterinarian veterinarian) {
+        this.veterinarian = veterinarian;
+    }
 
     public javax.json.JsonObject toJSON() {
-        // TODO
-        return null;
+        JsonObject jo = Json.createObjectBuilder()
+                .add("name", name)
+                .build();
+        return jo;
     }
 }

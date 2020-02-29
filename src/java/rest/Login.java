@@ -61,7 +61,7 @@ public class Login {
         if (as.login(username,password)) {
           return JWT.createJWT("testID", "testIssuer", username, 86400000);
         } else {
-            return "invalid login";
+            return null;
         }
  
     }
