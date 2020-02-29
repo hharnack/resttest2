@@ -57,11 +57,8 @@ public class DogDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         // dogs table
-        String queryDog = "INSERT INTO dogs (NAME, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        // users_dogs bridge table
-        String queryDog2 = "INSERT INTO users_dogs VALUES (?, ?)";
+        String queryDog = "INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY)"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         return 0;
     }
