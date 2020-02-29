@@ -119,7 +119,7 @@ public class User {
                 .add("phone", phoneNumber)
                 .add("emergencyPhone", emergencyPhone)
                 .add("emergencyName", emergencyName)
-                //.add("address", address.toJSON())
+                .add("address", address.toJSON())
                 .build();
         return jo;
     }
