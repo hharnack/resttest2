@@ -5,10 +5,13 @@
  */
 package rest;
 
+import javax.ws.rs.Path;
+
 /**
  *
  * @author 703174
  */
+@Path("updateDog")
 public class UpdateDog {
     
 }

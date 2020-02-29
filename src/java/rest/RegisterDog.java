@@ -9,7 +9,7 @@ import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
+import java.sql.Date;  
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -50,8 +50,41 @@ public class RegisterDog {
         
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
+        dog.setName(parser.getString());
         
-
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        dog.setBreed(parser.getString());
+        
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        Date dob = Date.valueOf(parser.getString());
+        dog.setDateOfBirth(dob);
+        
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        dog.setGender(parser.getString());
+        
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        dog.setWeight(Double.parseDouble(parser.getString()));
+        
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        if(parser.getString().equals("yes")){
+            dog.setSpayedNeutered(true);
+        } else {
+            dog.setSpayedNeutered(false);
+        }
+        
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        JSONArray arr = new JSONArray(parser.getString());
+        List<String> list = new ArrayList<String>();
+        for(int i = 0; i < arr.length(); i++){
+            list.add(arr.getJSONObject(i).getString());
+        }
+        
         return null;
     }
 }
