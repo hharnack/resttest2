@@ -6,6 +6,7 @@
 package services;
 
 import database.UserDB;
+import models.Address;
 import models.User;
 
 /**
@@ -51,6 +52,10 @@ public class AccountService {
     
     public User getUser(String username) {
         return udb.getUser(username);
+    }
+    
+    public Address getUserAddress(String username) {
+        return udb.getUserAddress(username);
     }
 
 }

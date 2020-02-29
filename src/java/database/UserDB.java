@@ -125,17 +125,20 @@ public class UserDB {
             ps.setString(7, user.getUsername());
             ps.executeUpdate();
 
-            // Query address update
-            ps = connection.prepareCall(queryAddrUpdate);
-            ps.setString(1, user.getAddress().getBuildingNum());
-            ps.setString(2, user.getAddress().getHouseNum());
-            ps.setString(3, user.getAddress().getStreetName());
-            ps.setString(4, user.getAddress().getCity());
-            ps.setString(5, user.getAddress().getProvince());
-            ps.setString(6, user.getAddress().getPostal());
-            ps.setString(7, user.getUsername());
+            if (ps.executeUpdate() != 0){
+                // Query address update
+                ps = connection.prepareCall(queryAddrUpdate);
+                ps.setString(1, user.getAddress().getBuildingNum());
+                ps.setString(2, user.getAddress().getHouseNum());
+                ps.setString(3, user.getAddress().getStreetName());
+                ps.setString(4, user.getAddress().getCity());
+                ps.setString(5, user.getAddress().getProvince());
+                ps.setString(6, user.getAddress().getPostal());
+                ps.setString(7, user.getUsername());
 
-            return ps.executeUpdate();
+                return ps.executeUpdate();
+            }
+            
         } catch (SQLException e) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot insert " + user.toString(), e);
         } finally {
@@ -224,9 +227,9 @@ public class UserDB {
         String queryAddress = "SELECT * FROM user_address WHERE username = ?";
         
         try {
-            PreparedStatement ps = connection.prepareStatement(username);
+            PreparedStatement ps = connection.prepareStatement(queryAddress);
             ps.setString(1, username);
-            ResultSet rs = ps.executeQuery(queryAddress);
+            ResultSet rs = ps.executeQuery();
             rs.last();
             
             if (rs.getRow() > 0) {
@@ -240,7 +243,7 @@ public class UserDB {
                 return add;
             }
         } catch (SQLException e) {
-            
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot return address information", e);
         } finally {
             pool.freeConnection(connection);
         }
