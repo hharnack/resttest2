@@ -10,10 +10,12 @@ import javax.json.Json;
 import javax.json.stream.JsonParser;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import models.User;
 import services.AccountService;
 
 /**
@@ -33,16 +35,11 @@ public class RetrieveUser {
      * @return an instance of java.lang.String
      */
     @GET
+    @Path("{content}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson(String content) {
-        JsonParser parser = Json.createParser(new StringReader(content));
+    public String getJson(@PathParam("content") String content) {
 
-        parser.next(); // START_OBJECT
-
-        // Username
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        String username = parser.getString();
+        String username = content;
         
         AccountService as = new AccountService();
         // TODO query database and send JSON use .toJSON() method provided
