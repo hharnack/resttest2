@@ -1,13 +1,16 @@
 package database;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Dog;
+import models.Vaccine;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -83,7 +86,7 @@ public class DogDB {
     }
 
     public int updateDog(Dog dog) {
-        // TODO need to update vaccines, preferably in another method
+        // TODO need to update vaccines, meds, and allergy preferably in another method
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String queryDog = "UPDATE dogs SET name = ?, "
@@ -120,6 +123,12 @@ public class DogDB {
 
         return 0;
     }
+    
+    private void updateDogVac(ArrayList<Vaccine> vacs) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+    }
 
     public ArrayList<Dog> getDogsByUsername(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -131,10 +140,10 @@ public class DogDB {
             PreparedStatement ps = connection.prepareStatement(queryDogs);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Dog dog = new Dog();
-                
+
                 dog.setIdNumber(rs.getInt("pet_id"));
                 dog.setName(rs.getString("name"));
                 dog.setBreed(rs.getString("breed"));
@@ -146,10 +155,12 @@ public class DogDB {
                 dog.setLargeDogFriendly(rs.getBoolean("large_friendly"));
                 dog.setSmallDogFriendly(rs.getBoolean("small_friendly"));
                 dog.setPuppyFriendly(rs.getBoolean("puppy_friendly"));
-                
+                getDogMedAlg(dog);
+                getDogVaccine(dog);
+
                 dogs.add(dog);
             }
-            
+
             return dogs;
         } catch (SQLException e) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, e);
@@ -158,5 +169,52 @@ public class DogDB {
         }
 
         return null;
+    }
+
+    private void getDogMedAlg(Dog dog) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryMedication = "SELECT allergy, medication FROM dogs_allergy, dogs_medication WHERE pet_id = 1";
+        
+        PreparedStatement ps;
+        try {
+            ps = connection.prepareStatement(queryMedication);
+            ps.setInt(1, dog.getIdNumber());
+            ResultSet rs = ps.executeQuery();
+            dog.setMedications(new ArrayList<>(Arrays.asList(rs.getString("medication").split(","))));
+            dog.setAllergies(new ArrayList<>(Arrays.asList(rs.getString("allergy").split(","))));
+        } catch (SQLException ex) {
+            Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        
+        
+    }
+
+    private void getDogVaccine(Dog dog) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryVacc = "SELECT vaccine, expiration FROM dogs_vaccine WHERE PET_ID = ?";
+        ArrayList<Vaccine> vacs = new ArrayList<>();
+        Vaccine vac;
+        PreparedStatement ps;
+        
+        try {
+            ps = connection.prepareStatement(queryVacc);
+            ps.setInt(1, dog.getIdNumber());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                vac = new Vaccine();
+                vac.setVaccine(rs.getString("vaccine"));
+                vac.setExpirationDate(rs.getDate("expiration"));
+                vacs.add(vac);
+            }
+            dog.setVaccines(vacs);
+        } catch (SQLException e) {
+            Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            pool.freeConnection(connection);
+        }
     }
 }

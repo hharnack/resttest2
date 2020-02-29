@@ -82,28 +82,15 @@ CREATE TABLE dogs (
 INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY)
 VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2019-12-25', 'Male', true, true, true, true, true);
 
--- users to dogs bridge table
--- CREATE TABLE users_dogs (
---     USERNAME VARCHAR(20),
---     PET_ID INT,
---     PRIMARY KEY (USERNAME, PET_ID),
---     FOREIGN KEY (USERNAME) REFERENCES users (USERNAME),
---     FOREIGN KEY (PET_ID) REFERENCES dogs (PET_ID)
--- );
-
--- INSERT INTO users_dogs
--- VALUES ('admin', 1);
-
 -- dogs_allergy table
 CREATE TABLE dogs_allergy (
     PET_ID INT,
     ALLERGY VARCHAR(20),
-    DETAILS VARCHAR(100),
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
 
 INSERT INTO dogs_allergy
-VALUES (1, 'Coffee', 'Crisp');
+VALUES (1, 'Coffee');
 
 -- dogs_vaccine table
 CREATE TABLE dogs_vaccine (
@@ -116,16 +103,18 @@ CREATE TABLE dogs_vaccine (
 INSERT INTO dogs_vaccine
 VALUES (1, 'Corona Virus Vaccine', '2023-12-25');
 
+INSERT INTO dogs_vaccine
+VALUES (1, 'Swing Flu Vaccine', '2022-01-01');
+
 -- dogs_medication table
 CREATE TABLE dogs_medication (
     PET_ID INT,
     MEDICATION VARCHAR(20),
-    DETAILS VARCHAR(100),
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
 
 INSERT INTO dogs_medication
-VALUES (1, 'Advil', 'Every 8 hours');
+VALUES (1, 'Advil');
 
 -- appointments table
 CREATE TABLE appointments (
