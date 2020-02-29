@@ -58,10 +58,10 @@ public class Login {
 
         AccountService as = new AccountService();
         
-        if (as.login(username,password)) {
-          return JWT.createJWT("testID", "testIssuer", username, 0);
+        if (as.login(username,password)) {          
+          return JWT.createJWT(username, -1);
         } else {
-            return "invalid login";
+            return null;
         }
  
     }

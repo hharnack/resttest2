@@ -152,7 +152,7 @@ public class Dog {
     public void setPuppyFriendly(boolean puppyFriendly) {
         this.puppyFriendly = puppyFriendly;
     }
-
+  
     public Veterinarian getVeterinarian() {
         return veterinarian;
     }
@@ -167,5 +167,4 @@ public class Dog {
                 .build();
         return jo;
     }
-
 }
