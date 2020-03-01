@@ -51,7 +51,6 @@ public class RegisterDog {
         Dog dog = gson.fromJson(content, Dog.class);
         System.out.println(dog.getDateOfBirth());
 
-
 //        System.out.println(dog.getVeterinarian().getName());
 //       parser.next();       // START_OBJECT
 //
