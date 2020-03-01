@@ -5,6 +5,7 @@
  */
 package rest;
 
+import io.jsonwebtoken.Claims;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
@@ -16,7 +17,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import models.User;
 import services.AccountService;
+import services.JWT;
 
 /**
  *
@@ -57,27 +60,42 @@ public class ChangePassword {
         
         parser.next(); // START_OBJECT
         
+        // Token
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        String token = parser.getString();
+        
         // Username
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
-        String username = parser.getString();
+        String oldPassword = parser.getString();
 
         // Password First
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
-        String passwordFirst = parser.getString(); // Password first
+        String newPassword = parser.getString(); // Password first
         
         // Password Confirm
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
-        String passwordConfirm = parser.getString(); // Password first
+        String confirmPassword = parser.getString(); // Password first
         
-        if (!passwordFirst.equals(passwordConfirm)) {
-            return "Passwords do not match";
-        }
+        Claims claims = JWT.decodeJWT(token);
+        String username = claims.getSubject();
         
         AccountService as = new AccountService();
-        if (as.changePassword(username, passwordFirst)) {
+        User user = as.getUser(username);
+        String currentPassword = user.getPassword();
+        
+        if (!oldPassword.equals(currentPassword)){
+            return "Old password is incorrect";
+        }
+        
+        if (!newPassword.equals(confirmPassword)) {
+            return "New passwords do not match";
+        }
+        
+        if (as.changePassword(username, newPassword)) {
             return "Password changed";
         }
         
