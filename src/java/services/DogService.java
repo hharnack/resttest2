@@ -26,17 +26,11 @@ public class DogService {
     }
     
     public boolean insert(String username, Dog dog) {
-        if (ddb.insert(username, dog) > 0) {
-            return true;
-        }
-        return false;
+        return ddb.insert(username, dog) > 0;
     }
     
     public boolean updateDog(Dog dog) {
-        if (ddb.updateDog(dog) > 0) {
-            return true;
-        }
-        return false;
+        return ddb.updateDog(dog) > 0;
     }
     
     public ArrayList<Dog> getDogsByUsername(String username) {
