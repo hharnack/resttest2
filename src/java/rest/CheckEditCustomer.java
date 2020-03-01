@@ -64,29 +64,12 @@ public class CheckEditCustomer {
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String parsedUserName = parser.getString();
-
-        AccountService as = new AccountService();
-        //if (as.checkUsername(parsedUserName)) {
-            //return "Username Already Exists";
-        //}
-
-        // Password
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        String parsedPassword = parser.getString();
-
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        String parsedConfirmPassword = parser.getString();
-
-        if (!parsedPassword.equals(parsedConfirmPassword)) {
-            return "Passwords do not match";
-        }
-
+     
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String parsedEmail = parser.getString();
         
+        AccountService as = new AccountService();
         User user = as.getUser(parsedUserName);
         String currentEmail = user.getEmail();
 
