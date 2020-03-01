@@ -99,13 +99,13 @@ public class RegisterAccount {
         // Appt/House number
         parser.next();       // KEY_NAME
         parser.next();
-        user.getAddress().setHouseNum(parser.getString());
+        user.getAddress().setBuildingNum(parser.getString());
 
         // Building number
         parser.next();
         parser.next();
         parser.getString();
-        user.getAddress().setBuildingNum(parser.getString());
+        user.getAddress().setStreetName(parser.getString());
 
         // City
         parser.next();       // KEY_NAME

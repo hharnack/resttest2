@@ -19,9 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import models.Dog;
 import models.Veterinarian;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 
 /**
  *
@@ -50,7 +47,6 @@ public class RegisterDog {
         Gson gson = new Gson();
         Dog dog = gson.fromJson(content, Dog.class);
         System.out.println(dog.getDateOfBirth());
-
 
 //        System.out.println(dog.getVeterinarian().getName());
 //       parser.next();       // START_OBJECT
