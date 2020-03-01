@@ -19,9 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import models.Dog;
 import models.Veterinarian;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 
 /**
  *
