@@ -1,10 +1,14 @@
 package models;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+
 public class Veterinarian {
     
     private String name;
     private String clinic;
     private String phoneNumber;
+
 
     public Veterinarian() {
     }
@@ -32,5 +36,12 @@ public class Veterinarian {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
+
+    public javax.json.JsonObject toJSON() {
+        // TODO
+        JsonObject jo = Json.createObjectBuilder()
+                .add("TODO", "Not Yet Implemented")
+                .build();
+        return jo;
+    }
 }

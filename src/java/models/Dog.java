@@ -31,14 +31,20 @@ public class Dog {
     private boolean smallDogFriendly;
     private boolean puppyFriendly;
     private Veterinarian veterinarian;
-
+    private String physLimit;
     public Dog() {
     }
 
     public int getIdNumber() {
         return idNumber;
     }
+    public void setPhysLimit(String lim) {
+        this.physLimit = lim;
+    }
 
+    public String getPhysLimit() {
+        return this.physLimit;
+    }
     public void setIdNumber(int idNumber) {
         this.idNumber = idNumber;
     }
@@ -146,7 +152,7 @@ public class Dog {
     public void setPuppyFriendly(boolean puppyFriendly) {
         this.puppyFriendly = puppyFriendly;
     }
-
+  
     public Veterinarian getVeterinarian() {
         return veterinarian;
     }
@@ -161,5 +167,4 @@ public class Dog {
                 .build();
         return jo;
     }
-
 }
