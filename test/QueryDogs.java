@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-import database.DogDB;
 import java.sql.Date;
 import java.util.ArrayList;
 import models.Dog;
