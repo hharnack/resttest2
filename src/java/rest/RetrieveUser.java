@@ -42,7 +42,12 @@ public class RetrieveUser {
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson(@PathParam("token") String token) {
 
-        Claims claims = JWT.decodeJWT(token);
+       Claims claims;
+        try{
+        claims = JWT.decodeJWT(token);
+        } catch(Exception e){
+            return "Authentication error, bad token";
+        } 
         String username = claims.get("username", String.class);
         AccountService as = new AccountService();
         // TODO query database and send JSON use .toJSON() method provided
