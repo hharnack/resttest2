@@ -43,8 +43,7 @@ public class RetrieveUser {
     public String getJson(@PathParam("token") String token) {
 
         Claims claims = JWT.decodeJWT(token);
-        String username = claims.getSubject();
-        
+        String username = claims.get("username", String.class);
         AccountService as = new AccountService();
         // TODO query database and send JSON use .toJSON() method provided
         return as.getUser(username).toJSON().toString();
