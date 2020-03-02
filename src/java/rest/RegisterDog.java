@@ -118,7 +118,6 @@ public class RegisterDog {
 //        for(int x = 0; x < medList.size(); x++){
 //            System.out.println(allerList.get(x));
 //        }
-        
         //vet parsing
 //        parser.next();       // KEY_NAME
 //        parser.next();       // VALUE_STRING

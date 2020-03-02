@@ -13,6 +13,12 @@ public class Veterinarian {
     public Veterinarian() {
     }
 
+    public Veterinarian(String name, String clinic, String phoneNumber) {
+        this.name = name;
+        this.clinic = clinic;
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getName() {
         return name;
     }

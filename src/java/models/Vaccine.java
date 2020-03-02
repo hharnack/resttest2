@@ -13,6 +13,7 @@ import java.sql.Date;
  */
 public class Vaccine {
 
+    private int vaccineID;
     private String vaccine;
     private Date expirationDate;
 
@@ -22,6 +23,14 @@ public class Vaccine {
     public Vaccine(String vaccine, Date expirationDate) {
         this.vaccine = vaccine;
         this.expirationDate = expirationDate;
+    }
+    
+    public int getVaccineID() {
+        return vaccineID;
+    }
+
+    public void setVaccineID(int vaccineID) {
+        this.vaccineID = vaccineID;
     }
 
     public String getVaccine() {
