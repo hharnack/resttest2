@@ -4,10 +4,11 @@ import javax.json.Json;
 import javax.json.JsonObject;
 
 public class Veterinarian {
+    
+    private String name;
+    private String clinic;
+    private String phoneNumber;
 
-    String name;
-    String clinic;
-    String phoneNumber;
 
     public Veterinarian() {
     }

@@ -67,9 +67,9 @@ public class CheckAccount {
         String parsedUserName = parser.getString();
 
         AccountService as = new AccountService();
-        //if (as.checkUsername(parsedUserName)) {
-            //return "Username Already Exists";
-        //}
+        if (as.checkUsername(parsedUserName)) {
+            return "Username Already Exists";
+        }
 
         // Password
         parser.next();       // KEY_NAME

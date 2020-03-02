@@ -39,6 +39,5 @@ public class Vaccine {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
-
 }
 

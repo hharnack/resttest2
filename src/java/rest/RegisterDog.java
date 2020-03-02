@@ -16,8 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import models.Dog;
 import models.Vaccine;
-
-
+import models.Veterinarian;
 
 /**
  *
@@ -47,7 +46,6 @@ public class RegisterDog {
         Dog dog = gson.fromJson(content, Dog.class);
         System.out.println(dog.getBreed());
         System.out.println(dog.getDateOfBirth());
-        System.out.println(dog.getVaccines().get(0).getExpirationDate());
         return null;
     }
 }
