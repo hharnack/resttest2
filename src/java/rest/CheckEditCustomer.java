@@ -5,6 +5,7 @@
  */
 package rest;
 
+import io.jsonwebtoken.Claims;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
@@ -18,6 +19,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import models.User;
 import services.AccountService;
+import services.JWT;
 
 /**
  * REST Web Service
@@ -54,17 +56,23 @@ public class CheckEditCustomer {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
-        System.out.println(content);
 
         JsonParser parser = Json.createParser(new StringReader(content));
 
         parser.next(); // START_OBJECT
-
-        // Username
+        //token
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
-        String parsedUserName = parser.getString();
-     
+        String token = parser.getString();
+        //return the token decoded
+         Claims claims;
+        try{
+        claims = JWT.decodeJWT(token);
+        } catch(Exception e){
+            return "Authentication error, bad token";
+        } 
+        String parsedUserName = claims.get("username", String.class);
+        //email
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String parsedEmail = parser.getString();
