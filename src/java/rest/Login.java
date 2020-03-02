@@ -60,7 +60,7 @@ public class Login {
         if (as.login(username,password)) {
           return JWT.createJWT(username, 86400000);
         } else {
-            return null;
+            return "login failed, no matching username and password";
         }
  
     }
