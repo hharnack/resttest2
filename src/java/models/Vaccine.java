@@ -24,7 +24,7 @@ public class Vaccine {
         this.vaccine = vaccine;
         this.expirationDate = expirationDate;
     }
-    
+
     public int getVaccineID() {
         return vaccineID;
     }
@@ -49,5 +49,4 @@ public class Vaccine {
         this.expirationDate = expirationDate;
     }
 
-    
 }

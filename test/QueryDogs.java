@@ -22,9 +22,9 @@ import services.DogService;
  *
  * @author 703174
  */
-public class InsertDog {
-    
-    public InsertDog() {
+public class QueryDogs {
+
+    public QueryDogs() {
     }
 
     // TODO add test methods here.
@@ -32,7 +32,6 @@ public class InsertDog {
     //
     // @Test
     // public void hello() {}
-    
     @Test
     public void insert() {
         Dog dog = new Dog();
@@ -46,22 +45,22 @@ public class InsertDog {
         dog.setLargeDogFriendly(false);
         dog.setSmallDogFriendly(true);
         dog.setPuppyFriendly(true);
-        
+
         ArrayList<String> allergies = new ArrayList<>();
         allergies.add("peanuts");
         allergies.add("weed");
         dog.setAllergies(allergies);
-        
+
         ArrayList<String> medications = new ArrayList<>();
         medications.add("Tylenol");
         dog.setMedications(medications);
-        
+
         ArrayList<Vaccine> vaccines = new ArrayList<>();
         vaccines.add(new Vaccine("Ligma", new Date(2020, 6, 6)));
         dog.setVaccines(vaccines);
-        
+
         dog.setVeterinarian(new Veterinarian("Dr. Phil", "Television", "8662738255"));
-        
+
         DogService ds = new DogService();
         ds.insert("admin", dog);
     }
