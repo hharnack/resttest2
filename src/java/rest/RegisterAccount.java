@@ -57,7 +57,6 @@ public class RegisterAccount {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
-        System.out.println(content);
         User user = new User();
 
         JsonParser parser = Json.createParser(new StringReader(content));

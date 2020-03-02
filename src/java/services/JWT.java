@@ -10,6 +10,9 @@ import java.util.Date;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
+import java.io.StringReader;
+import javax.json.Json;
+import javax.json.stream.JsonParser;
 
 /*
     Our simple static class that demonstrates how to create and decode JWTs.
@@ -22,7 +25,7 @@ public class JWT {
     private static String SECRET_KEY = "oeRaYY7Wo24sDqKSX3IM9ASGmdGPmkTd9jo1QTy4b7P9Ze5_9hKolVX8xNrQDcNRfVEdTZNOuOyqEGhXEbdJI-ZQ19k_o9MI0y3eZN2lp9jow55FfXMiINEdt1XR85VipRLSOkT6kSpzs2x-jbLDiz9iFVzkd81YKxMgPA7VfZeQUm4n-mOmnWMaVX30zGFU4L3oPBctYKkl4dYfqYWqRNfrgPJVi5DGFjywgxx0ASEiJHtV72paI3fDR2XwlSkyhhmY-ICjCRmsJN4fX1pdoL8a18-aQrvyu4j0Os6dVPYIoPvvY0SAZtWYKHfM15g7A3HD4cVREf9cUsprCRK93w";
 
     //Sample method to construct a JWT
-    public static String createJWT(String subject, long ttlMillis) {
+    public static String createJWT(String username, long ttlMillis) {
 
         //The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -35,9 +38,8 @@ public class JWT {
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         //Let's set the JWT Claims
-        JwtBuilder builder = Jwts.builder()
+        JwtBuilder builder = Jwts.builder().claim("username", username)
                 .setIssuedAt(now)
-                .setSubject(subject)
                 .signWith(signatureAlgorithm, signingKey);
 
         //if it has been specified, let's add the expiration
@@ -58,6 +60,18 @@ public class JWT {
                 .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
                 .parseClaimsJws(jwt).getBody();
         return claims;
+    }
+
+    public static String getToken(String content) {
+       JsonParser parser = Json.createParser(new StringReader(content));
+
+        parser.next(); // START_OBJECT
+
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        String token = parser.getString();
+        parser.close();
+        return token;
     }
 
 }
