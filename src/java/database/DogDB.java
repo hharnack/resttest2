@@ -441,8 +441,24 @@ public class DogDB {
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            pool.freeConnection(connection);
         }
     }
     
     // DELETE QUERIES
+    public int deleteDog(int petID) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String query = "DELETE FROM dogs WHERE pet_id = ?";
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        return 0;
+    }
 }
