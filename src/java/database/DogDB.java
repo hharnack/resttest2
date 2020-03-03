@@ -51,7 +51,7 @@ public class DogDB {
             dog.setSmallDogFriendly(rs.getBoolean(10));
             dog.setPuppyFriendly(rs.getBoolean(11));
             // TODO get allergies, medications, veterinarian
-            
+
             return dog;
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,7 +87,9 @@ public class DogDB {
                 dog.setSmallDogFriendly(rs.getBoolean("small_friendly"));
                 dog.setPuppyFriendly(rs.getBoolean("puppy_friendly"));
                 // TODO get allergies, medications, veterinarian
-                
+                dog.setAllergies(getDogAllergies(dog.getIdNumber()));
+                dog.setMedications(getDogMedications(dog.getIdNumber()));
+                dog.setVaccines(getDogVaccine(dog.getIdNumber()));
                 dogs.add(dog);
             }
 
@@ -100,10 +102,24 @@ public class DogDB {
 
         return null;
     }
-    
+
     private ArrayList<String> getDogAllergies(int petID) {
-        
-        // return new ArrayList<>(Arrays.asList(rs.getString("allergy").split(",")));
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String query = "SELECT allergy FROM dogs_allergies WHERE pet_id = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, petID);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            if (rs.getRow() > 0) {
+                rs.first();
+                return new ArrayList<>(Arrays.asList(rs.getString("allergy").split(",")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
 
@@ -112,9 +128,8 @@ public class DogDB {
         Connection connection = pool.getConnection();
         String query = "SELECT medication FROM dogs_medication WHERE pet_id = ?";
 
-        PreparedStatement ps;
         try {
-            ps = connection.prepareStatement(query);
+            PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
             ResultSet rs = ps.executeQuery();
             rs.last();
@@ -137,7 +152,13 @@ public class DogDB {
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            // TODO
+            ps.setInt(1, petID);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Vaccine> vacs = new ArrayList<>();
+            while (rs.next()) {
+                vacs.add(new Vaccine(rs.getString("vaccine"), rs.getDate("expiration")));
+            }
+            return vacs;
         } catch (SQLException e) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
@@ -153,7 +174,16 @@ public class DogDB {
 
         try {
             PreparedStatement ps = connection.prepareStatement(queryVet);
-            
+            ps.setInt(1, petID);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            if (rs.getRow() > 0) {
+                Veterinarian vet = new Veterinarian();
+                vet.setName(rs.getString("name"));
+                vet.setClinic(rs.getString("clinic"));
+                vet.setPhoneNumber(rs.getString("phone_number"));
+                return vet;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -201,7 +231,7 @@ public class DogDB {
         }
         return 0;
     }
-    
+
     private void insertDogAllergies(int petID, ArrayList<String> allergies) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -222,12 +252,12 @@ public class DogDB {
             pool.freeConnection(connection);
         }
     }
-    
-    private void insertDogMedications (int petID, ArrayList<String> medications) {
+
+    private void insertDogMedications(int petID, ArrayList<String> medications) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "INSERT INTO dogs_medication (?, ?)";
-        
+
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
@@ -244,12 +274,12 @@ public class DogDB {
             pool.freeConnection(connection);
         }
     }
-    
+
     private void insertDogVaccines(int petID, ArrayList<Vaccine> vaccines) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "INSERT INTO dogs_vaccine (PET_ID, VACCINE, EXPIRATION) VALUES (?, ?, ?)";
-        
+
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
@@ -264,12 +294,12 @@ public class DogDB {
             pool.freeConnection(connection);
         }
     }
-    
+
     private void insertDogVeterinarian(int petID, Veterinarian vet) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "INSERT INTO veterinarians (PET_ID, NAME, CLINIC, PHONE_NUMBER) VALUES (?, ?, ?, ?)";
-        
+
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);

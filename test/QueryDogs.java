@@ -32,7 +32,7 @@ public class QueryDogs {
     // @Test
     // public void hello() {}
     @Test
-    public void insert() {
+    public void insertDog() {
         Dog dog = new Dog();
         dog.setName("Hans");
         dog.setBreed("Husky");
