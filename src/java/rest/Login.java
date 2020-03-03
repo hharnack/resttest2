@@ -41,7 +41,6 @@ public class Login {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson(String content) {
-        System.out.print(content);
         JsonParser parser = Json.createParser(new StringReader(content));
 
         parser.next(); // START_OBJECT
@@ -61,7 +60,7 @@ public class Login {
         if (as.login(username,password)) {
           return JWT.createJWT(username, 86400000);
         } else {
-            return null;
+            return "login failed, no matching username and password";
         }
  
     }
