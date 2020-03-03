@@ -84,7 +84,7 @@ VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2019-12-25', 'Male', true, true
 
 -- dogs_allergy table
 CREATE TABLE dogs_allergy (
-    PET_ID INT,
+    PET_ID INT PRIMARY KEY,
     ALLERGY VARCHAR(20),
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
@@ -94,21 +94,23 @@ VALUES (1, 'Coffee');
 
 -- dogs_vaccine table
 CREATE TABLE dogs_vaccine (
+    VAC_ID INT AUTO_INCREMENT,
     PET_ID INT,
     VACCINE VARCHAR(20),
     EXPIRATION DATE,
+    PRIMARY KEY (VAC_ID, PET_ID),
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
 
-INSERT INTO dogs_vaccine
+INSERT INTO dogs_vaccine (PET_ID, VACCINE, EXPIRATION)
 VALUES (1, 'Corona Virus Vaccine', '2023-12-25');
 
-INSERT INTO dogs_vaccine
+INSERT INTO dogs_vaccine (PET_ID, VACCINE, EXPIRATION)
 VALUES (1, 'Swing Flu Vaccine', '2022-01-01');
 
 -- dogs_medication table
 CREATE TABLE dogs_medication (
-    PET_ID INT,
+    PET_ID INT PRIMARY KEY,
     MEDICATION VARCHAR(20),
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
@@ -154,18 +156,12 @@ CREATE TABLE appt_appttype (
 -- veterinarians table
 CREATE TABLE veterinarians (
     VET_ID INT AUTO_INCREMENT PRIMARY KEY,
+    PET_ID INT,
     NAME VARCHAR(30),
     CLINIC VARCHAR(30),
-    PHONE_NUMBER VARCHAR(10)
+    PHONE_NUMBER VARCHAR(10),
+    FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
 
--- users veterinarians bridge table
-CREATE TABLE dogs_vets (
-    PET_ID INT,
-    VET_ID INT,
-    PRIMARY KEY (PET_ID, VET_ID),
-    FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID),
-    FOREIGN KEY (VET_ID) REFERENCES veterinarians(VET_ID)
-);
 
 COMMIT;
