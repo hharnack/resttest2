@@ -58,7 +58,7 @@ public class QueryDogs {
         vaccines.add(new Vaccine("Ligma", new Date(2020, 6, 6)));
         dog.setVaccines(vaccines);
 
-        dog.setVeterinarian(new Veterinarian("Dr. Phil", "Television", "8662738255"));
+        dog.setVeterinarian(new Veterinarian(1, "Dr. Phil", "Television", "8662738255"));
 
         DogService ds = new DogService();
         ds.insert("admin", dog);
