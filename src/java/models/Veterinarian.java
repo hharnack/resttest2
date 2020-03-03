@@ -5,6 +5,7 @@ import javax.json.JsonObject;
 
 public class Veterinarian {
 
+    private int idNumber;
     private String name;
     private String clinic;
     private String phoneNumber;
@@ -12,10 +13,19 @@ public class Veterinarian {
     public Veterinarian() {
     }
 
-    public Veterinarian(String name, String clinic, String phoneNumber) {
+    public Veterinarian(int idNumber, String name, String clinic, String phoneNumber) {
+        this.idNumber = idNumber;
         this.name = name;
         this.clinic = clinic;
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
     }
 
     public String getName() {
