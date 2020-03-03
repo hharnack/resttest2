@@ -454,6 +454,8 @@ public class DogDB {
         
         try {
             PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, petID);
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
