@@ -6,9 +6,6 @@
 package rest;
 
 import io.jsonwebtoken.Claims;
-import java.io.StringReader;
-import javax.json.Json;
-import javax.json.stream.JsonParser;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -16,8 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
-import models.Address;
-import models.User;
 import services.AccountService;
 import services.JWT;
 
@@ -50,7 +45,6 @@ public class RetrieveUser {
         } 
         String username = claims.get("username", String.class);
         AccountService as = new AccountService();
-        // TODO query database and send JSON use .toJSON() method provided
         return as.getUser(username).toJSON().toString();
     }
 }
