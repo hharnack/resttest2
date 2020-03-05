@@ -85,7 +85,7 @@ VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2019-12-25', 'Male', true, true
 -- dogs_allergy table
 CREATE TABLE dogs_allergy (
     PET_ID INT PRIMARY KEY,
-    ALLERGY VARCHAR(20),
+    ALLERGY VARCHAR(200),
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
 
@@ -111,7 +111,7 @@ VALUES (1, 'Swing Flu Vaccine', '2022-01-01');
 -- dogs_medication table
 CREATE TABLE dogs_medication (
     PET_ID INT PRIMARY KEY,
-    MEDICATION VARCHAR(20),
+    MEDICATION VARCHAR(200),
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
 
