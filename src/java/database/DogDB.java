@@ -121,6 +121,8 @@ public class DogDB {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            pool.freeConnection(connection);
         }
         return null;
     }
@@ -222,9 +224,12 @@ public class DogDB {
             ps.setBoolean(10, dog.isSmallDogFriendly());
             ps.setBoolean(11, dog.isPuppyFriendly());
             ps.executeUpdate();
+            
+            // Get the primary key
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
-            dog.setIdNumber(rs.getInt(1)); // Get primary key from inserted statement
+            dog.setIdNumber(rs.getInt(1));
+            
             if (dog.getAllergies().size() > 0) {
                 insertDogAllergies(dog.getIdNumber(), dog.getAllergies());
             }
