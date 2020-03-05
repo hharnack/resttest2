@@ -235,6 +235,7 @@ public class DogDB {
                 insertDogVaccines(dog.getIdNumber(), dog.getVaccines());
             }
             insertDogVeterinarian(dog.getIdNumber(), dog.getVeterinarian());
+            return 1;
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
