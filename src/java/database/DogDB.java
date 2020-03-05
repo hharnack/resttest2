@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -107,7 +108,7 @@ public class DogDB {
     private ArrayList<String> getDogAllergies(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String query = "SELECT allergy FROM dogs_allergies WHERE pet_id = ?";
+        String query = "SELECT allergy FROM dogs_allergy WHERE pet_id = ?";
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -120,6 +121,8 @@ public class DogDB {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            pool.freeConnection(connection);
         }
         return null;
     }
@@ -208,7 +211,7 @@ public class DogDB {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            PreparedStatement ps = connection.prepareStatement(query);
+            PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, dog.getName());
             ps.setString(2, username);
             ps.setString(3, dog.getBreed());
@@ -220,11 +223,24 @@ public class DogDB {
             ps.setBoolean(9, dog.isLargeDogFriendly());
             ps.setBoolean(10, dog.isSmallDogFriendly());
             ps.setBoolean(11, dog.isPuppyFriendly());
-            insertDogAllergies(dog.getIdNumber(), dog.getAllergies());
-            insertDogMedications(dog.getIdNumber(), dog.getMedications());
-            insertDogVaccines(dog.getIdNumber(), dog.getVaccines());
+            ps.executeUpdate();
+            
+            // Get the primary key
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            dog.setIdNumber(rs.getInt(1));
+            
+            if (dog.getAllergies().size() > 0) {
+                insertDogAllergies(dog.getIdNumber(), dog.getAllergies());
+            }
+            if (dog.getMedications().size() > 0) {
+                insertDogMedications(dog.getIdNumber(), dog.getMedications());
+            }
+            if (dog.getVaccines().size() > 0) {
+                insertDogVaccines(dog.getIdNumber(), dog.getVaccines());
+            }
             insertDogVeterinarian(dog.getIdNumber(), dog.getVeterinarian());
-            return ps.executeUpdate();
+            return 1;
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

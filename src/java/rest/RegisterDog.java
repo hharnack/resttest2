@@ -58,6 +58,8 @@ public class RegisterDog {
         //create dog object from json
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
+        Veterinarian vet = gson.fromJson(content, Veterinarian.class);
+        dog.setVeterinarian(vet);
         DogService ds = new DogService();
         if(ds.insert(username, dog)){
             return "Succesffuly added dog";
