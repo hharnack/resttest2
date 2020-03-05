@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -208,7 +209,7 @@ public class DogDB {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            PreparedStatement ps = connection.prepareStatement(query);
+            PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, dog.getName());
             ps.setString(2, username);
             ps.setString(3, dog.getBreed());
@@ -221,9 +222,16 @@ public class DogDB {
             ps.setBoolean(10, dog.isSmallDogFriendly());
             ps.setBoolean(11, dog.isPuppyFriendly());
             ps.executeUpdate();
-            insertDogAllergies(dog.getIdNumber(), dog.getAllergies());
-            insertDogMedications(dog.getIdNumber(), dog.getMedications());
-            insertDogVaccines(dog.getIdNumber(), dog.getVaccines());
+            dog.setIdNumber(ps.getGeneratedKeys().getInt(1)); // Get primary key from inserted statement
+            if (dog.getAllergies().size() > 0) {
+                insertDogAllergies(dog.getIdNumber(), dog.getAllergies());
+            }
+            if (dog.getMedications().size() > 0) {
+                insertDogMedications(dog.getIdNumber(), dog.getMedications());
+            }
+            if (dog.getVaccines().size() > 0) {
+                insertDogVaccines(dog.getIdNumber(), dog.getVaccines());
+            }
             insertDogVeterinarian(dog.getIdNumber(), dog.getVeterinarian());
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
