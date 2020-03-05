@@ -220,11 +220,11 @@ public class DogDB {
             ps.setBoolean(9, dog.isLargeDogFriendly());
             ps.setBoolean(10, dog.isSmallDogFriendly());
             ps.setBoolean(11, dog.isPuppyFriendly());
+            ps.executeUpdate();
             insertDogAllergies(dog.getIdNumber(), dog.getAllergies());
             insertDogMedications(dog.getIdNumber(), dog.getMedications());
             insertDogVaccines(dog.getIdNumber(), dog.getVaccines());
             insertDogVeterinarian(dog.getIdNumber(), dog.getVeterinarian());
-            return ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
