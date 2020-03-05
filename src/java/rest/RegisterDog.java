@@ -59,8 +59,7 @@ public class RegisterDog {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
         DogService ds = new DogService();
-        boolean flag = ds.insert(username, dog);
-        if(flag){
+        if(ds.insert(username, dog)){
             return "Succesffuly added dog";
         } else {
             return "failed to add dog";
