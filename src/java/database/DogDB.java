@@ -108,7 +108,7 @@ public class DogDB {
     private ArrayList<String> getDogAllergies(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String query = "SELECT allergy FROM dogs_allergies WHERE pet_id = ?";
+        String query = "SELECT allergy FROM dogs_allergy WHERE pet_id = ?";
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
