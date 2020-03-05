@@ -222,7 +222,9 @@ public class DogDB {
             ps.setBoolean(10, dog.isSmallDogFriendly());
             ps.setBoolean(11, dog.isPuppyFriendly());
             ps.executeUpdate();
-            dog.setIdNumber(ps.getGeneratedKeys().getInt(1)); // Get primary key from inserted statement
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            dog.setIdNumber(rs.getInt(1)); // Get primary key from inserted statement
             if (dog.getAllergies().size() > 0) {
                 insertDogAllergies(dog.getIdNumber(), dog.getAllergies());
             }
