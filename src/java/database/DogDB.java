@@ -160,7 +160,7 @@ public class DogDB {
             ResultSet rs = ps.executeQuery();
             ArrayList<Vaccine> vacs = new ArrayList<>();
             while (rs.next()) {
-                vacs.add(new Vaccine(rs.getString("vaccine"), rs.getDate("expiration")));
+                vacs.add(new Vaccine(rs.getInt("vac_id"), rs.getString("vaccine"), rs.getDate("expiration")));
             }
             return vacs;
         } catch (SQLException e) {

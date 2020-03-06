@@ -20,7 +20,8 @@ public class Vaccine {
     public Vaccine() {
     }
 
-    public Vaccine(String vaccine, Date expirationDate) {
+    public Vaccine(int vaccineID, String vaccine, Date expirationDate) {
+        this.vaccineID = vaccineID;
         this.vaccine = vaccine;
         this.expirationDate = expirationDate;
     }
