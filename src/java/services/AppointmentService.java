@@ -7,6 +7,7 @@ package services;
 
 import database.AppointmentDB;
 import models.Boarding;
+import models.Training;
 
 /**
  *
@@ -19,7 +20,10 @@ public class AppointmentService {
         adb = new AppointmentDB();
         }
     public boolean insert(Boarding bAppt) {
-        return adb.insert(bAppt);
+        return adb.insert(bAppt);}
+
+    public boolean insert(Training tAppt) {
+        return adb.insert(tAppt);
     }
  }
 
