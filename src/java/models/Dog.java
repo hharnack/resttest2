@@ -32,6 +32,24 @@ public class Dog {
     private boolean puppyFriendly;
     private Veterinarian veterinarian;
     private String physLimit;
+    private String healthProblems;
+    private String imgFileName;
+
+    public String getImgFileName() {
+        return imgFileName;
+    }
+
+    public void setImgFileName(String imgFileName) {
+        this.imgFileName = imgFileName;
+    }
+
+    public String getHealthProblems() {
+        return healthProblems;
+    }
+
+    public void setHealthProblems(String healthProblems) {
+        this.healthProblems = healthProblems;
+    }
     public Dog() {
     }
 

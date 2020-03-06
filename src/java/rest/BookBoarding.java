@@ -25,7 +25,7 @@ import services.JWT;
  *
  * @author 640195
  */
-@Path("generic")
+@Path("bookboarding")
 public class BookBoarding {
 
     @Context
@@ -67,7 +67,7 @@ public class BookBoarding {
         } 
          //get username from decoded token
         String username = claims.get("username", String.class);
-        //create dog object from json
+        //create appointment object from json
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Boarding bAppt = gson.fromJson(content, Boarding.class);
         AppointmentService as = new AppointmentService();
