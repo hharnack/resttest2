@@ -26,7 +26,7 @@ import services.JWT;
  * @author 640195
  */
 @Path("generic")
-public class registerBoarding {
+public class BookBoarding {
 
     @Context
     private UriInfo context;
@@ -34,7 +34,7 @@ public class registerBoarding {
     /**
      * Creates a new instance of registerBoarding
      */
-    public registerBoarding() {
+    public BookBoarding() {
     }
 
     /**
