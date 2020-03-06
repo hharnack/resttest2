@@ -33,7 +33,6 @@ public class RetrieveDogs {
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Dog> getJson(@PathParam("token") String token) {
-     System.out.println(token);
        Claims claims;
         try{
         claims = JWT.decodeJWT(token);
