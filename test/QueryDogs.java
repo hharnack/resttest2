@@ -55,7 +55,7 @@ public class QueryDogs {
         dog.setMedications(medications);
 
         ArrayList<Vaccine> vaccines = new ArrayList<>();
-        vaccines.add(new Vaccine("Ligma", new Date(2020, 6, 6)));
+        vaccines.add(new Vaccine(0, "Ligma", new Date(2020, 6, 6)));
         dog.setVaccines(vaccines);
       
         dog.setVeterinarian(new Veterinarian(1, "Dr. Phil", "Television", "8662738255"));
