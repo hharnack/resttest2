@@ -72,9 +72,9 @@ public class BookBoarding {
         Boarding bAppt = gson.fromJson(content, Boarding.class);
         AppointmentService as = new AppointmentService();
         if(as.insert(bAppt)){
-            return "Succesffuly added dog";
+            return "Succesffuly added appointment";
         } else {
-            return "failed to add dog";
+            return "failed to add appointment";
         }
     }
 }
