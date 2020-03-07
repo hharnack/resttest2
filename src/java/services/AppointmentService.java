@@ -32,7 +32,7 @@ public class AppointmentService {
     }
 
     public boolean insert(Daycare dAppt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return adb.insert(dAppt);
     }
     
     public boolean update(Appointment appointment) {
