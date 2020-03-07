@@ -9,6 +9,8 @@ import database.AppointmentDB;
 import java.util.ArrayList;
 import models.Appointment;
 import models.Boarding;
+import models.Daycare;
+import models.Training;
 
 /**
  *
@@ -23,7 +25,14 @@ public class AppointmentService {
     }
 
     public boolean insert(Boarding bAppt) {
-        return adb.insert(bAppt);
+        return adb.insert(bAppt);}
+
+    public boolean insert(Training tAppt) {
+        return adb.insert(tAppt);
+    }
+
+    public boolean insert(Daycare dAppt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public boolean update(Appointment appointment) {

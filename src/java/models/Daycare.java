@@ -11,10 +11,16 @@ import java.sql.Date;
  *
  * @author 640195
  */
-public class Daycare extends Appointment {
+public class Daycare extends Appointment{
 
     public Daycare(int idNumber, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments) {
         super(idNumber, username, startTime, endTime, total, amountPaid, isApproved, isCancelled, isPaid, additionalComments);
     }
+
+
+    public Daycare() {
+        super();
+    }
+
     
 }

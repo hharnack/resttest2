@@ -32,7 +32,7 @@ public class Dog {
     private boolean smallDogFriendly;
     private boolean puppyFriendly;
     private ArrayList<Vaccine> vaccines;
-    
+  
     public Dog() {
     }
 
