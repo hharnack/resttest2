@@ -96,20 +96,16 @@ INSERT INTO dogs_allergy
 VALUES (1, 'Coffee');
 
 -- dogs_vaccine table
-CREATE TABLE dogs_vaccine (
-    VAC_ID INT AUTO_INCREMENT,
-    PET_ID INT,
-    VACCINE VARCHAR(20),
-    EXPIRATION DATE,
-    PRIMARY KEY (VAC_ID, PET_ID),
+CREATE TABLE dogs_vaccines (
+    PET_ID INT PRIMARY KEY,
+    DA2PP DATE,
+    RABIES DATE,
+    BORDETELLA DATE,
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
 
-INSERT INTO dogs_vaccine (PET_ID, VACCINE, EXPIRATION)
-VALUES (1, 'Corona Virus Vaccine', '2023-12-25');
-
-INSERT INTO dogs_vaccine (PET_ID, VACCINE, EXPIRATION)
-VALUES (1, 'Swing Flu Vaccine', '2022-01-01');
+INSERT INTO dogs_vaccines (PET_ID, DA2PP, RABIES, BORDETELLA)
+VALUES (1, '2020-01-01', '2023-12-25', '2021-01-01');
 
 -- dogs_medication table
 CREATE TABLE dogs_medication (

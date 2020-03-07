@@ -31,7 +31,7 @@ public class Dog {
     private boolean largeDogFriendly;
     private boolean smallDogFriendly;
     private boolean puppyFriendly;
-    private ArrayList<Vaccine> vaccines;
+    private Vaccines vaccines;
     
     public Dog() {
     }
@@ -172,11 +172,11 @@ public class Dog {
         this.puppyFriendly = puppyFriendly;
     }
 
-    public ArrayList<Vaccine> getVaccines() {
+    public Vaccines getVaccines() {
         return vaccines;
     }
 
-    public void setVaccines(ArrayList<Vaccine> vaccines) {
+    public void setVaccines(Vaccines vaccines) {
         this.vaccines = vaccines;
     }
     

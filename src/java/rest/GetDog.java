@@ -17,6 +17,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import models.Dog;
+import services.DogService;
 import services.JWT;
 
 /**
@@ -24,10 +26,10 @@ import services.JWT;
  *
  * @author 703174
  */
-@Path(":)")
-public class Base {
+@Path("GetDog")
+public class GetDog {
 
-    public Base() {
+    public GetDog() {
     }
 
     @Context
@@ -54,7 +56,7 @@ public class Base {
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public String putJson(String content) {
+    public Dog putJson(String content) {
         String token = JWT.getToken(content);
         Claims claims;
         try {
@@ -62,8 +64,8 @@ public class Base {
         } catch (Exception e) {
             return null;
         }
-        String username = claims.get("username", String.class);
+        int petID = claims.get("petID", Integer.class);
         
-        return null;
+        return new DogService().getDogByID(petID);
     }
 }
