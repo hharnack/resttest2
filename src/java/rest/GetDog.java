@@ -22,7 +22,7 @@ import services.DogService;
 import services.JWT;
 
 /**
- * Just so I (Hans) can copy and paste stuff
+ * 
  *
  * @author 703174
  */
