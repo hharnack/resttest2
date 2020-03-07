@@ -7,8 +7,6 @@ package models;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import javax.json.Json;
-import javax.json.JsonObject;
 
 /**
  *
@@ -16,35 +14,40 @@ import javax.json.JsonObject;
  */
 public class Dog {
 
+    private String photoPath;
     private int idNumber;
     private String name;
     private String breed;
     private Date dateOfBirth;
-    private double weight;
     private String gender;
+    private double weight;
     private boolean spayedNeutered;
     private ArrayList<String> medications;
     private ArrayList<String> allergies;
-    private ArrayList<Vaccine> vaccines;
+    private String physLimit;
+    private String healthProblems;
+    private Veterinarian veterinarian;
     private boolean strangerComfortable;
     private boolean largeDogFriendly;
     private boolean smallDogFriendly;
     private boolean puppyFriendly;
-    private Veterinarian veterinarian;
-    private String physLimit;
+    private ArrayList<Vaccine> vaccines;
+    
     public Dog() {
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 
     public int getIdNumber() {
         return idNumber;
     }
-    public void setPhysLimit(String lim) {
-        this.physLimit = lim;
-    }
 
-    public String getPhysLimit() {
-        return this.physLimit;
-    }
     public void setIdNumber(int idNumber) {
         this.idNumber = idNumber;
     }
@@ -73,20 +76,20 @@ public class Dog {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
     public String getGender() {
         return gender;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public boolean isSpayedNeutered() {
@@ -113,12 +116,28 @@ public class Dog {
         this.allergies = allergies;
     }
 
-    public ArrayList<Vaccine> getVaccines() {
-        return vaccines;
+    public String getPhysLimit() {
+        return physLimit;
     }
 
-    public void setVaccines(ArrayList<Vaccine> vaccines) {
-        this.vaccines = vaccines;
+    public void setPhysLimit(String physLimit) {
+        this.physLimit = physLimit;
+    }
+
+    public String getHealthProblems() {
+        return healthProblems;
+    }
+
+    public void setHealthProblems(String healthProblems) {
+        this.healthProblems = healthProblems;
+    }
+
+    public Veterinarian getVeterinarian() {
+        return veterinarian;
+    }
+
+    public void setVeterinarian(Veterinarian veterinarian) {
+        this.veterinarian = veterinarian;
     }
 
     public boolean isStrangerComfortable() {
@@ -152,19 +171,15 @@ public class Dog {
     public void setPuppyFriendly(boolean puppyFriendly) {
         this.puppyFriendly = puppyFriendly;
     }
-  
-    public Veterinarian getVeterinarian() {
-        return veterinarian;
+
+    public ArrayList<Vaccine> getVaccines() {
+        return vaccines;
     }
 
-    public void setVeterinarian(Veterinarian veterinarian) {
-        this.veterinarian = veterinarian;
+    public void setVaccines(ArrayList<Vaccine> vaccines) {
+        this.vaccines = vaccines;
     }
+    
+    
 
-    public javax.json.JsonObject toJSON() {
-        JsonObject jo = Json.createObjectBuilder()
-                .add("name", name)
-                .build();
-        return jo;
-    }
 }

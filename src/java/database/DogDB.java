@@ -199,7 +199,7 @@ public class DogDB {
 
     // INSERT QUERIES
     /**
-     *
+     * 
      * @param username
      * @param dog
      * @return
@@ -207,8 +207,8 @@ public class DogDB {
     public int insert(String username, Dog dog) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String query = "INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, HEALTH_PROB, PHOTO_PATH)"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -223,6 +223,9 @@ public class DogDB {
             ps.setBoolean(9, dog.isLargeDogFriendly());
             ps.setBoolean(10, dog.isSmallDogFriendly());
             ps.setBoolean(11, dog.isPuppyFriendly());
+            ps.setString(12, dog.getPhysLimit());
+            ps.setString(13, dog.getHealthProblems());
+            ps.setString(14, dog.getPhotoPath());
             ps.executeUpdate();
             
             // Get the primary key
@@ -239,6 +242,7 @@ public class DogDB {
             if (dog.getVaccines().size() > 0) {
                 insertDogVaccines(dog.getIdNumber(), dog.getVaccines());
             }
+            
             insertDogVeterinarian(dog.getIdNumber(), dog.getVeterinarian());
             return 1;
         } catch (SQLException ex) {
@@ -329,6 +333,14 @@ public class DogDB {
         } finally {
             pool.freeConnection(connection);
         }
+    }
+    
+    public ArrayList<Dog> getAllDogs() {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String query = "SELECT * FROM DOGS";
+        
+        return null;
     }
 
     // UPDATE QUERIES

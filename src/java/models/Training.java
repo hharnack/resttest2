@@ -12,11 +12,13 @@ import java.util.ArrayList;
  *
  * @author 640195
  */
-public class training extends Appointment{
+public class Training extends Appointment {
+
     ArrayList<String> trainingGoals;
-    public training(int idNumber, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments, ArrayList<String> trainingGoals){
-        super(idNumber, username, startTime, endTime, total, amountPaid, isApproved, isCancelled, isPaid,additionalComments);
-        this.trainingGoals=trainingGoals;
+
+    public Training(int idNumber, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments, ArrayList<String> trainingGoals) {
+        super(idNumber, username, startTime, endTime, total, amountPaid, isApproved, isCancelled, isPaid, additionalComments);
+        this.trainingGoals = trainingGoals;
     }
 
     public ArrayList<String> getTrainingGoals() {
@@ -26,5 +28,5 @@ public class training extends Appointment{
     public void setTrainingGoals(ArrayList<String> trainingGoals) {
         this.trainingGoals = trainingGoals;
     }
-    
+
 }

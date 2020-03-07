@@ -6,6 +6,8 @@
 package services;
 
 import database.AppointmentDB;
+import java.util.ArrayList;
+import models.Appointment;
 import models.Boarding;
 
 /**
@@ -13,13 +15,26 @@ import models.Boarding;
  * @author 640195
  */
 public class AppointmentService {
-        AppointmentDB adb;
-        
-        public AppointmentService(){
+
+    AppointmentDB adb;
+
+    public AppointmentService() {
         adb = new AppointmentDB();
-        }
+    }
+
     public boolean insert(Boarding bAppt) {
         return adb.insert(bAppt);
     }
- }
-
+    
+    public boolean update(Appointment appointment) {
+        return false;
+    }
+    
+    public Appointment getAppointmentsByUsername(String username) {
+        return null;
+    }
+    
+    public ArrayList<Appointment> getAllAppointments() {
+        return null;
+    }
+}
