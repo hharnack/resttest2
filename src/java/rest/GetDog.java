@@ -42,21 +42,7 @@ public class GetDog {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        //throw new UnsupportedOperationException();
-        return "Boo";
-    }
-
-    /**
-     * PUT method for updating or creating an instance of
-     *
-     * @param content representation for the resource
-     * @return
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Dog putJson(String content) {
+    public Dog getJson(String content) {
         String token = JWT.getToken(content);
         Claims claims;
         try {
@@ -68,4 +54,5 @@ public class GetDog {
         
         return new DogService().getDogByID(petID);
     }
+
 }
