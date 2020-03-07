@@ -4,13 +4,28 @@ import javax.json.Json;
 import javax.json.JsonObject;
 
 public class Veterinarian {
-    
+
+    private int idNumber;
     private String name;
     private String clinic;
     private String phoneNumber;
 
-
     public Veterinarian() {
+    }
+
+    public Veterinarian(int idNumber, String name, String clinic, String phoneNumber) {
+        this.idNumber = idNumber;
+        this.name = name;
+        this.clinic = clinic;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public int getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
     }
 
     public String getName() {

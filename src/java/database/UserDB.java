@@ -17,7 +17,8 @@ public class UserDB {
      * @return true if the specified username is already in use
      */
     public boolean checkUsername(String username) {
-        Connection connection = ConnectionPool.getInstance().getConnection();
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
         String selectSQL = "SELECT username FROM users WHERE username = ?";
         PreparedStatement ps;
         ResultSet rs;
@@ -33,6 +34,8 @@ public class UserDB {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            pool.freeConnection(connection);
         }
         return false;
     }
@@ -43,7 +46,8 @@ public class UserDB {
      * @return true if the specified email is already in use
      */
     public boolean checkEmail(String email) {
-        Connection connection = ConnectionPool.getInstance().getConnection();
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
         String selectSQL = "SELECT email FROM users WHERE email = ?";
         PreparedStatement ps;
         ResultSet rs;
@@ -60,6 +64,8 @@ public class UserDB {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            pool.freeConnection(connection);
         }
         return false;
     }

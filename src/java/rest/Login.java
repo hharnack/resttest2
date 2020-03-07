@@ -41,7 +41,6 @@ public class Login {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson(String content) {
-        System.out.print(content);
         JsonParser parser = Json.createParser(new StringReader(content));
 
         parser.next(); // START_OBJECT

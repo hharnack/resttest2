@@ -5,6 +5,8 @@ package rest;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
@@ -16,6 +18,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
+import models.Dog;
 import models.User;
 import services.AccountService;
 
@@ -57,86 +60,8 @@ public class RegisterAccount {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
-        System.out.println(content);
-        User user = new User();
-
-        JsonParser parser = Json.createParser(new StringReader(content));
-
-        parser.next(); // START_OBJECT
-
-        // { username , password , fname , lname , email, appt/house, building, street, city, province, postcode, phone, emergencyphone, emergencyname });
-        // Username
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.setUsername(parser.getString());
-
-        // Password
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.setPassword(parser.getString()); // Password first
-
-        // First Name
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.setFirstName(parser.getString());
-
-        // Last Name
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.setLastName(parser.getString());
-
-        // Email
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.setEmail(parser.getString());
-
-        // Appt/House number
-        parser.next();       // KEY_NAME
-        parser.next();
-        String houseNum = parser.getString();
-        user.getAddress().setHouseNum(houseNum);
-
-        // Appt/House number
-        parser.next();       // KEY_NAME
-        parser.next();
-        user.getAddress().setBuildingNum(parser.getString());
-
-        // Building number
-        parser.next();
-        parser.next();
-        parser.getString();
-        user.getAddress().setStreetName(parser.getString());
-
-        // City
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.getAddress().setCity(parser.getString());
-
-        // Province
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.getAddress().setProvince(parser.getString());
-
-        // Postal
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.getAddress().setPostal(parser.getString());
-
-        // Phone
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.setPhoneNumber(parser.getString());
-
-        // Emergency phone
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.setEmergencyPhone(parser.getString());
-
-        // Emergency name
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
-        user.setEmergencyName(parser.getString());
-
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        User user = gson.fromJson(content, User.class);
         AccountService as = new AccountService();
         if (as.register(user)) {
             return "account registered";

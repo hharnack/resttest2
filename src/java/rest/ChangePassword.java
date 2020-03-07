@@ -64,8 +64,14 @@ public class ChangePassword {
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String token = parser.getString();
-        
-        // Username
+        Claims claims;
+        try{
+        claims = JWT.decodeJWT(token);
+        } catch(Exception e){
+            return "Authentication error, bad token";
+        } 
+        String username = claims.get("username", String.class);
+        // oldpassword
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String oldPassword = parser.getString();
@@ -79,9 +85,6 @@ public class ChangePassword {
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String confirmPassword = parser.getString(); // Password first
-        
-        Claims claims = JWT.decodeJWT(token);
-        String username = claims.getSubject();
         
         AccountService as = new AccountService();
         User user = as.getUser(username);
