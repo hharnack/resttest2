@@ -16,7 +16,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
-import models.Boarding;
+import models.Daycare;
 import services.AppointmentService;
 import services.JWT;
 
@@ -25,20 +25,20 @@ import services.JWT;
  *
  * @author 640195
  */
-@Path("bookboarding")
-public class BookBoarding {
+@Path("bookdaycare")
+public class BookDaycare {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of registerBoarding
+     * Creates a new instance of BookDaycare
      */
-    public BookBoarding() {
+    public BookDaycare() {
     }
 
     /**
-     * Retrieves representation of an instance of rest.registerBoarding
+     * Retrieves representation of an instance of rest.BookDaycare
      * @return an instance of java.lang.String
      */
     @GET
@@ -49,13 +49,12 @@ public class BookBoarding {
     }
 
     /**
-     * PUT method for updating or creating an instance of registerBoarding
+     * PUT method for updating or creating an instance of BookDaycare
      * @param content representation for the resource
-     * @return 
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public String putJSON(String content) {
+    public String putJson(String content) {
         //gets the token from the json
         String token = JWT.getToken(content);
         //return the token decoded
@@ -69,11 +68,11 @@ public class BookBoarding {
         String username = claims.get("username", String.class);
         //create appointment object from json
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-        Boarding bAppt = gson.fromJson(content, Boarding.class);
+        Daycare dAppt = gson.fromJson(content, Daycare.class);
         AppointmentService as = new AppointmentService();
-        if(as.insert(bAppt)){
-            return "Successfuly added appointment";
-        } else {
+        if(as.insert(dAppt)){
+            return "Succsessfully added appointment";
+        }else{
             return "failed to add appointment";
         }
     }

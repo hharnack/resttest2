@@ -32,6 +32,7 @@ public class ApplicationConfig extends Application {
         resources.add(filters.NewCrossOriginResourceSharingFilter.class);
         resources.add(rest.Base.class);
         resources.add(rest.BookBoarding.class);
+        resources.add(rest.BookDaycare.class);
         resources.add(rest.BookTraining.class);
         resources.add(rest.ChangePassword.class);
         resources.add(rest.CheckAccount.class);

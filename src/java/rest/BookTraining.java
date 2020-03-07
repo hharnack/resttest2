@@ -55,7 +55,7 @@ public class BookTraining {
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public String putXml(String content) {
+    public String putJson(String content) {
         //gets the token from the json
         String token = JWT.getToken(content);
         //return the token decoded
@@ -72,7 +72,7 @@ public class BookTraining {
         Training tAppt = gson.fromJson(content, Training.class);
         AppointmentService as = new AppointmentService();
         if(as.insert(tAppt)){
-            return "Succesffuly added appointment";
+            return "Successfuly added appointment";
         } else {
             return "failed to add appointment";
         }
