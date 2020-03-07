@@ -17,8 +17,10 @@ public class Daycare extends Appointment{
         super(idNumber, username, startTime, endTime, total, amountPaid, isApproved, isCancelled, isPaid, additionalComments);
     }
 
+
     public Daycare() {
         super();
     }
+
     
 }

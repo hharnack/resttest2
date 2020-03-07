@@ -47,22 +47,24 @@ public class RegisterDog {
         //gets the token from the json
         String token = JWT.getToken(content);
         //return the token decoded
-         Claims claims;
-        try{
-        claims = JWT.decodeJWT(token);
-        } catch(Exception e){
+        Claims claims;
+        try {
+            claims = JWT.decodeJWT(token);
+        } catch (Exception e) {
             return "Authentication error, bad token";
-        } 
+        }
         //get username from decoded token
         String username = claims.get("username", String.class);
         //create dog object from json
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
-        Veterinarian vet = gson.fromJson(content, Veterinarian.class);
-        dog.setVeterinarian(vet);
-        DogService ds = new DogService();
-        if(ds.insert(username, dog)){
-            return "Succesffuly added dog";
+        // Create veterinarian from json and set 
+        dog.setVeterinarian(gson.fromJson(content, Veterinarian.class));
+        // Veterinarian vet = gson.fromJson(content, Veterinarian.class);
+        // dog.setVeterinarian(vet);
+        // dog.setVaccines(gson.fromJson(content, Vaccine.class));
+        if (new DogService().insert(username, dog)) {
+            return "Successfully added ";
         } else {
             return "failed to add dog";
         }

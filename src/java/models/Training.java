@@ -6,6 +6,7 @@
 package models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -280,5 +281,4 @@ public class Training extends Appointment{
     public void setNewSignificantOther(boolean newSignificantOther) {
         this.newSignificantOther = newSignificantOther;
     }
-    
 }
