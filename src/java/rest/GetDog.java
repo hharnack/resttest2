@@ -42,6 +42,7 @@ public class GetDog {
      * @return an instance of java.lang.String
      */
     @GET
+    @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
     public Dog getJson(@PathParam("token") String token) {
         Claims claims;
