@@ -89,7 +89,7 @@ public class DogDB {
                 dog.setLargeDogFriendly(rs.getBoolean("large_friendly"));
                 dog.setSmallDogFriendly(rs.getBoolean("small_friendly"));
                 dog.setPuppyFriendly(rs.getBoolean("puppy_friendly"));
-                dog.setPhysLimit("phys_limit");
+                dog.setPhysLimit(rs.getString("phys_limit"));
                 dog.setPhotoPath(rs.getString("photo_path"));
                 dog.setAllergies(getDogAllergies(dog.getIdNumber()));
                 dog.setMedications(getDogMedications(dog.getIdNumber()));
