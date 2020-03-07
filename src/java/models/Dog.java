@@ -25,7 +25,6 @@ public class Dog {
     private ArrayList<String> medications;
     private ArrayList<String> allergies;
     private String physLimit;
-    private String healthProblems;
     private Veterinarian veterinarian;
     private boolean strangerComfortable;
     private boolean largeDogFriendly;
@@ -122,14 +121,6 @@ public class Dog {
 
     public void setPhysLimit(String physLimit) {
         this.physLimit = physLimit;
-    }
-
-    public String getHealthProblems() {
-        return healthProblems;
-    }
-
-    public void setHealthProblems(String healthProblems) {
-        this.healthProblems = healthProblems;
     }
 
     public Veterinarian getVeterinarian() {

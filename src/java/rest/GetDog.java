@@ -38,7 +38,7 @@ public class GetDog {
 
     /**
      * Retrieves representation of an instance of rest.
-     *
+     * @param token
      * @return an instance of java.lang.String
      */
     @GET
