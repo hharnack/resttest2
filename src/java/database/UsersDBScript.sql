@@ -77,13 +77,12 @@ CREATE TABLE dogs (
     SMALL_FRIENDLY BOOLEAN,
     PUPPY_FRIENDLY BOOLEAN,
     PHYS_LIMIT VARCHAR(50),
-    HEALTH_PROB VARCHAR(50),
     PHOTO_PATH VARCHAR(20),
     FOREIGN KEY (OWNER) REFERENCES users(USERNAME)
 );
 
-INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, HEALTH_PROB, PHOTO_PATH)
-VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2019-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', 'Ligma', '1.png');
+INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH)
+VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2019-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', '1.png');
 
 -- dogs_allergy table
 CREATE TABLE dogs_allergy (
@@ -96,20 +95,16 @@ INSERT INTO dogs_allergy
 VALUES (1, 'Coffee');
 
 -- dogs_vaccine table
-CREATE TABLE dogs_vaccine (
-    VAC_ID INT AUTO_INCREMENT,
-    PET_ID INT,
-    VACCINE VARCHAR(20),
-    EXPIRATION DATE,
-    PRIMARY KEY (VAC_ID, PET_ID),
+CREATE TABLE dogs_vaccines (
+    PET_ID INT PRIMARY KEY,
+    DA2PP DATE,
+    RABIES DATE,
+    BORDETELLA DATE,
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
 
-INSERT INTO dogs_vaccine (PET_ID, VACCINE, EXPIRATION)
-VALUES (1, 'Corona Virus Vaccine', '2023-12-25');
-
-INSERT INTO dogs_vaccine (PET_ID, VACCINE, EXPIRATION)
-VALUES (1, 'Swing Flu Vaccine', '2022-01-01');
+INSERT INTO dogs_vaccines (PET_ID, DA2PP, RABIES, BORDETELLA)
+VALUES (1, '2020-01-01', '2023-12-25', '2021-01-01');
 
 -- dogs_medication table
 CREATE TABLE dogs_medication (
