@@ -25,14 +25,13 @@ public class Dog {
     private ArrayList<String> medications;
     private ArrayList<String> allergies;
     private String physLimit;
-    private String healthProblems;
     private Veterinarian veterinarian;
     private boolean strangerComfortable;
     private boolean largeDogFriendly;
     private boolean smallDogFriendly;
     private boolean puppyFriendly;
-    private ArrayList<Vaccine> vaccines;
-  
+    private Vaccines vaccines;
+    
     public Dog() {
     }
 
@@ -124,14 +123,6 @@ public class Dog {
         this.physLimit = physLimit;
     }
 
-    public String getHealthProblems() {
-        return healthProblems;
-    }
-
-    public void setHealthProblems(String healthProblems) {
-        this.healthProblems = healthProblems;
-    }
-
     public Veterinarian getVeterinarian() {
         return veterinarian;
     }
@@ -172,14 +163,11 @@ public class Dog {
         this.puppyFriendly = puppyFriendly;
     }
 
-    public ArrayList<Vaccine> getVaccines() {
+    public Vaccines getVaccines() {
         return vaccines;
     }
 
-    public void setVaccines(ArrayList<Vaccine> vaccines) {
+    public void setVaccines(Vaccines vaccines) {
         this.vaccines = vaccines;
     }
-    
-    
-
 }
