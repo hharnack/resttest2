@@ -16,7 +16,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
-import models.Boarding;
 import models.Training;
 import services.AppointmentService;
 import services.JWT;
@@ -52,6 +51,7 @@ public class BookTraining {
     /**
      * PUT method for updating or creating an instance of bookTraining
      * @param content representation for the resource
+     * @return 
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -68,8 +68,9 @@ public class BookTraining {
          //get username from decoded token
         String username = claims.get("username", String.class);
         //create appointment object from json
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
         Training tAppt = gson.fromJson(content, Training.class);
+        tAppt.setUsername(username);
         AppointmentService as = new AppointmentService();
         if(as.insert(tAppt)){
             return "Successfuly added appointment";
