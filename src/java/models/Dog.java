@@ -31,6 +31,7 @@ public class Dog {
     private boolean smallDogFriendly;
     private boolean puppyFriendly;
     private Vaccines vaccines;
+    private boolean active;
     
     public Dog() {
     }
@@ -169,5 +170,13 @@ public class Dog {
 
     public void setVaccines(Vaccines vaccines) {
         this.vaccines = vaccines;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
