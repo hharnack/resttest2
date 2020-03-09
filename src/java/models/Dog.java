@@ -170,7 +170,4 @@ public class Dog {
     public void setVaccines(Vaccines vaccines) {
         this.vaccines = vaccines;
     }
-    
-    
-
 }

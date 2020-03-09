@@ -6,6 +6,8 @@
 package database;
 
 import models.Boarding;
+import models.Daycare;
+import models.Training;
 
 /**
  *
@@ -14,6 +16,14 @@ import models.Boarding;
 public class AppointmentDB {
 
     public boolean insert(Boarding bAppt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean insert(Training tAppt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean insert(Daycare dAppt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
