@@ -36,4 +36,8 @@ public class DogService {
     public ArrayList<Dog> getDogsByUsername(String username) {
         return ddb.getDogsByUsername(username);
     }
+    
+    public boolean delete(int petID) {
+        return ddb.deleteDog(petID) > 0;
+    }
 }
