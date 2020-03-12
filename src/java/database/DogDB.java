@@ -38,28 +38,28 @@ public class DogDB {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, idNumber);
             ResultSet rs = ps.executeQuery();
-            if (rs.getBoolean("active")) {
-            Dog dog = new Dog();
-            rs.next();
-            dog.setIdNumber(rs.getInt("pet_id"));
-            dog.setName(rs.getString("name"));
-            dog.setBreed(rs.getString("breed"));
-            dog.setWeight(rs.getDouble("weight"));
-            dog.setDateOfBirth(rs.getDate("birth_date"));
-            dog.setGender(rs.getString("gender"));
-            dog.setSpayedNeutered(rs.getBoolean("spayed_neutered"));
-            dog.setStrangerComfortable(rs.getBoolean("stranger_friendly"));
-            dog.setLargeDogFriendly(rs.getBoolean("large_friendly"));
-            dog.setSmallDogFriendly(rs.getBoolean("small_friendly"));
-            dog.setPuppyFriendly(rs.getBoolean("puppy_friendly"));
-            dog.setPhysLimit(rs.getString("phys_limit"));
-            dog.setPhotoPath(rs.getString("photo_path"));
-            dog.setTrainingDone(rs.getBoolean("training_done"));
-            dog.setAllergies(getDogAllergies(dog.getIdNumber()));
-            dog.setMedications(getDogMedications(dog.getIdNumber()));
-            dog.setVaccines(getDogVaccine(dog.getIdNumber()));
-            dog.setVeterinarian(getDogVeterinarian(dog.getIdNumber()));
-            return dog;
+                Dog dog = new Dog();
+                rs.next();
+                dog.setIdNumber(rs.getInt("pet_id"));
+                dog.setName(rs.getString("name"));
+                dog.setBreed(rs.getString("breed"));
+                dog.setWeight(rs.getDouble("weight"));
+                dog.setDateOfBirth(rs.getDate("birth_date"));
+                dog.setGender(rs.getString("gender"));
+                dog.setSpayedNeutered(rs.getBoolean("spayed_neutered"));
+                dog.setStrangerComfortable(rs.getBoolean("stranger_friendly"));
+                dog.setLargeDogFriendly(rs.getBoolean("large_friendly"));
+                dog.setSmallDogFriendly(rs.getBoolean("small_friendly"));
+                dog.setPuppyFriendly(rs.getBoolean("puppy_friendly"));
+                dog.setPhysLimit(rs.getString("phys_limit"));
+                dog.setPhotoPath(rs.getString("photo_path"));
+                dog.setActive(rs.getBoolean("active"));
+                dog.setTrainingDone(rs.getBoolean("training_done"));
+                dog.setAllergies(getDogAllergies(dog.getIdNumber()));
+                dog.setMedications(getDogMedications(dog.getIdNumber()));
+                dog.setVaccines(getDogVaccine(dog.getIdNumber()));
+                dog.setVeterinarian(getDogVeterinarian(dog.getIdNumber()));
+                return dog;
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -93,15 +93,16 @@ public class DogDB {
                 dog.setPuppyFriendly(rs.getBoolean("puppy_friendly"));
                 dog.setPhysLimit(rs.getString("phys_limit"));
                 dog.setPhotoPath(rs.getString("photo_path"));
+                dog.setActive(rs.getBoolean("active"));
                 dog.setTrainingDone(rs.getBoolean("training_done"));
                 dog.setAllergies(getDogAllergies(dog.getIdNumber()));
                 dog.setMedications(getDogMedications(dog.getIdNumber()));
                 dog.setVaccines(getDogVaccine(dog.getIdNumber()));
                 dog.setVeterinarian(getDogVeterinarian(dog.getIdNumber()));
                 dog.setActive(true);
-                return dog;
+                dogs.add(dog);
             }
-
+             return dogs;
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -110,48 +111,6 @@ public class DogDB {
         return null;
     }
 
-    public ArrayList<Dog> getDogsByUsername(String username) {
-        ConnectionPool pool = ConnectionPool.getInstance();
-        Connection connection = pool.getConnection();
-        String query = "SELECT * FROM dogs WHERE owner = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            ArrayList<Dog> dogs = new ArrayList();
-            while (rs.next()) {
-                if (rs.getBoolean("active")) {
-                    Dog dog = new Dog();
-                    dog.setIdNumber(rs.getInt("pet_id"));
-                    dog.setName(rs.getString("name"));
-                    dog.setBreed(rs.getString("breed"));
-                    dog.setWeight(rs.getDouble("weight"));
-                    dog.setDateOfBirth(rs.getDate("birth_date"));
-                    dog.setGender(rs.getString("gender"));
-                    dog.setSpayedNeutered(rs.getBoolean("spayed_neutered"));
-                    dog.setStrangerComfortable(rs.getBoolean("stranger_friendly"));
-                    dog.setLargeDogFriendly(rs.getBoolean("large_friendly"));
-                    dog.setSmallDogFriendly(rs.getBoolean("small_friendly"));
-                    dog.setPuppyFriendly(rs.getBoolean("puppy_friendly"));
-                    dog.setPhysLimit(rs.getString("phys_limit"));
-                    dog.setPhotoPath(rs.getString("photo_path"));
-                    dog.setAllergies(getDogAllergies(dog.getIdNumber()));
-                    dog.setMedications(getDogMedications(dog.getIdNumber()));
-                    dog.setVaccines(getDogVaccine(dog.getIdNumber()));
-                    dog.setVeterinarian(getDogVeterinarian(dog.getIdNumber()));
-                    dog.setActive(true);
-                    dogs.add(dog);
-                }
-
-            }
-            return dogs;
-        } catch (SQLException e) {
-            Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            pool.freeConnection(connection);
-        }
-        return null;
-    }
 
     private ArrayList<String> getDogAllergies(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -208,6 +167,7 @@ public class DogDB {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
             ResultSet rs = ps.executeQuery();
+            rs.next();
             return new Vaccines(rs.getDate("da2pp"), rs.getDate("rabies"), rs.getDate("bordetella"));
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -253,7 +213,7 @@ public class DogDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH, ACTIVE, TRAINING_DONE)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, dog.getName());
