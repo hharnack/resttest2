@@ -217,6 +217,7 @@ public class UserDB {
                 user.setEmergencyName(rs.getString("emergency_name"));
                 user.setEmergencyPhone(rs.getString("emergency_phone"));
                 user.setAddress(getUserAddress(username));
+                user.setAdmin(rs.getBoolean("is_admin"));
                 return user;
             }
         } catch (SQLException e) {
