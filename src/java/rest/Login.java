@@ -56,12 +56,12 @@ public class Login {
         String password = parser.getString();
 
         AccountService as = new AccountService();
-        
-        if (as.login(username,password)) {
-          return JWT.createJWT(username, 86400000);
+
+        if (as.login(username, password)) {
+            return JWT.createJWT(username, 86400000);
         } else {
             return null;
         }
- 
+
     }
 }
