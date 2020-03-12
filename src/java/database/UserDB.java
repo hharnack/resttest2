@@ -33,7 +33,7 @@ public class UserDB {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot check username", e);
         } finally {
             pool.freeConnection(connection);
         }
@@ -63,7 +63,7 @@ public class UserDB {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot check email", e);
         } finally {
             pool.freeConnection(connection);
         }
