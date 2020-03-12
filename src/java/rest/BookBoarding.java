@@ -68,8 +68,9 @@ public class BookBoarding {
          //get username from decoded token
         String username = claims.get("username", String.class);
         //create appointment object from json
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
         Boarding bAppt = gson.fromJson(content, Boarding.class);
+        bAppt.setUsername(claims.get("username", String.class));
         AppointmentService as = new AppointmentService();
         if(as.insert(bAppt)){
             return "Successfuly added appointment";

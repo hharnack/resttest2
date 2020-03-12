@@ -13,6 +13,7 @@ import java.sql.Date;
  */
 public class Appointment {
     int idNumber;
+    int dogIdNumber;
     String username;
     Date startTime;
     Date endTime;
@@ -23,8 +24,9 @@ public class Appointment {
     boolean isPaid;
     String additionalComments;
 
-    public Appointment(int idNumber, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments) {
+    public Appointment(int idNumber, int dogIdNumber, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments) {
         this.idNumber = idNumber;
+        this.dogIdNumber=dogIdNumber;
         this.username = username;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -36,7 +38,13 @@ public class Appointment {
         this.additionalComments = additionalComments;
     }
     public Appointment(){};
-    
+     public int getDogIdNumber() {
+        return dogIdNumber;
+    }
+
+    public void setDogIdNumber(int dogIdNumber) {
+        this.dogIdNumber=dogIdNumber;
+    }
     public int getIdNumber() {
         return idNumber;
     }
@@ -85,7 +93,7 @@ public class Appointment {
         this.amountPaid = amountPaid;
     }
 
-    public boolean isIsApproved() {
+    public boolean IsApproved() {
         return isApproved;
     }
 
@@ -93,7 +101,7 @@ public class Appointment {
         this.isApproved = isApproved;
     }
 
-    public boolean isIsCancelled() {
+    public boolean isCancelled() {
         return isCancelled;
     }
 
@@ -101,7 +109,7 @@ public class Appointment {
         this.isCancelled = isCancelled;
     }
 
-    public boolean isIsPaid() {
+    public boolean isPaid() {
         return isPaid;
     }
 

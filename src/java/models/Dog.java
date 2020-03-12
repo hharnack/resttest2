@@ -32,7 +32,13 @@ public class Dog {
     private boolean puppyFriendly;
     private Vaccines vaccines;
     private boolean active;
-    
+    private boolean trainingDone;
+    public boolean isTrainingDone() {
+        return trainingDone;
+    }
+    public void setTrainingDone(boolean trainingDone) {
+        this.trainingDone = trainingDone;
+    }
     public Dog() {
     }
 
