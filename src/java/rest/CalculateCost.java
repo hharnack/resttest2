@@ -8,8 +8,11 @@ package rest;
 import com.google.gson.JsonObject;
 import io.jsonwebtoken.Claims;
 import java.io.StringReader;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
@@ -47,7 +50,7 @@ public class CalculateCost {
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public String putXml(String content) {
+    public String putJson(String content) {
         JsonObject returnJson = new JsonObject();
         String message;
         JsonParser parser = Json.createParser(new StringReader(content));
@@ -94,7 +97,12 @@ public class CalculateCost {
             long secondsStart = dateTimeStart.toEpochSecond(ZoneOffset.UTC);
             double appointmentHours = (secondsEnd - secondsStart) / 3600;
             long days = ChronoUnit.DAYS.between(dateTimeStart, dateTimeEnd);
-
+            
+            //grooming
+            //type
+            parser.next();       // KEY_NAME
+            parser.next();       // VALUE_STRING
+            boolean grooming = (parser.getString().equals("true"));
             //type
             parser.next();       // KEY_NAME
             parser.next();       // VALUE_STRING
@@ -102,36 +110,55 @@ public class CalculateCost {
             double total = 0;
             double grandTotal = 0;
             message = "Error with cost estimate";
+            DogService ds = new DogService();
             switch (type) {
                 case "boarding":
+                    double firstPrice;
+                    double extraPrice;
+                    
+                    if(days < 1){
+                    days = 1;
+                    }
                     for (int x = 0; x < dogIds.length; x++) {
+                        firstPrice=50;
+                        extraPrice=40;
+                        
+                        Dog dog = ds.getDogByID(dogIds[x]);
+                        LocalDate dogBirth = dog.getDateOfBirth().toLocalDate();  
+                        LocalDate timeOfAppt =  dateTimeStart.toLocalDate();
+                        if(ChronoUnit.DAYS.between(dogBirth, timeOfAppt) <= 365){
+                            firstPrice=55;
+                            extraPrice=45;
+                        }
                         if (x == 0) {
-                            total += days * 50;
+                            total += days * firstPrice;
                         } else {
-                            total += days * 40;
+                            total += days * extraPrice;
+                        }
+                    }
+                    if(grooming){
+                            total += 50;
+                      };
+                    message = "Cost estimate successful";
+                    break;
+                case "training":
+                    Dog dog = ds.getDogByID(dogIds[0]);
+                    if (dog.isTrainingDone()) {
+                        total += appointmentHours * 70;
+                    } else {
+                        total += 130;
+                        if (appointmentHours > 1.5) {
+                            total += (appointmentHours - 1.5) * 70;
                         }
                     }
                     message = "Cost estimate successful";
                     break;
-                case "training":
-                    DogService ds = new DogService();    
-                    Dog dog = ds.getDogByID(dogIds[0]);
-                    if(dog.isTrainingDone()){
-                        total += appointmentHours*70; 
-                    } else {
-                        total += 130;
-                        if(appointmentHours > 1.5){
-                            total += (appointmentHours-1.5)*70;
-                        }
-                    }
-                     message = "Cost estimate successful";
-                    break;
                 case "daycare":
-                        for (int x = 0; x < dogIds.length; x++) {
+                    for (int x = 0; x < dogIds.length; x++) {
                         if (x == 0) {
-                            total += days * 50;
+                            total += 50;
                         } else {
-                            total += days * 40;
+                            total += 40;
                         }
                     }
                     message = "Cost estimate successful";
@@ -144,8 +171,8 @@ public class CalculateCost {
             returnJson.addProperty("total", grandTotal);
             return returnJson.toString();
         } catch (Exception e) {
-           e.printStackTrace();
-           return null;
+            e.printStackTrace();
+            return null;
 //            message = "error with cost estimate";
 //            returnJson.addProperty("message", message);
 //            returnJson.addProperty("total", 0);
