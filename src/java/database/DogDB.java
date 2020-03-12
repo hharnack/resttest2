@@ -39,27 +39,28 @@ public class DogDB {
             ps.setInt(1, idNumber);
             ResultSet rs = ps.executeQuery();
             if (rs.getBoolean("active")) {
-            Dog dog = new Dog();
-            rs.next();
-            dog.setIdNumber(rs.getInt("pet_id"));
-            dog.setName(rs.getString("name"));
-            dog.setBreed(rs.getString("breed"));
-            dog.setWeight(rs.getDouble("weight"));
-            dog.setDateOfBirth(rs.getDate("birth_date"));
-            dog.setGender(rs.getString("gender"));
-            dog.setSpayedNeutered(rs.getBoolean("spayed_neutered"));
-            dog.setStrangerComfortable(rs.getBoolean("stranger_friendly"));
-            dog.setLargeDogFriendly(rs.getBoolean("large_friendly"));
-            dog.setSmallDogFriendly(rs.getBoolean("small_friendly"));
-            dog.setPuppyFriendly(rs.getBoolean("puppy_friendly"));
-            dog.setPhysLimit(rs.getString("phys_limit"));
-            dog.setPhotoPath(rs.getString("photo_path"));
-            dog.setTrainingDone(rs.getBoolean("training_done"));
-            dog.setAllergies(getDogAllergies(dog.getIdNumber()));
-            dog.setMedications(getDogMedications(dog.getIdNumber()));
-            dog.setVaccines(getDogVaccine(dog.getIdNumber()));
-            dog.setVeterinarian(getDogVeterinarian(dog.getIdNumber()));
-            return dog;
+                Dog dog = new Dog();
+                rs.next();
+                dog.setIdNumber(rs.getInt("pet_id"));
+                dog.setName(rs.getString("name"));
+                dog.setBreed(rs.getString("breed"));
+                dog.setWeight(rs.getDouble("weight"));
+                dog.setDateOfBirth(rs.getDate("birth_date"));
+                dog.setGender(rs.getString("gender"));
+                dog.setSpayedNeutered(rs.getBoolean("spayed_neutered"));
+                dog.setStrangerComfortable(rs.getBoolean("stranger_friendly"));
+                dog.setLargeDogFriendly(rs.getBoolean("large_friendly"));
+                dog.setSmallDogFriendly(rs.getBoolean("small_friendly"));
+                dog.setPuppyFriendly(rs.getBoolean("puppy_friendly"));
+                dog.setPhysLimit(rs.getString("phys_limit"));
+                dog.setPhotoPath(rs.getString("photo_path"));
+                dog.setTrainingDone(rs.getBoolean("training_done"));
+                dog.setAllergies(getDogAllergies(dog.getIdNumber()));
+                dog.setMedications(getDogMedications(dog.getIdNumber()));
+                dog.setVaccines(getDogVaccine(dog.getIdNumber()));
+                dog.setVeterinarian(getDogVeterinarian(dog.getIdNumber()));
+                return dog;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
