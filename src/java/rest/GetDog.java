@@ -51,9 +51,8 @@ public class GetDog {
         } catch (Exception e) {
             return null;
         }
-        int petID = claims.get("petID", Integer.class);
         
-        return new DogService().getDogByID(petID);
+        return new DogService().getDogByID(claims.get("petID", Integer.class));
     }
 
 }
