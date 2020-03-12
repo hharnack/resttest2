@@ -37,7 +37,6 @@ public class RegisterDog {
     /**
      * PUT method for updating or creating an instance of
      *
-     * @param token
      * @param content representation for the resource
      * @return
      */

@@ -6,12 +6,10 @@
 package rest;
 
 import io.jsonwebtoken.Claims;
-import java.io.StringReader;
-import javax.json.Json;
-import javax.json.stream.JsonParser;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import services.DogService;
 import services.JWT;
@@ -24,26 +22,17 @@ import services.JWT;
 public class DeleteDog {
     
     @PUT
+    @Path("{token}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String putJson(String content) {
-        JsonParser parser = Json.createParser(new StringReader(content));
-
-        parser.next(); // START_OBJECT
-
-        parser.next(); // KEY_NAME
-        parser.next(); // VALUE_STRING
-        String token = parser.getString();
-        parser.next(); // KEY_NAME
-        parser.next(); // VALUE_STRING
-        int petID = parser.getInt();
-        //return the token decoded
+    public String putJson(@PathParam("token") String token) {
+        Claims claims;
         try{
-        Claims claims = JWT.decodeJWT(token);
+        claims = JWT.decodeJWT(token);
         } catch(Exception e){
             return "Authentication error, bad token";
         }
         
-        if (new DogService().delete(petID)) {
+        if (new DogService().delete(claims.get("petID", Integer.class))) {
             return "yes";
         }
        

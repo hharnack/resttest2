@@ -99,10 +99,12 @@ public class DogDB {
                 dog.setMedications(getDogMedications(dog.getIdNumber()));
                 dog.setVaccines(getDogVaccine(dog.getIdNumber()));
                 dog.setVeterinarian(getDogVeterinarian(dog.getIdNumber()));
-                dog.setActive(true);
-                dogs.add(dog);
+                dog.setActive(rs.getBoolean("is_active"));
+                if (dog.isActive()) {
+                    dogs.add(dog);
+                }
             }
-             return dogs;
+            return dogs;
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -110,7 +112,6 @@ public class DogDB {
         }
         return null;
     }
-
 
     private ArrayList<String> getDogAllergies(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();

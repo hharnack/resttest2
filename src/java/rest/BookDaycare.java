@@ -58,14 +58,13 @@ public class BookDaycare {
         //gets the token from the json
         String token = JWT.getToken(content);
         //return the token decoded
-         Claims claims;
+        Claims claims;
         try{
         claims = JWT.decodeJWT(token);
         } catch(Exception e){
             return "Authentication error, bad token";
         } 
-         //get username from decoded token
-        String username = claims.get("username", String.class);
+
         //create appointment object from json
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
         Daycare dAppt = gson.fromJson(content, Daycare.class);

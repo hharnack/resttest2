@@ -14,11 +14,12 @@ CREATE TABLE users (
     EMERGENCY_PHONE VARCHAR(10) NOT NULL,
     EMERGENCY_NAME VARCHAR(40) NOT NULL,
     ISACTIVE BOOLEAN NOT NULL,
-    ISDISABLED BOOLEAN NOT NULL
+    ISDISABLED BOOLEAN NOT NULL,
+    ISADMIN BOOLEAN NOT NULL
 );
 
 INSERT INTO users
-VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false);
+VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false, true);
 
 -- user_address table
 CREATE TABLE user_address (
@@ -37,30 +38,6 @@ REFERENCES users (USERNAME);
 
 INSERT INTO user_address
 VALUES ('admin', '111a', '123b', 'Senator Burns', 'Calgary', 'Alberta', 'A1A1A1');
-
--- account_type table, never inserted into
-CREATE TABLE account_type (
-    USER_TYPE TINYINT PRIMARY KEY,
-    DESCRIPTION VARCHAR(10) NOT NULL
-);
-
-INSERT INTO account_type
-VALUES (1, 'Admin');
-
-INSERT INTO account_type
-VALUES (2, 'Customer');
-
--- account_type to users bridge table
-CREATE TABLE user_accttype (
-    USERNAME VARCHAR(20),
-    USER_TYPE TINYINT,
-    PRIMARY KEY (USERNAME, USER_TYPE),
-    FOREIGN KEY (USERNAME) REFERENCES users (USERNAME),
-    FOREIGN KEY (USER_TYPE) REFERENCES account_type (USER_TYPE)
-);
-
-INSERT INTO user_accttype
-VALUES ('admin', 1);
 
 -- dogs table
 CREATE TABLE dogs (

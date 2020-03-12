@@ -33,7 +33,7 @@ public class UserDB {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot check username", e);
         } finally {
             pool.freeConnection(connection);
         }
@@ -63,7 +63,7 @@ public class UserDB {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot check email", e);
         } finally {
             pool.freeConnection(connection);
         }
@@ -78,7 +78,7 @@ public class UserDB {
     public int insert(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAccount = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String queryAccount = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String queryAddress = "INSERT INTO user_address VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareCall(queryAccount);
@@ -92,7 +92,8 @@ public class UserDB {
             ps.setString(8, user.getEmergencyName());
             ps.setBoolean(9, true);
             ps.setBoolean(10, user.isIsDisabled());
-
+            ps.setBoolean(11, user.isAdmin());
+            
             if (ps.executeUpdate() != 0) {
                 ps = connection.prepareCall(queryAddress);
                 ps.setString(1, user.getUsername());
