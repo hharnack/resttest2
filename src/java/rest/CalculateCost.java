@@ -5,25 +5,19 @@
  */
 package rest;
 
+import com.google.gson.JsonObject;
 import io.jsonwebtoken.Claims;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.StringReader;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
+import javax.json.Json;
+import javax.json.stream.JsonParser;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import models.Dog;
 import services.DogService;
@@ -47,20 +41,22 @@ public class CalculateCost {
     }
 
     /**
-     * Retrieves representation of an instance of rest.
+     * PUT method for updating or creating an instance of CalculateCost
      *
-     * @param token
-     * @param dogid
-     * @param startTime
-     * @param endTime
-     * @param type
-     * @return an instance of java.lang.String
+     * @param content representation for the resource
      */
-    @GET
-    @Path("{token}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getJson(@PathParam("token") String token, @PathParam("dogid") ArrayList<Integer> dogid, @PathParam("startTime") String startTime, @PathParam("endTime") String endTime, @PathParam("type") String type) {
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String putXml(String content) {
+        JsonObject returnJson = new JsonObject();
+        String message;
+        JsonParser parser = Json.createParser(new StringReader(content));
+        parser.next(); // START_OBJECT
 
+        // token
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        String token = parser.getString();
         Claims claims;
         try {
             claims = JWT.decodeJWT(token);
@@ -68,45 +64,92 @@ public class CalculateCost {
             return "Authentication error, bad token";
         }
         String username = claims.get("username", String.class);
-        Date start = null;
-        Date end = null;
+        //ids
         try {
-            start = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss").parse(startTime);
-            end =new SimpleDateFormat("dd-MM-yyyy hh-mm-ss").parse(endTime);
-        } catch (ParseException ex) {
-            Logger.getLogger(CalculateCost.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        long diffInMillies = Math.abs(end.getTime() - start.getTime());
-        long diffHours = TimeUnit.HOURS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        System.out.println(diffHours);
-        DogService ds = new DogService();
-        for (int x = 0; x < dogid.size(); x++) {
-            Dog dog = ds.getDogByID(dogid.get(x));
+            parser.next();       // KEY_NAME
+            parser.next();       // VALUE_STRING
+            String idsString = parser.getString();
+            String[] idsTemp = idsString.split(",");
+            int[] dogIds = new int[idsTemp.length];
+            for (int x = 0; x < idsTemp.length; x++) {
+                dogIds[x] = Integer.parseInt(idsTemp[x]);
+            }
 
+            //startTime
+            parser.next();       // KEY_NAME
+            parser.next();       // VALUE_STRING
+            String startTimeString = parser.getString();
+            String[] startTimeTemp = startTimeString.split(" ");
+            String startTimeT = startTimeTemp[0] + "T" + startTimeTemp[1];
+            //endTime
+            parser.next();       // KEY_NAME
+            parser.next();       // VALUE_STRING
+            String endTimeString = parser.getString();
+            //time between calculations
+            String[] endTimeTemp = endTimeString.split(" ");
+            String endTimeT = endTimeTemp[0] + "T" + endTimeTemp[1];
+            LocalDateTime dateTimeStart = LocalDateTime.parse(startTimeT);
+            LocalDateTime dateTimeEnd = LocalDateTime.parse(endTimeT);
+            long secondsEnd = dateTimeEnd.toEpochSecond(ZoneOffset.UTC);
+            long secondsStart = dateTimeStart.toEpochSecond(ZoneOffset.UTC);
+            double appointmentHours = (secondsEnd - secondsStart) / 3600;
+            long days = ChronoUnit.DAYS.between(dateTimeStart, dateTimeEnd);
+
+            //type
+            parser.next();       // KEY_NAME
+            parser.next();       // VALUE_STRING
+            String type = parser.getString();
+            double total = 0;
+            double grandTotal = 0;
+            message = "Error with cost estimate";
             switch (type) {
                 case "boarding":
-
+                    for (int x = 0; x < dogIds.length; x++) {
+                        if (x == 0) {
+                            total += days * 50;
+                        } else {
+                            total += days * 40;
+                        }
+                    }
+                    message = "Cost estimate successful";
                     break;
                 case "training":
-
+                    DogService ds = new DogService();    
+                    Dog dog = ds.getDogByID(dogIds[0]);
+                    if(dog.isTrainingDone()){
+                        total += appointmentHours*70; 
+                    } else {
+                        total += 130;
+                        if(appointmentHours > 1.5){
+                            total += (appointmentHours-1.5)*70;
+                        }
+                    }
+                     message = "Cost estimate successful";
                     break;
                 case "daycare":
-
+                        for (int x = 0; x < dogIds.length; x++) {
+                        if (x == 0) {
+                            total += days * 50;
+                        } else {
+                            total += days * 40;
+                        }
+                    }
+                    message = "Cost estimate successful";
                     break;
                 default:
                     break;
             }
+            grandTotal = total * 1.05;
+            returnJson.addProperty("message", message);
+            returnJson.addProperty("total", grandTotal);
+            return returnJson.toString();
+        } catch (Exception e) {
+           e.printStackTrace();
+           return null;
+//            message = "error with cost estimate";
+//            returnJson.addProperty("message", message);
+//            returnJson.addProperty("total", 0);
+//            return returnJson.toString();
         }
-        return "";
-    }
-
-    /**
-     * PUT method for updating or creating an instance of CalculateCost
-     *
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-    public void putXml(String content) {
     }
 }
