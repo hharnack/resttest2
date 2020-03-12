@@ -63,12 +63,12 @@ public class JWT {
     }
 
     public static String getToken(String content) {
-       JsonParser parser = Json.createParser(new StringReader(content));
+        JsonParser parser = Json.createParser(new StringReader(content));
 
         parser.next(); // START_OBJECT
 
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
+        parser.next(); // KEY_NAME
+        parser.next(); // VALUE_STRING
         String token = parser.getString();
         parser.close();
         return token;
