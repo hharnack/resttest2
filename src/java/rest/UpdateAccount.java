@@ -29,7 +29,7 @@ public class UpdateAccount {
 
     public UpdateAccount() {
     }
-    
+
     @Context
     private UriInfo context;
 
@@ -55,21 +55,19 @@ public class UpdateAccount {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
-        String token = JWT.getToken(content);
-        //return the token decoded
-         Claims claims;
-        try{
-        claims = JWT.decodeJWT(token);
-        } catch(Exception e){
+        Claims claims;
+        try {
+            claims = JWT.decodeJWT(JWT.getToken(content));
+        } catch (Exception e) {
             return "Authentication error, bad token";
-        } 
+        }
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         User user = gson.fromJson(content, User.class);
         AccountService as = new AccountService();
         if (as.updateUser(user)) {
             return "Updated";
         }
-        
+
         return "Not Updated";
     }
 }

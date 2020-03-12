@@ -6,9 +6,6 @@
 package rest;
 
 import io.jsonwebtoken.Claims;
-import java.io.StringReader;
-import javax.json.Json;
-import javax.json.stream.JsonParser;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -38,13 +35,14 @@ public class Base {
 
     /**
      * Retrieves representation of an instance of rest.
+     *
      * @param token
      * @return an instance of java.lang.String
      */
     @GET
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Dog getJson(@PathParam("token") String token) {
+    public String getJson(@PathParam("token") String token) {
         Claims claims;
         try {
             claims = JWT.decodeJWT(token);
@@ -52,9 +50,27 @@ public class Base {
             return null;
         }
         int petID = claims.get("petID", Integer.class);
-        
-        return new DogService().getDogByID(petID);
+
+        return null;
     }
-    
-    
+
+    /**
+     * PUT method for updating or creating an instance of rest
+     *
+     * @param content representation for the resource
+     * @return
+     */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String putJSON(String content) {
+        Claims claims;
+        try {
+            claims = JWT.decodeJWT(content);
+        } catch (Exception e) {
+            return null;
+        }
+        int petID = claims.get("petID", Integer.class);
+
+        return null;
+    }
 }

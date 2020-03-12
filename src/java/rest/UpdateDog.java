@@ -26,8 +26,7 @@ public class UpdateDog {
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
         String token = JWT.getToken(content);
-        //return the token decoded
-         Claims claims;
+        Claims claims;
         try{
         claims = JWT.decodeJWT(token);
         } catch(Exception e){

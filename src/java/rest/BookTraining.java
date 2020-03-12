@@ -65,12 +65,11 @@ public class BookTraining {
         } catch(Exception e){
             return "Authentication error, bad token";
         } 
-         //get username from decoded token
-        String username = claims.get("username", String.class);
+
         //create appointment object from json
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
         Training tAppt = gson.fromJson(content, Training.class);
-        tAppt.setUsername(username);
+        tAppt.setUsername(claims.get("username", String.class));
         AppointmentService as = new AppointmentService();
         if(as.insert(tAppt)){
             return "Successfuly added appointment";

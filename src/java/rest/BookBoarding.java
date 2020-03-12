@@ -65,8 +65,6 @@ public class BookBoarding {
         } catch(Exception e){
             return "Authentication error, bad token";
         } 
-         //get username from decoded token
-        String username = claims.get("username", String.class);
         //create appointment object from json
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
         Boarding bAppt = gson.fromJson(content, Boarding.class);

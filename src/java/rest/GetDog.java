@@ -6,12 +6,7 @@
 package rest;
 
 import io.jsonwebtoken.Claims;
-import java.io.StringReader;
-import javax.json.Json;
-import javax.json.stream.JsonParser;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -32,9 +27,6 @@ public class GetDog {
 
     public GetDog() {
     }
-
-    @Context
-    private UriInfo context;
 
     /**
      * Retrieves representation of an instance of rest.
