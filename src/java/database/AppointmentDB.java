@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Boarding;
@@ -29,7 +30,8 @@ public class AppointmentDB {
         String queryBoarding = "INSERT INTO BOARDING(BOARDING_ID,GROOMING) VALUES(?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, bAppt.getDogIdNumber());
+
+            ps.setString(1, bAppt.getDogIdNumber());
             ps.setString(2, bAppt.getUsername());
             ps.setBoolean(3, true);
             ps.setBoolean(4, false);
@@ -75,7 +77,8 @@ public class AppointmentDB {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, tAppt.getDogIdNumber());
+
+            ps.setString(1, tAppt.getDogIdNumber());
             ps.setString(2, tAppt.getUsername());
             ps.setBoolean(3, false);
             ps.setBoolean(4, true);
@@ -140,7 +143,7 @@ public class AppointmentDB {
         String queryAppointment = "INSERT INTO appointments(dog_id, username, boarding, training, date_start,date_end,total_cost,amount_paid,isapproved,iscancelled,ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, dAppt.getDogIdNumber());
+            ps.setString(1, dAppt.getDogIdNumber());
             ps.setString(2, dAppt.getUsername());
             ps.setBoolean(3, false);
             ps.setBoolean(4, false);

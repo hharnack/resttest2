@@ -63,6 +63,9 @@ CREATE TABLE dogs (
 INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH, ACTIVE, TRAINING_DONE)
 VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2018-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', '1.png', true, false);
 
+INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH, ACTIVE, TRAINING_DONE)
+VALUES ('Sparky', 'admin' ,'Corgi', 4.20, '2018-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', '2.png', true, false);
+
 -- dogs_allergy table
 CREATE TABLE dogs_allergy (
     PET_ID INT PRIMARY KEY,
@@ -133,7 +136,7 @@ VALUES (1, 'Advil');
 -- appointments table
 CREATE TABLE appointments (
     APPT_ID INT AUTO_INCREMENT PRIMARY KEY,
-    Dog_id INT,
+    Dog_id VARCHAR(10),
     USERNAME VARCHAR(20),
     BOARDING boolean,
     TRAINING boolean,

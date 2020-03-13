@@ -6,6 +6,7 @@
 package models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -39,7 +40,7 @@ public class Training extends Appointment{
     boolean newHome;
     boolean newSignificantOther;
 
-    public Training(boolean barking, boolean chewingDestruction, boolean counterSurfing, boolean digging, boolean jumping, boolean pullingOnLeash, boolean buildingConfidence, boolean chewing, boolean handling, boolean houseTraining, boolean mouthing, boolean socialization, boolean childrenAndDogs, boolean distractionStrategies, boolean exercise, boolean focusStrategies, boolean looseLeashWalking, boolean matWork, boolean play, boolean stealingItemsChaseGame, boolean additionalHouseholdMembers, boolean newBaby, boolean newCat, boolean newDog, boolean newHome, boolean newSignificantOther, int idNumber, int dogid, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments) {
+    public Training(boolean barking, boolean chewingDestruction, boolean counterSurfing, boolean digging, boolean jumping, boolean pullingOnLeash, boolean buildingConfidence, boolean chewing, boolean handling, boolean houseTraining, boolean mouthing, boolean socialization, boolean childrenAndDogs, boolean distractionStrategies, boolean exercise, boolean focusStrategies, boolean looseLeashWalking, boolean matWork, boolean play, boolean stealingItemsChaseGame, boolean additionalHouseholdMembers, boolean newBaby, boolean newCat, boolean newDog, boolean newHome, boolean newSignificantOther, int idNumber, String dogid, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments) {
         super(idNumber, dogid, username, startTime, endTime, total, amountPaid, isApproved, isCancelled, isPaid, additionalComments);
         this.barking = barking;
         this.chewingDestruction = chewingDestruction;

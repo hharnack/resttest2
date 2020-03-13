@@ -6,6 +6,7 @@
 package models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.sql.Date;
  */
 public class Daycare extends Appointment{
 
-    public Daycare(int idNumber, int dogid, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments) {
+    public Daycare(int idNumber, String dogid, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments) {
         super(idNumber, dogid, username, startTime, endTime, total, amountPaid, isApproved, isCancelled, isPaid, additionalComments);
     }
 
