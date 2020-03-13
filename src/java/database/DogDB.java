@@ -121,7 +121,6 @@ public class DogDB {
             ResultSet rs = ps.executeQuery();
             rs.last();
             if (rs.getRow() > 0) {
-                rs.first();
                 return new ArrayList<>(Arrays.asList(rs.getString("allergy").split(",")));
             }
         } catch (SQLException ex) {
@@ -142,7 +141,6 @@ public class DogDB {
             ResultSet rs = ps.executeQuery();
             rs.last();
             if (rs.getRow() > 0) {
-                rs.first();
                 return new ArrayList<>(Arrays.asList(rs.getString("medication").split(",")));
             }
         } catch (SQLException ex) {
