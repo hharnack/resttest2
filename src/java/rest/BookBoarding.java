@@ -75,7 +75,7 @@ public class BookBoarding {
         bAppt.setUsername(claims.get("username", String.class));
         AppointmentService as = new AppointmentService();
         if(as.insert(bAppt)){
-            return "Successfuly added appointment";
+            return "Successfully added appointment";
         } else {
             return "failed to add appointment";
         }
