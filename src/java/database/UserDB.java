@@ -209,8 +209,9 @@ public class UserDB {
                 user.setPhoneNumber(rs.getString("phone_number"));
                 user.setEmergencyName(rs.getString("emergency_name"));
                 user.setEmergencyPhone(rs.getString("emergency_phone"));
+                user.setIsActive(rs.getBoolean("isactive"));
+                user.setAdmin(rs.getBoolean("isadmin"));
                 user.setAddress(getUserAddress(username));
-                user.setAdmin(rs.getBoolean("is_admin"));
                 return user;
             }
         } catch (SQLException e) {
@@ -252,7 +253,32 @@ public class UserDB {
     public ArrayList<User> getUsers() {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAddress = "SELECT * FROM users";
+        String query = "SELECT * FROM users";
+        
+        try {
+            ResultSet rs = connection.prepareStatement(query).executeQuery();
+            ArrayList<User> users = new ArrayList<>();
+            while (rs.next()) {
+                User user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNumber(rs.getString("phone_number"));
+                user.setEmergencyName(rs.getString("emergency_name"));
+                user.setEmergencyPhone(rs.getString("emergency_phone"));
+                user.setIsActive(rs.getBoolean("isactive"));
+                user.setAdmin(rs.getBoolean("isadmin"));
+                user.setAddress(getUserAddress(user.getUsername()));
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            pool.freeConnection(connection);
+        }
         return null;
     }
 }
