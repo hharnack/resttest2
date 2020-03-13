@@ -122,7 +122,6 @@ public class CalculateCost {
                     for (int x = 0; x < dogIds.length; x++) {
                         firstPrice=50;
                         extraPrice=40;
-                        
                         Dog dog = ds.getDogByID(dogIds[x]);
                         LocalDate dogBirth = dog.getDateOfBirth().toLocalDate();  
                         LocalDate timeOfAppt =  dateTimeStart.toLocalDate();

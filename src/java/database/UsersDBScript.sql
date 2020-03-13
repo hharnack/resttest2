@@ -63,7 +63,7 @@ CREATE TABLE dogs (
 INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH, ISACTIVE, TRAINING_DONE)
 VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2018-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', '1.png', true, false);
 
-INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH, ACTIVE, TRAINING_DONE)
+INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH, ISACTIVE, TRAINING_DONE)
 VALUES ('Sparky', 'admin' ,'Corgi', 4.20, '2018-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', '2.png', true, false);
 
 -- dogs_allergy table
@@ -75,7 +75,8 @@ CREATE TABLE dogs_allergy (
 
 INSERT INTO dogs_allergy
 VALUES (1, 'Coffee');
-
+INSERT INTO dogs_allergy
+VALUES (2, 'Tea');
 -- dogs_vaccine table
 CREATE TABLE dogs_vaccines (
     PET_ID INT PRIMARY KEY,
@@ -88,6 +89,8 @@ CREATE TABLE dogs_vaccines (
 INSERT INTO dogs_vaccines (PET_ID, DA2PP, RABIES, BORDETELLA)
 VALUES (1, '2020-01-01', '2023-12-25', '2021-01-01');
 
+INSERT INTO dogs_vaccines (PET_ID, DA2PP, RABIES, BORDETELLA)
+VALUES (2, '2020-01-01', '2023-12-25', '2021-01-01');
 -- dogs_medication table
 CREATE TABLE dogs_medication (
     PET_ID INT PRIMARY KEY,
@@ -97,6 +100,9 @@ CREATE TABLE dogs_medication (
 
 INSERT INTO dogs_medication
 VALUES (1, 'Advil');
+
+INSERT INTO dogs_medication
+VALUES (2, 'kikaine');
 
 --boarding
     CREATE TABLE BOARDING(
