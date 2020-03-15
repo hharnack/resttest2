@@ -56,7 +56,8 @@ public class Login {
         String password = parser.getString();
 
         AccountService as = new AccountService();
-
+        
+        // Add isadmin boolean to token
         if (as.login(username, password)) {
             return JWT.createJWT(username, 86400000);
         } else {
