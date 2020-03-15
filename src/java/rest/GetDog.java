@@ -6,6 +6,9 @@
 package rest;
 
 import io.jsonwebtoken.Claims;
+import java.io.StringReader;
+import javax.json.Json;
+import javax.json.stream.JsonParser;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -18,7 +21,7 @@ import services.DogService;
 import services.JWT;
 
 /**
- * 
+ *
  *
  * @author 703174
  */
@@ -30,6 +33,7 @@ public class GetDog {
 
     /**
      * Retrieves representation of an instance of rest.
+     *
      * @param token
      * @return an instance of java.lang.String
      */
@@ -37,14 +41,22 @@ public class GetDog {
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
     public Dog getJson(@PathParam("token") String token) {
-        Claims claims;
+        JsonParser parser = Json.createParser(new StringReader(token));
+
+        parser.next();       // START_OBJECT
+        //token
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
         try {
-            claims = JWT.decodeJWT(token);
+            Claims claims = JWT.decodeJWT(parser.getString());
         } catch (Exception e) {
             return null;
         }
         
-        return new DogService().getDogByID(claims.get("petID", Integer.class));
+        // Probably doesn't work(?)
+        parser.next();
+        parser.next();
+        return new DogService().getDogByID(parser.getInt());
     }
 
 }
