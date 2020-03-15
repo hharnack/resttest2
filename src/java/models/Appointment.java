@@ -13,7 +13,7 @@ import java.sql.Date;
  */
 public class Appointment {
     int idNumber;
-    int dogIdNumber;
+    String dogIdNumber;
     String username;
     Date startTime;
     Date endTime;
@@ -24,7 +24,7 @@ public class Appointment {
     boolean isPaid;
     String additionalComments;
 
-    public Appointment(int idNumber, int dogIdNumber, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments) {
+    public Appointment(int idNumber, String dogIdNumber, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments) {
         this.idNumber = idNumber;
         this.dogIdNumber=dogIdNumber;
         this.username = username;
@@ -37,14 +37,20 @@ public class Appointment {
         this.isPaid = isPaid;
         this.additionalComments = additionalComments;
     }
-    public Appointment(){};
-     public int getDogIdNumber() {
+
+    public Appointment() {
+    }
+
+    public String getDogIdNumber() {
         return dogIdNumber;
     }
 
-    public void setDogIdNumber(int dogIdNumber) {
-        this.dogIdNumber=dogIdNumber;
+    public void setDogIdNumber(String dogIdNumber) {
+        this.dogIdNumber = dogIdNumber;
     }
+    
+
+
     public int getIdNumber() {
         return idNumber;
     }

@@ -72,7 +72,7 @@ public class BookTraining {
         tAppt.setUsername(claims.get("username", String.class));
         AppointmentService as = new AppointmentService();
         if(as.insert(tAppt)){
-            return "Successfuly added appointment";
+            return "Successfully added appointment";
         } else {
             return "failed to add appointment";
         }

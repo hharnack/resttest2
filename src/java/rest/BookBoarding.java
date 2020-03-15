@@ -68,10 +68,14 @@ public class BookBoarding {
         //create appointment object from json
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
         Boarding bAppt = gson.fromJson(content, Boarding.class);
+        bAppt.setAmountPaid(0);
+        bAppt.setIsApproved(false);
+        bAppt.setIsCancelled(false);
+        bAppt.setIsPaid(false);
         bAppt.setUsername(claims.get("username", String.class));
         AppointmentService as = new AppointmentService();
         if(as.insert(bAppt)){
-            return "Successfuly added appointment";
+            return "Successfully added appointment";
         } else {
             return "failed to add appointment";
         }

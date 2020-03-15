@@ -39,6 +39,7 @@ public class DogDB {
             ps.setInt(1, idNumber);
             ResultSet rs = ps.executeQuery();
                 Dog dog = new Dog();
+                rs.next();
                 dog.setIdNumber(rs.getInt("pet_id"));
                 dog.setName(rs.getString("name"));
                 dog.setBreed(rs.getString("breed"));
@@ -164,6 +165,7 @@ public class DogDB {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
             ResultSet rs = ps.executeQuery();
+            rs.next();
             return new Vaccines(rs.getDate("da2pp"), rs.getDate("rabies"), rs.getDate("bordetella"));
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
