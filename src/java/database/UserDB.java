@@ -212,6 +212,7 @@ public class UserDB {
                 user.setIsActive(rs.getBoolean("isactive"));
                 user.setAdmin(rs.getBoolean("isadmin"));
                 user.setAddress(getUserAddress(username));
+
                 return user;
             }
         } catch (SQLException e) {
