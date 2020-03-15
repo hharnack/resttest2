@@ -12,6 +12,108 @@ import models.User;
 
 public class UserDB {
 
+    //SELECT QUERIES
+    public boolean login(String username, String password) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String query = "SELECT username, isactive FROM users WHERE password = ? AND username = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, password);
+            ps.setString(2, username);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            if (rs.getRow() != 0) {
+                return rs.getBoolean("isactive");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot find login match", e);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        return false;
+    }
+    
+    public boolean checkAdmin(String username) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String query = "SELECT isadmin FROM users WHERE username = ?";
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, username);
+            return ps.executeQuery().getBoolean("isadmin");
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        
+        return false;
+    }
+
+    public User getUser(String username) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryUser = "SELECT * FROM users WHERE username = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(queryUser);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            if (rs.getRow() > 0) {
+                User user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNumber(rs.getString("phone_number"));
+                user.setEmergencyName(rs.getString("emergency_name"));
+                user.setEmergencyPhone(rs.getString("emergency_phone"));
+                user.setIsActive(rs.getBoolean("isactive"));
+                user.setAdmin(rs.getBoolean("isadmin"));
+                user.setAddress(getUserAddress(username));
+                return user;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot return user information", e);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        return null;
+    }
+
+    public Address getUserAddress(String username) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryAddress = "SELECT * FROM user_address WHERE username = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(queryAddress);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            if (rs.getRow() > 0) {
+                Address add = new Address();
+                add.setBuildingNum(rs.getString("building_num"));
+                add.setHouseNum(rs.getString("house_apt_num"));
+                add.setStreetName(rs.getString("street"));
+                add.setCity(rs.getString("city"));
+                add.setProvince(rs.getString("province"));
+                add.setPostal(rs.getString("postal"));
+                return add;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot return address information", e);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        return null;
+    }
+
     /**
      *
      * @param username
@@ -38,6 +140,39 @@ public class UserDB {
         return false;
     }
 
+    public ArrayList<User> getUsers() {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String query = "SELECT * FROM users";
+
+        try {
+            ResultSet rs = connection.prepareStatement(query).executeQuery();
+            ArrayList<User> users = new ArrayList<>();
+            while (rs.next()) {
+                User user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNumber(rs.getString("phone_number"));
+                user.setEmergencyName(rs.getString("emergency_name"));
+                user.setEmergencyPhone(rs.getString("emergency_phone"));
+                user.setIsActive(rs.getBoolean("isactive"));
+                user.setAdmin(rs.getBoolean("isadmin"));
+                user.setAddress(getUserAddress(user.getUsername()));
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        return null;
+    }
+
+    //INSERT QUERIES
     /**
      *
      * @param email
@@ -87,7 +222,7 @@ public class UserDB {
             ps.setBoolean(9, true);
             ps.setBoolean(10, user.isIsDisabled());
             ps.setBoolean(11, user.isAdmin());
-            
+
             if (ps.executeUpdate() != 0) {
                 ps = connection.prepareCall(queryAddress);
                 ps.setString(1, user.getUsername());
@@ -108,6 +243,7 @@ public class UserDB {
         return 0;
     }
 
+    //UPDATE QUERIES
     public int updateUser(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -126,7 +262,7 @@ public class UserDB {
             ps.setString(7, user.getUsername());
             ps.executeUpdate();
 
-            if (ps.executeUpdate() != 0){
+            if (ps.executeUpdate() != 0) {
                 // Query address update
                 ps = connection.prepareCall(queryAddrUpdate);
                 ps.setString(1, user.getAddress().getBuildingNum());
@@ -139,7 +275,7 @@ public class UserDB {
 
                 return ps.executeUpdate();
             }
-            
+
         } catch (SQLException e) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot insert " + user.toString(), e);
         } finally {
@@ -166,119 +302,23 @@ public class UserDB {
         }
         return 0;
     }
-
-    public boolean login(String username, String password) {
-        ConnectionPool pool = ConnectionPool.getInstance();
-        Connection connection = pool.getConnection();
-        String queryPassword = "SELECT username, isactive FROM users WHERE password = ? AND username = ?";
-
-        try {
-            PreparedStatement ps = connection.prepareStatement(queryPassword);
-            ps.setString(1, password);
-            ps.setString(2, username);
-            ResultSet rs = ps.executeQuery();
-            rs.last();
-            if (rs.getRow() != 0) {
-                return rs.getBoolean("isactive");
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot find login match", e);
-        } finally {
-            pool.freeConnection(connection);
-        }
-        return false;
-    }
-
-    public User getUser(String username) {
-        ConnectionPool pool = ConnectionPool.getInstance();
-        Connection connection = pool.getConnection();
-        String queryUser = "SELECT * FROM users WHERE username = ?";
-
-        try {
-            PreparedStatement ps = connection.prepareStatement(queryUser);
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            rs.last();
-            if (rs.getRow() > 0) {
-                User user = new User();
-                user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
-                user.setFirstName(rs.getString("first_name"));
-                user.setLastName(rs.getString("last_name"));
-                user.setEmail(rs.getString("email"));
-                user.setPhoneNumber(rs.getString("phone_number"));
-                user.setEmergencyName(rs.getString("emergency_name"));
-                user.setEmergencyPhone(rs.getString("emergency_phone"));
-                user.setIsActive(rs.getBoolean("isactive"));
-                user.setAdmin(rs.getBoolean("isadmin"));
-                user.setAddress(getUserAddress(username));
-                return user;
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot return user information", e);
-        } finally {
-            pool.freeConnection(connection);
-        }
-        return null;
-    }
-
-    public Address getUserAddress(String username) {
-        ConnectionPool pool = ConnectionPool.getInstance();
-        Connection connection = pool.getConnection();
-        String queryAddress = "SELECT * FROM user_address WHERE username = ?";
-        
-        try {
-            PreparedStatement ps = connection.prepareStatement(queryAddress);
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            rs.last();
-            if (rs.getRow() > 0) {
-                Address add = new Address();
-                add.setBuildingNum(rs.getString("building_num"));
-                add.setHouseNum(rs.getString("house_apt_num"));
-                add.setStreetName(rs.getString("street"));
-                add.setCity(rs.getString("city"));
-                add.setProvince(rs.getString("province"));
-                add.setPostal(rs.getString("postal"));
-                return add;
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot return address information", e);
-        } finally {
-            pool.freeConnection(connection);
-        }
-        return null;
-    }
     
-    public ArrayList<User> getUsers() {
+    //PSEUDO DELETE QUERIES
+    public int deleteUser(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String query = "SELECT * FROM users";
+        String query = "UPDATE users SET isactive = false WHERE username = ?";
         
         try {
-            ResultSet rs = connection.prepareStatement(query).executeQuery();
-            ArrayList<User> users = new ArrayList<>();
-            while (rs.next()) {
-                User user = new User();
-                user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
-                user.setFirstName(rs.getString("first_name"));
-                user.setLastName(rs.getString("last_name"));
-                user.setEmail(rs.getString("email"));
-                user.setPhoneNumber(rs.getString("phone_number"));
-                user.setEmergencyName(rs.getString("emergency_name"));
-                user.setEmergencyPhone(rs.getString("emergency_phone"));
-                user.setIsActive(rs.getBoolean("isactive"));
-                user.setAdmin(rs.getBoolean("isadmin"));
-                user.setAddress(getUserAddress(user.getUsername()));
-                users.add(user);
-            }
-            return users;
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, username);
+            return ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             pool.freeConnection(connection);
         }
-        return null;
+        
+        return 0;
     }
 }
