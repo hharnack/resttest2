@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Appointment;
 import models.Boarding;
 import models.Daycare;
 import models.Training;
@@ -70,7 +71,7 @@ public class AppointmentDB {
         Connection connection = pool.getConnection();
         String queryAppointment = "INSERT INTO appointments(dog_id, username, boarding, training, date_start,date_end,total_cost,amount_paid,isapproved,iscancelled,ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
         String queryTraining = "INSERT INTO training(TRAINING_ID,BARKING,CHEWINGDESTRUCTION,"
-                + "COUNTERSURFING,DIGGING,JUMPING,PULLINGONLEASH,BUILDINGCONDFIDENCE,CHEWING,"
+                + "COUNTERSURFING,DIGGING,JUMPING,PULLINGONLEASH,BUILDINGCONFIDENCE,CHEWING,"
                 + "HANDLING,HOUSETRAINING,MOUTHING,SOCIALIZATION,CHILDRENANDDOGS,DISTRACTIONSTRATEGIES,"
                 + "EXERCISE,FOCUSSTRATEGIES,LOOSELEASHWALKING,MATWORK,PLAY,STEALINGITEMSCHASEGAME,"
                 + "NEWHOUSEHOLDMEMBERS,NEWBABY,NEWCAT,NEWDOG,NEWHOME,NEWSIGNIFICANTOTHER) "
@@ -168,5 +169,116 @@ public class AppointmentDB {
             pool.freeConnection(connection);
         }
         return false;
+    }
+
+    public ArrayList<Appointment> getAppointmentsByUsername(String username) {
+          ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryAppointment = "SELECT * FROM appointments WHERE username = ?";
+        ArrayList<Appointment> aList = new ArrayList<>();
+        try {
+            PreparedStatement ps = connection.prepareStatement(queryAppointment);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Appointment appt = new Appointment();
+                appt.setIdNumber(rs.getInt("APPT_ID"));
+                appt.setDogIdNumber(rs.getString("DOG_ID"));
+                appt.setUsername(rs.getString("USERNAME"));
+                appt.setIsBoarding(rs.getBoolean("Boarding"));
+                appt.setIsTraining(rs.getBoolean("Training"));
+                appt.setStartTime(rs.getDate("DATE_START"));
+                appt.setEndTime(rs.getDate("DATE_END"));
+                appt.setTotal(rs.getDouble("TOTAL_COST"));
+                appt.setAmountPaid(rs.getDouble("AMOUNT_PAID"));
+                appt.setIsApproved(rs.getBoolean("ISAPPROVED"));
+                appt.setIsCancelled(rs.getBoolean("ISCANCELLED"));
+                appt.setIsPaid(rs.getBoolean("ISPAID"));
+                appt.setAdditionalComments(rs.getString("COMMENTS"));
+                if(!appt.isIsTraining() && !appt.isIsBoarding()){
+                    aList.add(appt);
+                } else if (appt.isIsTraining() && !appt.isIsBoarding()){
+  
+                   String queryTraining = "SELECT * FROM training WHERE training_id = ?";
+                   ps = null; 
+                   ps = connection.prepareStatement(queryTraining);
+                    ps.setInt(1, appt.getIdNumber());
+                    ResultSet rst = ps.executeQuery();
+                    Training train = new Training();
+                    train.setIdNumber(appt.getIdNumber());
+                    train.setDogIdNumber(appt.getDogIdNumber());
+                    train.setUsername(appt.getUsername());
+                    train.setIsTraining(true);
+                    train.setIsBoarding(false);
+                    train.setStartTime(appt.getStartTime());
+                    train.setEndTime(appt.getEndTime());
+                    train.setTotal(appt.getTotal());
+                    train.setAmountPaid(appt.getAmountPaid());
+                    train.setIsApproved(appt.IsApproved());
+                    train.setIsCancelled(appt.isCancelled());
+                    train.setIsPaid(appt.isPaid());
+                    train.setAdditionalComments(appt.getAdditionalComments());
+                    rst.next();
+                    train.setBarking(rst.getBoolean("BARKING"));
+                    train.setChewingDestruction(rst.getBoolean("CHEWINGDESTRUCTION"));
+                    train.setCounterSurfing(rst.getBoolean("COUNTERSURFING"));
+                    train.setDigging(rst.getBoolean("DIGGING"));
+                    train.setJumping(rst.getBoolean("DIGGING"));
+                    train.setPullingOnLeash(rst.getBoolean("PULLINGONLEASH"));
+                    train.setBuildingConfidence(rst.getBoolean("BUILDINGCONFIDENCE"));
+                    train.setChewing(rst.getBoolean("CHEWING"));
+                    train.setHandling(rst.getBoolean("HANDLING"));
+                    train.setHouseTraining(rst.getBoolean("HOUSETRAINING"));
+                    train.setMouthing(rst.getBoolean("MOUTHING"));
+                    train.setSocialization(rst.getBoolean("SOCIALIZATION"));
+                    train.setChildrenAndDogs(rst.getBoolean("CHILDRENANDDOGS"));
+                    train.setDistractionStrategies(rst.getBoolean("DISTRACTIONSTRATEGIES"));
+                    train.setExercise(rst.getBoolean("EXERCISE"));
+                    train.setFocusStrategies(rst.getBoolean("FOCUSSTRATEGIES"));
+                    train.setLooseLeashWalking(rst.getBoolean("LOOSELEASHWALKING"));
+                    train.setMatWork(rst.getBoolean("MATWORK"));
+                    train.setPlay(rst.getBoolean("PLAY"));
+                    train.setStealingItemsChaseGame(rst.getBoolean("STEALINGITEMSCHASEGAME"));
+                    train.setAdditionalHouseholdMembers(rst.getBoolean("NEWHOUSEHOLDMEMBERS"));
+                    train.setNewBaby(rst.getBoolean("NEWBABY"));
+                    train.setNewCat(rst.getBoolean("NEWCAT"));
+                    train.setNewDog(rst.getBoolean("NEWDOG"));
+                    train.setNewHome(rst.getBoolean("NEWHOME"));
+                    train.setNewSignificantOther(rst.getBoolean("NEWSIGNIFICANTOTHER"));
+                    aList.add(train);
+                    System.out.println(train.toString());
+                    rst.close();
+                } else if(appt.isIsBoarding() && !appt.isIsTraining()){
+                    String queryBoarding = "SELECT * FROM boarding WHERE boarding_id = ?";
+                    ps = null;
+                    ps = connection.prepareStatement(queryBoarding);
+                    ps.setInt(1, appt.getIdNumber());
+                    ResultSet rsb = ps.executeQuery();
+                    Boarding board = new Boarding();
+                    board.setIdNumber(rs.getInt(appt.getIdNumber()));
+                    board.setDogIdNumber(appt.getDogIdNumber());
+                    board.setUsername(appt.getUsername());
+                    board.setIsTraining(true);
+                    board.setIsBoarding(false);
+                    board.setStartTime(appt.getStartTime());
+                    board.setEndTime(appt.getEndTime());
+                    board.setTotal(appt.getTotal());
+                    board.setAmountPaid(appt.getAmountPaid());
+                    board.setIsApproved(appt.IsApproved());
+                    board.setIsCancelled(appt.isCancelled());
+                    board.setIsPaid(appt.isPaid());
+                    board.setAdditionalComments(appt.getAdditionalComments());
+                    rsb.next();
+                    board.setGrooming(rsb.getBoolean("GROOMING"));
+                    aList.add(board);
+                    rsb.close();
+                }
+            }
+            rs.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AppointmentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return aList;
     }
 }

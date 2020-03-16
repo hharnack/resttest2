@@ -39,8 +39,8 @@ public class AppointmentService {
         return false;
     }
     
-    public Appointment getAppointmentsByUsername(String username) {
-        return null;
+    public ArrayList<Appointment> getAppointmentsByUsername(String username) {
+        return adb.getAppointmentsByUsername(username);
     }
     
     public ArrayList<Appointment> getAllAppointments() {

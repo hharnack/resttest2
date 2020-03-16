@@ -22,9 +22,11 @@ public class Appointment {
     boolean isApproved;
     boolean isCancelled;
     boolean isPaid;
+    boolean isTraining;
+    boolean isBoarding;
     String additionalComments;
 
-    public Appointment(int idNumber, String dogIdNumber, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String additionalComments) {
+    public Appointment(int idNumber, String dogIdNumber, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, boolean isTraining, boolean isBoarding, String additionalComments) {
         this.idNumber = idNumber;
         this.dogIdNumber=dogIdNumber;
         this.username = username;
@@ -36,6 +38,24 @@ public class Appointment {
         this.isCancelled = isCancelled;
         this.isPaid = isPaid;
         this.additionalComments = additionalComments;
+        this.isBoarding = isBoarding;
+        this.isTraining =isTraining;
+    }
+
+    public boolean isIsTraining() {
+        return isTraining;
+    }
+
+    public void setIsTraining(boolean isTraining) {
+        this.isTraining = isTraining;
+    }
+
+    public boolean isIsBoarding() {
+        return isBoarding;
+    }
+
+    public void setIsBoarding(boolean isBoarding) {
+        this.isBoarding = isBoarding;
     }
 
     public Appointment() {
