@@ -13,9 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
 import models.Dog;
 import services.DogService;
 import services.JWT;
@@ -38,7 +36,6 @@ public class GetDog {
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
     public Dog getJson(@PathParam("token") String token) {
         JsonParser parser = Json.createParser(new StringReader(token));
@@ -53,7 +50,6 @@ public class GetDog {
             return null;
         }
         
-        // Probably doesn't work(?)
         parser.next();
         parser.next();
         return new DogService().getDogByID(parser.getInt());

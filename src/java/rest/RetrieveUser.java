@@ -24,9 +24,6 @@ import services.JWT;
 @Path("RetrieveUser")
 public class RetrieveUser {
 
-    @Context
-    private UriInfo context;
-
     /**
      * Retrieves representation of an instance of rest.
      *
@@ -37,7 +34,6 @@ public class RetrieveUser {
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
     public User getJson(@PathParam("token") String token) {
-
         Claims claims;
         try {
             claims = JWT.decodeJWT(token);
