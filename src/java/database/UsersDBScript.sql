@@ -167,4 +167,17 @@ CREATE TABLE veterinarians (
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
 
+INSERT INTO veterinarians (PET_ID, NAME, CLINIC, PHONE_NUMBER)
+(1, 'Dr. Phil', 'The Dr.Phil Show', '4206912345');
+
+-- testimonials table
+CREATE TABLE testimonails (
+    USERNAME VARCHAR(20),
+    CONTENTS VARCHAR(500),
+    ISAPPROVED BOOLEAN
+);
+
+INSERT INTO testimonials 
+VALUES ('admin', 'five out of seven', false);
+
 COMMIT;

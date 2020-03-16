@@ -28,9 +28,6 @@ import models.Dog;
 @Path("RetrieveDogs")
 public class RetrieveDogs {
 
-    @Context
-    private UriInfo context;
-
     @GET
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)

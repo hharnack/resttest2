@@ -49,7 +49,6 @@ public class Base {
         } catch (Exception e) {
             return null;
         }
-        int petID = claims.get("petID", Integer.class);
 
         return null;
     }
@@ -69,7 +68,6 @@ public class Base {
         } catch (Exception e) {
             return null;
         }
-        int petID = claims.get("petID", Integer.class);
 
         return null;
     }

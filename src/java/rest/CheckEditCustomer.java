@@ -29,9 +29,6 @@ import services.JWT;
 @Path("checkEditCustomer")
 public class CheckEditCustomer {
 
-    @Context
-    private UriInfo context;
-
     /**
      * Creates a new instance of CheckEditCustomer
      */
