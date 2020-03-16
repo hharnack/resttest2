@@ -22,25 +22,25 @@ import services.JWT;
  */
 @Path("deleteDog")
 public class DeleteDog {
-    
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
         JsonParser parser = Json.createParser(new StringReader(content));
 
-        parser.next();
+        parser.next(); // START_OBJECT
 
-        parser.next();
-        parser.next();
+        parser.next(); // KEY_NAME
+        parser.next(); // VALUE_STRING
 
         try {
             Claims claims = JWT.decodeJWT(parser.getString());
         } catch (Exception e) {
-            return null;
+            return "Authentication error";
         }
-        
-        parser.next();
-        parser.next();
+
+        parser.next(); // KEY_NAME
+        parser.next(); // VALUE_STRING
         if (new DogService().delete(parser.getInt())) {
             return "yes";
         }
