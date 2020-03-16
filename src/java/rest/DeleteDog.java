@@ -31,21 +31,14 @@ public class DeleteDog {
     @Path("{token}")
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(@PathParam("token") String token) {
-        JsonParser parser = Json.createParser(new StringReader(token));
-
-        parser.next();       // START_OBJECT
-        //token
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
+        Claims claims;
         try {
-            Claims claims = JWT.decodeJWT(parser.getString());
+            claims = JWT.decodeJWT(token);
         } catch (Exception e) {
             return null;
         }
-        
-        parser.next();
-        parser.next();
-        if (new DogService().delete(parser.getInt())) {
+
+        if (new DogService().delete(1)) {
             return "yes";
         }
         return "no";
