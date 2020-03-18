@@ -15,18 +15,17 @@ public class Appointment {
     int idNumber;
     String dogIdNumber;
     String username;
-    Date startTime;
-    Date endTime;
+    String startTime;
+    String endTime;
     double total;
     double amountPaid;
     boolean isApproved;
     boolean isCancelled;
     boolean isPaid;
-    boolean isTraining;
-    boolean isBoarding;
+    String type;
     String additionalComments;
 
-    public Appointment(int idNumber, String dogIdNumber, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, boolean isTraining, boolean isBoarding, String additionalComments) {
+    public Appointment(int idNumber, String dogIdNumber, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String type, String additionalComments) {
         this.idNumber = idNumber;
         this.dogIdNumber=dogIdNumber;
         this.username = username;
@@ -38,25 +37,17 @@ public class Appointment {
         this.isCancelled = isCancelled;
         this.isPaid = isPaid;
         this.additionalComments = additionalComments;
-        this.isBoarding = isBoarding;
-        this.isTraining =isTraining;
+        this.type = type;
     }
 
-    public boolean isIsTraining() {
-        return isTraining;
+    public String getType() {
+        return type;
     }
 
-    public void setIsTraining(boolean isTraining) {
-        this.isTraining = isTraining;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public boolean isIsBoarding() {
-        return isBoarding;
-    }
-
-    public void setIsBoarding(boolean isBoarding) {
-        this.isBoarding = isBoarding;
-    }
 
     public Appointment() {
     }
@@ -87,19 +78,19 @@ public class Appointment {
         this.username = username;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

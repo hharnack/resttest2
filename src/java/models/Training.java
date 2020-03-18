@@ -40,8 +40,8 @@ public class Training extends Appointment{
     boolean newHome;
     boolean newSignificantOther;
 
-    public Training(boolean barking, boolean chewingDestruction, boolean counterSurfing, boolean digging, boolean jumping, boolean pullingOnLeash, boolean buildingConfidence, boolean chewing, boolean handling, boolean houseTraining, boolean mouthing, boolean socialization, boolean childrenAndDogs, boolean distractionStrategies, boolean exercise, boolean focusStrategies, boolean looseLeashWalking, boolean matWork, boolean play, boolean stealingItemsChaseGame, boolean additionalHouseholdMembers, boolean newBaby, boolean newCat, boolean newDog, boolean newHome, boolean newSignificantOther, int idNumber, String dogid, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, boolean isTraining, boolean isBoarding, String additionalComments) {
-        super(idNumber, dogid, username, startTime, endTime, total, amountPaid, isApproved, isCancelled, isPaid, isTraining, isBoarding, additionalComments);
+    public Training(boolean barking, boolean chewingDestruction, boolean counterSurfing, boolean digging, boolean jumping, boolean pullingOnLeash, boolean buildingConfidence, boolean chewing, boolean handling, boolean houseTraining, boolean mouthing, boolean socialization, boolean childrenAndDogs, boolean distractionStrategies, boolean exercise, boolean focusStrategies, boolean looseLeashWalking, boolean matWork, boolean play, boolean stealingItemsChaseGame, boolean additionalHouseholdMembers, boolean newBaby, boolean newCat, boolean newDog, boolean newHome, boolean newSignificantOther, int idNumber, String dogid, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String type, String additionalComments) {
+        super(idNumber, dogid, username, startTime, endTime, total, amountPaid, isApproved, isCancelled, isPaid, type, additionalComments);
         this.barking = barking;
         this.chewingDestruction = chewingDestruction;
         this.counterSurfing = counterSurfing;

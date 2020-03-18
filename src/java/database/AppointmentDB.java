@@ -27,23 +27,22 @@ public class AppointmentDB {
     public boolean insert(Boarding bAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "INSERT INTO appointments(dog_id, username, boarding, training, date_start,date_end,total_cost,amount_paid,isapproved,iscancelled,ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid, approved, cancelled, ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         String queryBoarding = "INSERT INTO BOARDING(BOARDING_ID,GROOMING) VALUES(?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, bAppt.getDogIdNumber());
             ps.setString(2, bAppt.getUsername());
-            ps.setBoolean(3, true);
-            ps.setBoolean(4, false);
-            ps.setDate(5, bAppt.getStartTime());
-            ps.setDate(6, bAppt.getEndTime());
-            ps.setDouble(7, bAppt.getTotal());
-            ps.setDouble(8, bAppt.getAmountPaid());
-            ps.setBoolean(9, bAppt.IsApproved());
-            ps.setBoolean(10, bAppt.isCancelled());
-            ps.setBoolean(11, bAppt.isPaid());
-            ps.setString(12, bAppt.getAdditionalComments());
+            ps.setString(3, bAppt.getType());
+            ps.setString(4, bAppt.getStartTime());
+            ps.setString(5, bAppt.getEndTime());
+            ps.setDouble(6, bAppt.getTotal());
+            ps.setDouble(7, bAppt.getAmountPaid());
+            ps.setBoolean(8, bAppt.IsApproved());
+            ps.setBoolean(9, bAppt.isCancelled());
+            ps.setBoolean(10, bAppt.isPaid());
+            ps.setString(11, bAppt.getAdditionalComments());
             if (ps.executeUpdate() != 0) {
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
@@ -69,28 +68,27 @@ public class AppointmentDB {
     public boolean insert(Training tAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "INSERT INTO appointments(dog_id, username, boarding, training, date_start,date_end,total_cost,amount_paid,isapproved,iscancelled,ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid,approved,cancelled,ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         String queryTraining = "INSERT INTO training(TRAINING_ID,BARKING,CHEWINGDESTRUCTION,"
                 + "COUNTERSURFING,DIGGING,JUMPING,PULLINGONLEASH,BUILDINGCONFIDENCE,CHEWING,"
                 + "HANDLING,HOUSETRAINING,MOUTHING,SOCIALIZATION,CHILDRENANDDOGS,DISTRACTIONSTRATEGIES,"
                 + "EXERCISE,FOCUSSTRATEGIES,LOOSELEASHWALKING,MATWORK,PLAY,STEALINGITEMSCHASEGAME,"
                 + "NEWHOUSEHOLDMEMBERS,NEWBABY,NEWCAT,NEWDOG,NEWHOME,NEWSIGNIFICANTOTHER) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, tAppt.getDogIdNumber());
             ps.setString(2, tAppt.getUsername());
-            ps.setBoolean(3, false);
-            ps.setBoolean(4, true);
-            ps.setDate(5, tAppt.getStartTime());
-            ps.setDate(6, tAppt.getEndTime());
-            ps.setDouble(7, tAppt.getTotal());
-            ps.setDouble(8, tAppt.getAmountPaid());
-            ps.setBoolean(9, tAppt.IsApproved());
-            ps.setBoolean(10, tAppt.isCancelled());
-            ps.setBoolean(11, tAppt.isPaid());
-            ps.setString(12, tAppt.getAdditionalComments());
+            ps.setString(3, tAppt.getType());
+            ps.setString(4, tAppt.getStartTime());
+            ps.setString(5, tAppt.getEndTime());
+            ps.setDouble(6, tAppt.getTotal());
+            ps.setDouble(7, tAppt.getAmountPaid());
+            ps.setBoolean(8, tAppt.IsApproved());
+            ps.setBoolean(9, tAppt.isCancelled());
+            ps.setBoolean(10, tAppt.isPaid());
+            ps.setString(11, tAppt.getAdditionalComments());
             if (ps.executeUpdate() != 0) {
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
@@ -141,21 +139,20 @@ public class AppointmentDB {
     public boolean insert(Daycare dAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "INSERT INTO appointments(dog_id, username, boarding, training, date_start,date_end,total_cost,amount_paid,isapproved,iscancelled,ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid,approved,cancelled,ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, dAppt.getDogIdNumber());
             ps.setString(2, dAppt.getUsername());
-            ps.setBoolean(3, false);
-            ps.setBoolean(4, false);
-            ps.setDate(5, dAppt.getStartTime());
-            ps.setDate(6, dAppt.getEndTime());
-            ps.setDouble(7, dAppt.getTotal());
-            ps.setDouble(8, dAppt.getAmountPaid());
-            ps.setBoolean(9, dAppt.IsApproved());
-            ps.setBoolean(10, dAppt.isCancelled());
-            ps.setBoolean(11, dAppt.isPaid());
-            ps.setString(12, dAppt.getAdditionalComments());
+            ps.setString(3, dAppt.getType());
+            ps.setString(4, dAppt.getStartTime());
+            ps.setString(5, dAppt.getEndTime());
+            ps.setDouble(6, dAppt.getTotal());
+            ps.setDouble(7, dAppt.getAmountPaid());
+            ps.setBoolean(8, dAppt.IsApproved());
+            ps.setBoolean(9, dAppt.isCancelled());
+            ps.setBoolean(10, dAppt.isPaid());
+            ps.setString(11, dAppt.getAdditionalComments());
 
             if (ps.executeUpdate() != 0) {
                 return true;
@@ -185,19 +182,18 @@ public class AppointmentDB {
                 appt.setIdNumber(rs.getInt("APPT_ID"));
                 appt.setDogIdNumber(rs.getString("DOG_ID"));
                 appt.setUsername(rs.getString("USERNAME"));
-                appt.setIsBoarding(rs.getBoolean("Boarding"));
-                appt.setIsTraining(rs.getBoolean("Training"));
-                appt.setStartTime(rs.getDate("DATE_START"));
-                appt.setEndTime(rs.getDate("DATE_END"));
+                appt.setType(rs.getString("TYPE"));
+                appt.setStartTime(rs.getString("DATE_START"));
+                appt.setEndTime(rs.getString("DATE_END"));
                 appt.setTotal(rs.getDouble("TOTAL_COST"));
                 appt.setAmountPaid(rs.getDouble("AMOUNT_PAID"));
-                appt.setIsApproved(rs.getBoolean("ISAPPROVED"));
-                appt.setIsCancelled(rs.getBoolean("ISCANCELLED"));
+                appt.setIsApproved(rs.getBoolean("APPROVED"));
+                appt.setIsCancelled(rs.getBoolean("CANCELLED"));
                 appt.setIsPaid(rs.getBoolean("ISPAID"));
                 appt.setAdditionalComments(rs.getString("COMMENTS"));
-                if(!appt.isIsTraining() && !appt.isIsBoarding()){
+                if(appt.getType().equals("daycare")){
                     aList.add(appt);
-                } else if (appt.isIsTraining() && !appt.isIsBoarding()){
+                } else if (appt.getType().equals("training")){
   
                    String queryTraining = "SELECT * FROM training WHERE training_id = ?";
                    ps = null; 
@@ -208,8 +204,7 @@ public class AppointmentDB {
                     train.setIdNumber(appt.getIdNumber());
                     train.setDogIdNumber(appt.getDogIdNumber());
                     train.setUsername(appt.getUsername());
-                    train.setIsTraining(true);
-                    train.setIsBoarding(false);
+                    train.setType(appt.getType());
                     train.setStartTime(appt.getStartTime());
                     train.setEndTime(appt.getEndTime());
                     train.setTotal(appt.getTotal());
@@ -223,7 +218,7 @@ public class AppointmentDB {
                     train.setChewingDestruction(rst.getBoolean("CHEWINGDESTRUCTION"));
                     train.setCounterSurfing(rst.getBoolean("COUNTERSURFING"));
                     train.setDigging(rst.getBoolean("DIGGING"));
-                    train.setJumping(rst.getBoolean("DIGGING"));
+                    train.setJumping(rst.getBoolean("JUMPING"));
                     train.setPullingOnLeash(rst.getBoolean("PULLINGONLEASH"));
                     train.setBuildingConfidence(rst.getBoolean("BUILDINGCONFIDENCE"));
                     train.setChewing(rst.getBoolean("CHEWING"));
@@ -246,20 +241,18 @@ public class AppointmentDB {
                     train.setNewHome(rst.getBoolean("NEWHOME"));
                     train.setNewSignificantOther(rst.getBoolean("NEWSIGNIFICANTOTHER"));
                     aList.add(train);
-                    System.out.println(train.toString());
                     rst.close();
-                } else if(appt.isIsBoarding() && !appt.isIsTraining()){
+                } else if(appt.getType().equals("boarding")){
                     String queryBoarding = "SELECT * FROM boarding WHERE boarding_id = ?";
                     ps = null;
                     ps = connection.prepareStatement(queryBoarding);
                     ps.setInt(1, appt.getIdNumber());
                     ResultSet rsb = ps.executeQuery();
                     Boarding board = new Boarding();
-                    board.setIdNumber(rs.getInt(appt.getIdNumber()));
+                    board.setIdNumber(appt.getIdNumber());
                     board.setDogIdNumber(appt.getDogIdNumber());
                     board.setUsername(appt.getUsername());
-                    board.setIsTraining(true);
-                    board.setIsBoarding(false);
+                    board.setType(appt.getType());
                     board.setStartTime(appt.getStartTime());
                     board.setEndTime(appt.getEndTime());
                     board.setTotal(appt.getTotal());

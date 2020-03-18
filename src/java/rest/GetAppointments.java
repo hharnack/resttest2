@@ -5,12 +5,14 @@
  */
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.jsonwebtoken.Claims;
 import java.util.ArrayList;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
@@ -39,13 +41,12 @@ public class GetAppointments {
 
     /**
      * Retrieves representation of an instance of rest.GetAppointments
-     * @param token
      * @return an instance of java.lang.String
      */
     @GET
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Appointment> getJson(@PathParam("token") String token) {
+    public String getJson(@PathParam("token") String token) {
 
         //return the token decoded
         Claims claims;
@@ -56,7 +57,10 @@ public class GetAppointments {
         }
         AppointmentService as = new AppointmentService();
         String username = claims.get("username", String.class);
-        return as.getAppointmentsByUsername(username);
+        ArrayList<Appointment> aList = as.getAppointmentsByUsername(username); 
+       Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+       String gsonList = gson.toJson(aList);
+        return gsonList;
     }
 
     /**
@@ -64,7 +68,7 @@ public class GetAppointments {
      * @param content representation for the resource
      */
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    @Consumes(MediaType.APPLICATION_XML)
+    public void putXml(String content) {
     }
 }

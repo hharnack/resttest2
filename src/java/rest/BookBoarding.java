@@ -8,6 +8,8 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.jsonwebtoken.Claims;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -66,12 +68,13 @@ public class BookBoarding {
             return "Authentication error, bad token";
         } 
         //create appointment object from json
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+        Gson gson = new Gson();
         Boarding bAppt = gson.fromJson(content, Boarding.class);
         bAppt.setAmountPaid(0);
         bAppt.setIsApproved(false);
         bAppt.setIsCancelled(false);
         bAppt.setIsPaid(false);
+        bAppt.setType("boarding");
         bAppt.setUsername(claims.get("username", String.class));
         AppointmentService as = new AppointmentService();
         if(as.insert(bAppt)){

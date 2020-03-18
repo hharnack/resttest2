@@ -14,8 +14,8 @@ import java.sql.Date;
  */
 public class Boarding extends Appointment {
     boolean grooming;
-    public Boarding(int idNumber, String dogid, String username, Date startTime, Date endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid,  boolean isTraining, boolean isBoarding, String additionalComments, boolean grooming){
-        super(idNumber, dogid, username, startTime, endTime, total, amountPaid, isApproved, isCancelled, isPaid, isTraining, isBoarding, additionalComments);
+    public Boarding(int idNumber, String dogid, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid,  String type, String additionalComments, boolean grooming){
+        super(idNumber, dogid, username, startTime, endTime, total, amountPaid, isApproved, isCancelled, isPaid, type, additionalComments);
         this.grooming=grooming;
     }
 
