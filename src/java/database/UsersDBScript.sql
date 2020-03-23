@@ -177,7 +177,7 @@ CREATE TABLE testimonails (
     ISAPPROVED BOOLEAN
 );
 
-INSERT INTO testimonials 
+INSERT INTO testimonials (USERNAME, CONTENTS, ISAPPROVED)
 VALUES ('admin', 'five out of seven', false);
 
 COMMIT;
