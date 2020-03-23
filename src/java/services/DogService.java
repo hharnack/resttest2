@@ -40,4 +40,8 @@ public class DogService {
     public boolean delete(int petID) {
         return ddb.deleteDog(petID) > 0;
     }
+
+    public ArrayList<Dog> getDogs() {
+        return ddb.getAllDogs();
+    }
 }

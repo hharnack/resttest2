@@ -9,22 +9,27 @@ import io.jsonwebtoken.Claims;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import services.DogService;
+import services.AccountService;
 import services.JWT;
 
 /**
  *
  * @author 703174
  */
-@Path("deleteDog")
-public class DeleteDog {
-
+@Path("deleteAccount")
+public class DeleteAccount {
+    /**
+     * Retrieves representation of an instance of rest.
+     *
+     * @param token
+     * @return an instance of java.lang.String
+     */
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
         JsonParser parser = Json.createParser(new StringReader(content));
 
@@ -41,7 +46,8 @@ public class DeleteDog {
 
         parser.next(); // KEY_NAME
         parser.next(); // VALUE_STRING
-        if (new DogService().delete(parser.getInt())) {
+        // TODO add account type authentication
+        if (new AccountService().delete(parser.getString())) {
             return "yes";
         }
         return "no";

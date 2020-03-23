@@ -13,37 +13,39 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import services.DogService;
 import services.JWT;
+import services.TestimonialService;
 
 /**
  *
  * @author 703174
  */
-@Path("deleteDog")
-public class DeleteDog {
-
+@Path("ApproveTestimonial")
+public class ApproveTestimonial {
+    
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public String putJson(String content) {
-        JsonParser parser = Json.createParser(new StringReader(content));
+    public String putJson(String contents) {
+        JsonParser parser = Json.createParser(new StringReader(contents));
 
         parser.next(); // START_OBJECT
 
         parser.next(); // KEY_NAME
         parser.next(); // VALUE_STRING
-
+        Claims claims;
         try {
-            Claims claims = JWT.decodeJWT(parser.getString());
+            claims = JWT.decodeJWT(parser.getString());
         } catch (Exception e) {
-            return "Authentication error";
+            return "Authentication error, bad token";
         }
-
+        
         parser.next(); // KEY_NAME
         parser.next(); // VALUE_STRING
-        if (new DogService().delete(parser.getInt())) {
+        
+        if (new TestimonialService().approve(parser.getInt())) {
             return "yes";
         }
+        
         return "no";
     }
 }

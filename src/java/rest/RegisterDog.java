@@ -62,7 +62,7 @@ public class RegisterDog {
         // dog.setVeterinarian(vet);
         // dog.setVaccines(gson.fromJson(content, Vaccine.class));
         if (new DogService().insert(username, dog)) {
-            return "Successfully added ";
+            return "Successfully added";
         } else {
             return "failed to add dog";
         }
