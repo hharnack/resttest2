@@ -22,26 +22,7 @@ import services.AccountService;
  */
 @Path("register")
 public class RegisterAccount {
-
-    /**
-     * Creates a new instance of RegisterAccount
-     */
-    public RegisterAccount() {
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.RegisterAccountV2
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        //throw new UnsupportedOperationException();
-        return "Boo";
-    }
-
+    
     /**
      * PUT method for updating or creating an instance of RegisterAccountV2
      *
