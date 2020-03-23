@@ -7,8 +7,6 @@ package rest;
 
 import io.jsonwebtoken.Claims;
 import java.util.List;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -42,15 +40,5 @@ public class RetrieveDogs {
         DogService ds = new DogService();
         List<Dog> dogList = ds.getDogsByUsername(username);
         return dogList;
-    }
-
-    /**
-     * PUT method for updating or creating an instance of RetrieveDogs
-     *
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
     }
 }
