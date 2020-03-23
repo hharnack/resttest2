@@ -170,7 +170,7 @@ CREATE TABLE veterinarians (
   VALUES (1, 'Dr. Phil', 'The Dr.Phil Show', '4206912345');
 
 -- testimonials table
-CREATE TABLE testimonails (
+CREATE TABLE testimonials (
     TEST_ID INT AUTO_INCREMENT PRIMARY KEY,
     USERNAME VARCHAR(20),
     CONTENTS VARCHAR(500),
