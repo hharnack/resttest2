@@ -41,8 +41,8 @@ public class ApplicationConfig extends Application {
         resources.add(rest.CheckEditCustomer.class);
         resources.add(rest.DeleteAccount.class);
         resources.add(rest.DeleteDog.class);
-        resources.add(rest.GetAppointments.class);
         resources.add(rest.DeleteTestimonial.class);
+        resources.add(rest.GetAppointments.class);
         resources.add(rest.GetDog.class);
         resources.add(rest.GetDogs.class);
         resources.add(rest.Login.class);
