@@ -40,20 +40,13 @@ public class GetDog {
     @Path("{token}/{idString}")
     @Produces(MediaType.APPLICATION_JSON)
     public Dog getJson(@PathParam("token") String token, @PathParam("idString") String idString) {
-        JsonParser parser = Json.createParser(new StringReader(token));
-
-        //parser.next();       // START_OBJECT
-        //token
-        //parser.next();       // KEY_NAME
-        //parser.next();       // VALUE_STRING
+        
         try {
             Claims claims = JWT.decodeJWT(token);
         } catch (Exception e) {
             return null;
         }
-        
-        //parser.next();
-        //parser.next();
+
         int idNumber = Integer.parseInt(idString);
         return new DogService().getDogByID(idNumber);
     }
