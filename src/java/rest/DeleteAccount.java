@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import models.User;
 import services.AccountService;
 import services.JWT;
 
@@ -25,7 +26,7 @@ public class DeleteAccount {
     /**
      * Retrieves representation of an instance of rest.
      *
-     * @param token
+     * @param content
      * @return an instance of java.lang.String
      */
     @PUT
@@ -43,11 +44,27 @@ public class DeleteAccount {
         } catch (Exception e) {
             return "Authentication error";
         }
-
+        
+        //username
         parser.next(); // KEY_NAME
         parser.next(); // VALUE_STRING
+        String username = parser.getString();
+        
+        // password
+        parser.next();       // KEY_NAME
+        parser.next();       // VALUE_STRING
+        String passwordEntered = parser.getString();
+        
+        AccountService as = new AccountService();
+        User user = as.getUser(username);
+        String currentPassword = user.getPassword();
+        
+        if (!passwordEntered.equals(currentPassword)){
+            return "Password is incorrect";
+        }
+
         // TODO add account type authentication
-        if (new AccountService().delete(parser.getString())) {
+        if (new AccountService().delete(username)) {
             return "yes";
         }
         return "no";
