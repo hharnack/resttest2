@@ -33,26 +33,22 @@ public class GetDog {
      * Retrieves representation of an instance of rest.
      *
      * @param token
+     * @param idString
      * @return an instance of java.lang.String
      */
     @GET
+    @Path("{token}/{idString}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Dog getJson(@PathParam("token") String token) {
-        JsonParser parser = Json.createParser(new StringReader(token));
-
-        parser.next();       // START_OBJECT
-        //token
-        parser.next();       // KEY_NAME
-        parser.next();       // VALUE_STRING
+    public Dog getJson(@PathParam("token") String token, @PathParam("idString") String idString) {
+        
         try {
-            Claims claims = JWT.decodeJWT(parser.getString());
+            Claims claims = JWT.decodeJWT(token);
         } catch (Exception e) {
             return null;
         }
-        
-        parser.next();
-        parser.next();
-        return new DogService().getDogByID(parser.getInt());
+
+        int idNumber = Integer.parseInt(idString);
+        return new DogService().getDogByID(idNumber);
     }
 
 }
