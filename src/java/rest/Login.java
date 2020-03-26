@@ -23,12 +23,6 @@ import services.JWT;
 public class Login {
 
     /**
-     * Creates a new instance of CheckAccount
-     */
-    public Login() {
-    }
-
-    /**
      * Retrieves representation of an instance of rest.CheckAccount
      *
      * @return an instance of java.lang.String

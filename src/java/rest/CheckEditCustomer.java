@@ -9,8 +9,6 @@ import io.jsonwebtoken.Claims;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
@@ -28,24 +26,6 @@ import services.JWT;
  */
 @Path("checkEditCustomer")
 public class CheckEditCustomer {
-
-    /**
-     * Creates a new instance of CheckEditCustomer
-     */
-    public CheckEditCustomer() {
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.CheckEditCustomer
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public String getXml() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
     /**
      * PUT method for updating or creating an instance of CheckEditCustomer
      * @param content representation for the resource
