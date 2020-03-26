@@ -13,6 +13,7 @@ import io.jsonwebtoken.Claims;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
+import models.User;
 
 /*
     Our simple static class that demonstrates how to create and decode JWTs.
@@ -38,7 +39,11 @@ public class JWT {
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         //Let's set the JWT Claims
+        
+        AccountService as = new AccountService();
+        User user = as.getUser(username);
         JwtBuilder builder = Jwts.builder().claim("username", username)
+                .claim("isAdmin", user.isAdmin())
                 .setIssuedAt(now)
                 .signWith(signatureAlgorithm, signingKey);
 

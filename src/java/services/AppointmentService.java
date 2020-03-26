@@ -25,7 +25,8 @@ public class AppointmentService {
     }
 
     public boolean insert(Boarding bAppt) {
-        return adb.insert(bAppt);}
+        return adb.insert(bAppt);
+    }
 
     public boolean insert(Training tAppt) {
         return adb.insert(tAppt);
@@ -34,16 +35,24 @@ public class AppointmentService {
     public boolean insert(Daycare dAppt) {
         return adb.insert(dAppt);
     }
-    
-    public boolean update(Appointment appointment) {
-        return false;
+
+    public boolean update(Boarding boarding) {
+        return adb.update(boarding);
     }
-    
+
     public ArrayList<Appointment> getAppointmentsByUsername(String username) {
         return adb.getAppointmentsByUsername(username);
     }
-    
+
     public ArrayList<Appointment> getAllAppointments() {
-        return null;
+        return adb.getAllAppointments();
+    }
+
+    public boolean update(Training tAppt) {
+        return adb.update(tAppt);
+    }
+
+    public boolean update(Daycare dAppt) {
+        return adb.update(dAppt);
     }
 }
