@@ -24,8 +24,17 @@ public class Appointment {
     boolean isPaid;
     String type;
     String additionalComments;
+    String dogNames;
 
-    public Appointment(int idNumber, String dogIdNumber, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String type, String additionalComments) {
+    public String getDogNames() {
+        return dogNames;
+    }
+
+    public void setDogNames(String dogNames) {
+        this.dogNames = dogNames;
+    }
+    
+    public Appointment(int idNumber, String dogIdNumber, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String type, String additionalComments, String dogNames) {
         this.idNumber = idNumber;
         this.dogIdNumber=dogIdNumber;
         this.username = username;
@@ -38,6 +47,7 @@ public class Appointment {
         this.isPaid = isPaid;
         this.additionalComments = additionalComments;
         this.type = type;
+        this.dogNames = dogNames;
     }
 
     public String getType() {
