@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Dog {
 
-    private String photoPath;
+    private String owner;
     private int idNumber;
     private String name;
     private String breed;
@@ -32,22 +32,18 @@ public class Dog {
     private boolean puppyFriendly;
     private Vaccines vaccines;
     private boolean active;
+    private String photoPath;
     private boolean trainingDone;
-    public boolean isTrainingDone() {
-        return trainingDone;
-    }
-    public void setTrainingDone(boolean trainingDone) {
-        this.trainingDone = trainingDone;
-    }
+
     public Dog() {
     }
 
-    public String getPhotoPath() {
-        return photoPath;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public int getIdNumber() {
@@ -184,5 +180,21 @@ public class Dog {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public boolean isTrainingDone() {
+        return trainingDone;
+    }
+
+    public void setTrainingDone(boolean trainingDone) {
+        this.trainingDone = trainingDone;
     }
 }

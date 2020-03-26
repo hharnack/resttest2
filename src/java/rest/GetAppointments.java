@@ -12,10 +12,8 @@ import java.util.ArrayList;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import models.Appointment;
@@ -43,6 +41,7 @@ public class GetAppointments {
 
     /**
      * Retrieves representation of an instance of rest.GetAppointments
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -52,9 +51,9 @@ public class GetAppointments {
 
         //return the token decoded
         Claims claims;
-        try{
-        claims = JWT.decodeJWT(token);
-        } catch(Exception e){
+        try {
+            claims = JWT.decodeJWT(token);
+        } catch (Exception e) {
             return null;
         }
         AppointmentService as = new AppointmentService();
@@ -78,14 +77,5 @@ public class GetAppointments {
        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
        String gsonList = gson.toJson(aList);
         return gsonList;
-    }
-
-    /**
-     * PUT method for updating or creating an instance of GetAppointments
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-    public void putXml(String content) {
     }
 }

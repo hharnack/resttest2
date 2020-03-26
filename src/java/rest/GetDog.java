@@ -6,9 +6,6 @@
 package rest;
 
 import io.jsonwebtoken.Claims;
-import java.io.StringReader;
-import javax.json.Json;
-import javax.json.stream.JsonParser;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;

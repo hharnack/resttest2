@@ -8,11 +8,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.jsonwebtoken.Claims;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
@@ -27,27 +23,6 @@ import services.JWT;
  */
 @Path("bookdaycare")
 public class BookDaycare {
-
-    @Context
-    private UriInfo context;
-
-    /**
-     * Creates a new instance of BookDaycare
-     */
-    public BookDaycare() {
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.BookDaycare
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public String getXml() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
     /**
      * PUT method for updating or creating an instance of BookDaycare
      * @param content representation for the resource

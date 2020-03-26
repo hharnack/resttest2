@@ -11,9 +11,7 @@ import io.jsonwebtoken.Claims;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
 import models.Dog;
 import models.Veterinarian;
 import services.DogService;
@@ -25,13 +23,6 @@ import services.JWT;
  */
 @Path("registerDog")
 public class RegisterDog {
-
-    public RegisterDog() {
-
-    }
-
-    @Context
-    private UriInfo context;
 
     /**
      * PUT method for updating or creating an instance of
