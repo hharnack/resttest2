@@ -34,11 +34,11 @@ public class TestimonialService {
     }
     
     public ArrayList<Testimonial> getApproved() {
-        return null;
+        return tdb.getApproved();
     }
     
     public ArrayList<Testimonial> getPending() {
-        return null;
+        return tdb.getPending();
     }
     
 }
