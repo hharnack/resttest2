@@ -10,9 +10,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
+import models.User;
 import services.AccountService;
 import services.JWT;
 
@@ -23,9 +22,6 @@ import services.JWT;
 @Path("RetrieveUser")
 public class RetrieveUser {
 
-    @Context
-    private UriInfo context;
-
     /**
      * Retrieves representation of an instance of rest.
      *
@@ -35,16 +31,15 @@ public class RetrieveUser {
     @GET
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson(@PathParam("token") String token) {
-
-       Claims claims;
-        try{
-        claims = JWT.decodeJWT(token);
-        } catch(Exception e){
-            return "Authentication error, bad token";
-        } 
+    public User getJson(@PathParam("token") String token) {
+        Claims claims;
+        try {
+            claims = JWT.decodeJWT(token);
+        } catch (Exception e) {
+            return null;
+        }
         String username = claims.get("username", String.class);
         AccountService as = new AccountService();
-        return as.getUser(username).toJSON().toString();
+        return as.getUser(username);
     }
 }

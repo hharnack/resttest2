@@ -81,7 +81,7 @@ public class Address {
         this.postal = postal;
     }
 
-    public javax.json.JsonObject toJSON() {
+    public JsonObject toJSON() {
         JsonObject jo = Json.createObjectBuilder()
                 .add("appt", houseNum)
                 .add("building", buildingNum)

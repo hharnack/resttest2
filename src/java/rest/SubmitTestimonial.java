@@ -12,33 +12,31 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import models.Dog;
-import services.DogService;
+import models.Testimonial;
 import services.JWT;
+import services.TestimonialService;
 
 /**
  *
  * @author 703174
  */
-@Path("updateDog")
-public class UpdateDog {
+@Path("SubmitTestimonial")
+public class SubmitTestimonial {
+    
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public String putJson(String content) {
-        String token = JWT.getToken(content);
+    public String putJson(String contents) {
         Claims claims;
-        try{
-        claims = JWT.decodeJWT(token);
-        } catch(Exception e){
+        try {
+            claims = JWT.decodeJWT(contents);
+        } catch (Exception e) {
             return "Authentication error, bad token";
-        } 
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-        Dog dog = gson.fromJson(content, Dog.class);
-        DogService ds = new DogService();
-        if (ds.updateDog(dog)) {
-            return "Updated";
         }
-        
-        return "Not Updated";
+        Gson gson = new GsonBuilder().create();
+        Testimonial testimonial = gson.fromJson(contents, Testimonial.class);
+        if (new TestimonialService().insert(testimonial)) {
+            return "yes";
+        }
+        return "no";
     }
 }

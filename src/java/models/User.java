@@ -1,8 +1,5 @@
 package models;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-
 public class User {
 
     private String username;
@@ -16,6 +13,7 @@ public class User {
     private String emergencyName;
     private boolean isActive;
     private boolean isDisabled;
+    private boolean admin;
 
     public User() {
         this.address = new Address();
@@ -108,19 +106,12 @@ public class User {
     public void setIsDisabled(boolean isDisabled) {
         this.isDisabled = isDisabled;
     }
-    
-    public javax.json.JsonObject toJSON() {
-        JsonObject jo = Json.createObjectBuilder()
-                .add("username", username)
-                .add("password", password)
-                .add("firstName", firstName)
-                .add("lastName", lastName)
-                .add("email", email)
-                .add("phone", phoneNumber)
-                .add("emergencyPhone", emergencyPhone)
-                .add("emergencyName", emergencyName)
-                .add("address", address.toJSON())
-                .build();
-        return jo;
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }

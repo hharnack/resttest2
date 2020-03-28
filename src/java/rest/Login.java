@@ -6,9 +6,7 @@ import javax.json.stream.JsonParser;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
 import services.AccountService;
 import services.JWT;
 
@@ -23,15 +21,6 @@ import services.JWT;
  */
 @Path("login")
 public class Login {
-
-    /**
-     * Creates a new instance of CheckAccount
-     */
-    public Login() {
-    }
-
-    @Context
-    private UriInfo context;
 
     /**
      * Retrieves representation of an instance of rest.CheckAccount
@@ -57,11 +46,12 @@ public class Login {
 
         AccountService as = new AccountService();
         
-        if (as.login(username,password)) {
-          return JWT.createJWT(username, 86400000);
+        // Add isadmin boolean to token
+        if (as.login(username, password)) {
+            return JWT.createJWT(username, 86400000);
         } else {
             return null;
         }
- 
+
     }
 }

@@ -6,6 +6,7 @@
 package services;
 
 import database.UserDB;
+import java.util.ArrayList;
 import models.Address;
 import models.User;
 
@@ -58,4 +59,11 @@ public class AccountService {
         return udb.getUserAddress(username);
     }
 
+    public boolean delete(String username) {
+        return udb.deleteUser(username) > 0;
+    }
+    
+    public ArrayList<User> getUsers() {
+        return udb.getUsers();
+    }
 }

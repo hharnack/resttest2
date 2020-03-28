@@ -30,19 +30,36 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(filters.NewCrossOriginResourceSharingFilter.class);
+        resources.add(rest.ApproveTestimonial.class);
         resources.add(rest.Base.class);
+        resources.add(rest.BookBoarding.class);
+        resources.add(rest.BookDaycare.class);
+        resources.add(rest.BookTraining.class);
+        resources.add(rest.CalculateCost.class);
         resources.add(rest.ChangePassword.class);
         resources.add(rest.CheckAccount.class);
         resources.add(rest.CheckEditCustomer.class);
+        resources.add(rest.DeleteAccount.class);
+        resources.add(rest.DeleteDog.class);
+        resources.add(rest.DeleteTestimonial.class);
+        resources.add(rest.EditBoarding.class);
+        resources.add(rest.EditDaycare.class);
+        resources.add(rest.EditTraining.class);
+        resources.add(rest.GetAllAppointments.class);
+        resources.add(rest.GetAppointments.class);
         resources.add(rest.GetDog.class);
+        resources.add(rest.GetDogs.class);
         resources.add(rest.Login.class);
         resources.add(rest.RegisterAccount.class);
         resources.add(rest.RegisterDog.class);
         resources.add(rest.RetrieveDogs.class);
         resources.add(rest.RetrieveUser.class);
+        resources.add(rest.RetrieveUsers.class);
+        resources.add(rest.SubmitTestimonial.class);
+        resources.add(rest.TestimonialsApproved.class);
+        resources.add(rest.TestimonialsPending.class);
         resources.add(rest.UpdateAccount.class);
         resources.add(rest.UpdateDog.class);
-        resources.add(rest.registerBoarding.class);
     }
     
 }

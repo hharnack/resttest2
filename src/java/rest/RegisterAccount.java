@@ -7,18 +7,10 @@ package rest;
  */
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.StringReader;
-import javax.json.Json;
-import javax.json.stream.JsonParser;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
-import models.Dog;
 import models.User;
 import services.AccountService;
 
@@ -28,29 +20,7 @@ import services.AccountService;
  */
 @Path("register")
 public class RegisterAccount {
-
-    /**
-     * Creates a new instance of RegisterAccount
-     */
-    public RegisterAccount() {
-    }
-
-    @Context
-    private UriInfo context;
-
-    /**
-     * Retrieves representation of an instance of rest.RegisterAccountV2
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        //throw new UnsupportedOperationException();
-        return "Boo";
-    }
-
+    
     /**
      * PUT method for updating or creating an instance of RegisterAccountV2
      *

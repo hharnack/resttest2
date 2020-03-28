@@ -14,11 +14,12 @@ CREATE TABLE users (
     EMERGENCY_PHONE VARCHAR(10) NOT NULL,
     EMERGENCY_NAME VARCHAR(40) NOT NULL,
     ISACTIVE BOOLEAN NOT NULL,
-    ISDISABLED BOOLEAN NOT NULL
+    ISDISABLED BOOLEAN NOT NULL,
+    ISADMIN BOOLEAN NOT NULL
 );
 
 INSERT INTO users
-VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false);
+VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false, true);
 
 -- user_address table
 CREATE TABLE user_address (
@@ -38,30 +39,6 @@ REFERENCES users (USERNAME);
 INSERT INTO user_address
 VALUES ('admin', '111a', '123b', 'Senator Burns', 'Calgary', 'Alberta', 'A1A1A1');
 
--- account_type table, never inserted into
-CREATE TABLE account_type (
-    USER_TYPE TINYINT PRIMARY KEY,
-    DESCRIPTION VARCHAR(10) NOT NULL
-);
-
-INSERT INTO account_type
-VALUES (1, 'Admin');
-
-INSERT INTO account_type
-VALUES (2, 'Customer');
-
--- account_type to users bridge table
-CREATE TABLE user_accttype (
-    USERNAME VARCHAR(20),
-    USER_TYPE TINYINT,
-    PRIMARY KEY (USERNAME, USER_TYPE),
-    FOREIGN KEY (USERNAME) REFERENCES users (USERNAME),
-    FOREIGN KEY (USER_TYPE) REFERENCES account_type (USER_TYPE)
-);
-
-INSERT INTO user_accttype
-VALUES ('admin', 1);
-
 -- dogs table
 CREATE TABLE dogs (
     PET_ID INT AUTO_INCREMENT PRIMARY KEY,
@@ -76,13 +53,18 @@ CREATE TABLE dogs (
     LARGE_FRIENDLY BOOLEAN,
     SMALL_FRIENDLY BOOLEAN,
     PUPPY_FRIENDLY BOOLEAN,
-    PHYS_LIMIT VARCHAR(50),
+    PHYS_LIMIT VARCHAR(100),
     PHOTO_PATH VARCHAR(20),
+    ISACTIVE BOOLEAN,
+    TRAINING_DONE BOOLEAN,
     FOREIGN KEY (OWNER) REFERENCES users(USERNAME)
 );
 
-INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH)
-VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2019-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', '1.png');
+INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH, ISACTIVE, TRAINING_DONE)
+VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2018-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', '1.png', true, false);
+
+INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH, ISACTIVE, TRAINING_DONE)
+VALUES ('Sparky', 'admin' ,'Corgi', 4.20, '2018-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', '2.png', true, false);
 
 -- dogs_allergy table
 CREATE TABLE dogs_allergy (
@@ -93,7 +75,8 @@ CREATE TABLE dogs_allergy (
 
 INSERT INTO dogs_allergy
 VALUES (1, 'Coffee');
-
+INSERT INTO dogs_allergy
+VALUES (2, 'Tea');
 -- dogs_vaccine table
 CREATE TABLE dogs_vaccines (
     PET_ID INT PRIMARY KEY,
@@ -106,6 +89,8 @@ CREATE TABLE dogs_vaccines (
 INSERT INTO dogs_vaccines (PET_ID, DA2PP, RABIES, BORDETELLA)
 VALUES (1, '2020-01-01', '2023-12-25', '2021-01-01');
 
+INSERT INTO dogs_vaccines (PET_ID, DA2PP, RABIES, BORDETELLA)
+VALUES (2, '2020-01-01', '2023-12-25', '2021-01-01');
 -- dogs_medication table
 CREATE TABLE dogs_medication (
     PET_ID INT PRIMARY KEY,
@@ -116,39 +101,59 @@ CREATE TABLE dogs_medication (
 INSERT INTO dogs_medication
 VALUES (1, 'Advil');
 
+INSERT INTO dogs_medication
+VALUES (2, 'kikaine');
+
+--boarding
+    CREATE TABLE BOARDING(
+    BOARDING_ID INT PRIMARY KEY,
+    GROOMING BOOLEAN
+    );
+--training
+    CREATE TABLE TRAINING(
+    TRAINING_ID int primary key,
+    BARKING BOOLEAN,
+    CHEWINGDESTRUCTION BOOLEAN,
+    COUNTERSURFING BOOLEAN,
+    DIGGING BOOLEAN,
+    JUMPING BOOLEAN,
+    PULLINGONLEASH BOOLEAN,
+    BUILDINGCONFIDENCE BOOLEAN,
+    CHEWING BOOLEAN,
+    HANDLING BOOLEAN,
+    HOUSETRAINING BOOLEAN,
+    MOUTHING BOOLEAN,
+    SOCIALIZATION BOOLEAN,
+    CHILDRENANDDOGS BOOLEAN,
+    DISTRACTIONSTRATEGIES BOOLEAN,
+    EXERCISE BOOLEAN,
+    FOCUSSTRATEGIES BOOLEAN,
+    LOOSELEASHWALKING BOOLEAN,
+    MATWORK BOOLEAN,
+    PLAY BOOLEAN,
+    STEALINGITEMSCHASEGAME BOOLEAN,
+    NEWHOUSEHOLDMEMBERS BOOLEAN,
+    NEWBABY BOOLEAN,
+    NEWCAT BOOLEAN,
+    NEWDOG BOOLEAN,
+    NEWHOME BOOLEAN,
+    NEWSIGNIFICANTOTHER BOOLEAN
+    );
 -- appointments table
 CREATE TABLE appointments (
     APPT_ID INT AUTO_INCREMENT PRIMARY KEY,
-    DATE_START DATETIME,
-    DATE_END DATETIME,
+    Dog_id VARCHAR(10),
+    USERNAME VARCHAR(20),
+    TYPE VARCHAR(10),
+    DATE_START varchar(20),
+    DATE_END varchar(20),
     TOTAL_COST DECIMAL(7, 2),
     AMOUNT_PAID DECIMAL(7, 2),
-    ISAPPROVED BOOLEAN,
-    COMMENTS VARCHAR(100)
-);
-
--- users to appointments bridge table
-CREATE TABLE users_apppointments (
-    USERNAME VARCHAR(20),
-    APPT_ID INT,
-    PRIMARY KEY (USERNAME, APPT_ID),
-    FOREIGN KEY (USERNAME) REFERENCES users(USERNAME),
-    FOREIGN KEY (APPT_ID) REFERENCES appointments(APPT_ID)
-);
-
--- appointment_type table, never inserted into
-CREATE TABLE appointment_type (
-    APPT_TYPE TINYINT PRIMARY KEY,
-    APPT_DESC VARCHAR(20)
-);
-
--- appointment to appointment_type bridge table
-CREATE TABLE appt_appttype (
-    APPT_ID INT,
-    APPT_TYPE TINYINT,
-    PRIMARY KEY (APPT_ID, APPT_TYPE),
-    FOREIGN KEY (APPT_ID) REFERENCES appointments(APPT_ID),
-    FOREIGN KEY (APPT_TYPE) REFERENCES appointment_type(APPT_TYPE)
+    APPROVED BOOLEAN,
+    CANCELLED BOOLEAN,
+    ISPAID BOOLEAN,
+    COMMENTS VARCHAR(100),
+    FOREIGN KEY (USERNAME) REFERENCES USERS(USERNAME)
 );
 
 -- veterinarians table
@@ -161,5 +166,18 @@ CREATE TABLE veterinarians (
     FOREIGN KEY (PET_ID) REFERENCES dogs(PET_ID)
 );
 
+  INSERT INTO veterinarians (PET_ID, NAME, CLINIC, PHONE_NUMBER)
+  VALUES (1, 'Dr. Phil', 'The Dr.Phil Show', '4206912345');
+
+-- testimonials table
+CREATE TABLE testimonials (
+    TEST_ID INT AUTO_INCREMENT PRIMARY KEY,
+    USERNAME VARCHAR(20),
+    CONTENTS VARCHAR(500),
+    ISAPPROVED BOOLEAN
+);
+
+INSERT INTO testimonials (USERNAME, CONTENTS, ISAPPROVED)
+VALUES ('admin', 'five out of seven', false);
 
 COMMIT;
