@@ -38,7 +38,10 @@ public class RetrieveUsers {
         } catch (Exception e) {
             return null;
         }
-        // TODO add account type authentication
-        return new AccountService().getUsers();
+        if (claims.get("admin", Boolean.class)) {
+            return new AccountService().getUsers();
+        }
+        
+        return null;
     }
 }

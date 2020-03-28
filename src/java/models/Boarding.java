@@ -5,9 +5,6 @@
  */
 package models;
 
-import java.sql.Date;
-
-
 /**
  *
  * @author 640195

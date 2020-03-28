@@ -22,6 +22,7 @@ import services.JWT;
  */
 @Path("GetDogs")
 public class GetDogs {
+    
     @GET
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -32,6 +33,11 @@ public class GetDogs {
         } catch (Exception e) {
             return null;
         }
+        
+        if(claims.get("admin", Boolean.class)) {
+            return null;
+        }
+        
         // TODO add account type authentication
         return new DogService().getDogs();
     }

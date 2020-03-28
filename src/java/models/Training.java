@@ -5,9 +5,6 @@
  */
 package models;
 
-import java.sql.Date;
-import java.util.ArrayList;
-
 /**
  *
  * @author 640195

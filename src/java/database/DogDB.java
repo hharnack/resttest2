@@ -29,7 +29,7 @@ public class DogDB {
      * Queries the database to return the information of a dog with the
      * specified ID number
      *
-     * @param idNumber the ID of the dog
+     * @param petID the ID of the dog
      * @return a dog with the specified ID number
      */
     public Dog getDogByID(int petID) {

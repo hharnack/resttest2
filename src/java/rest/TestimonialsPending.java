@@ -33,7 +33,10 @@ public class TestimonialsPending {
         } catch (Exception e) {
             return null;
         }
-        // TODO add account authentication
-        return new TestimonialService().getPending();
+        if (claims.get("admin", Boolean.class)) {
+            return new TestimonialService().getPending();
+        }
+        
+        return null;
     }
 }

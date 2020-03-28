@@ -9,8 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.jsonwebtoken.Claims;
 import java.util.ArrayList;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,15 +25,6 @@ import services.JWT;
  */
 @Path("getappointments")
 public class GetAppointments {
-
-    @Context
-    private UriInfo context;
-
-    /**
-     * Creates a new instance of GetAppointments
-     */
-    public GetAppointments() {
-    }
 
     /**
      * Retrieves representation of an instance of rest.GetAppointments
