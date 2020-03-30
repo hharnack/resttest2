@@ -43,7 +43,7 @@ public class GetAllAppointments {
             return "Authentication Error: Bad Token";
         }
         
-        if (!claims.get("admin", Boolean.class)){
+        if (!claims.get("isAdmin", Boolean.class)){
             return "not admin";
         }
         
