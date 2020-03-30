@@ -12,6 +12,7 @@ import javax.json.Json;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import services.JWT;
 import services.TestimonialService;
@@ -24,24 +25,21 @@ import services.TestimonialService;
 public class DeleteTestimonial {
     
     @PUT
+    @Path("{token}/{testimonialID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String putJSON(String content) {
-        JsonParser parser = Json.createParser(new StringReader(content));
-        parser.next(); // START_OBJECT
-
-        parser.next(); // KEY_NAME
-        parser.next(); // VALUE_STRING
+    public String putJSON(@PathParam("token") String token, @PathParam("testimonialID") String testimonialID) {
+        
         Claims claims;
         try {
-            claims = JWT.decodeJWT(parser.getString());
+            claims = JWT.decodeJWT(token);
         } catch (Exception e) {
             return "Authentication error";
         }
-
-        parser.next(); // KEY_NAME
-        parser.next(); // VALUE_STRING
+        if (!claims.get("admin", Boolean.class)){
+            return "not admin";
+        }
         
-        if (new TestimonialService().disapprove(parser.getInt())) {
+        if (new TestimonialService().disapprove(Integer.parseInt(testimonialID))) {
             return "deleted";
         }
         

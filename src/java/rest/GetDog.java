@@ -23,9 +23,6 @@ import services.JWT;
 @Path("GetDog")
 public class GetDog {
 
-    public GetDog() {
-    }
-
     /**
      * Retrieves representation of an instance of rest.
      *

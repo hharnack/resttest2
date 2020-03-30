@@ -28,7 +28,7 @@ public class SubmitTestimonial {
     public String putJson(String contents) {
         Claims claims;
         try {
-            claims = JWT.decodeJWT(contents);
+            claims = JWT.decodeJWT(JWT.getToken(contents));
         } catch (Exception e) {
             return "Authentication error, bad token";
         }

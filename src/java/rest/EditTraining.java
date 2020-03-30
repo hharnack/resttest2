@@ -7,15 +7,10 @@ package rest;
 
 import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
-import models.Boarding;
 import models.Training;
 import services.AppointmentService;
 import services.JWT;
@@ -27,27 +22,6 @@ import services.JWT;
  */
 @Path("edittraining")
 public class EditTraining {
-
-    @Context
-    private UriInfo context;
-
-    /**
-     * Creates a new instance of EditTraining
-     */
-    public EditTraining() {
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.EditTraining
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public String getXml() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
 
     /**
      * PUT method for updating or creating an instance of EditTraining

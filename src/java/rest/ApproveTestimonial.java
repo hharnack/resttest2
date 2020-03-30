@@ -6,12 +6,10 @@
 package rest;
 
 import io.jsonwebtoken.Claims;
-import java.io.StringReader;
-import javax.json.Json;
-import javax.json.stream.JsonParser;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import services.JWT;
 import services.TestimonialService;
@@ -24,25 +22,21 @@ import services.TestimonialService;
 public class ApproveTestimonial {
     
     @PUT
+    @Path("{token}/{testimonialID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String putJson(String contents) {
-        JsonParser parser = Json.createParser(new StringReader(contents));
-
-        parser.next(); // START_OBJECT
-
-        parser.next(); // KEY_NAME
-        parser.next(); // VALUE_STRING
+    public String putJson(@PathParam("token") String token, @PathParam("testimonialID") String testimonialID) {
         Claims claims;
         try {
-            claims = JWT.decodeJWT(parser.getString());
+            claims = JWT.decodeJWT(token);
         } catch (Exception e) {
             return "Authentication error, bad token";
         }
         
-        parser.next(); // KEY_NAME
-        parser.next(); // VALUE_STRING
-        
-        if (new TestimonialService().approve(parser.getInt())) {
+        if (!claims.get("admin", Boolean.class)) {
+            return "not admin";
+        }
+    
+        if (new TestimonialService().approve(Integer.parseInt(testimonialID))) {
             return "yes";
         }
         
