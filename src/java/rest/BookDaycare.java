@@ -43,7 +43,12 @@ public class BookDaycare {
         //create appointment object from json
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         Daycare dAppt = gson.fromJson(content, Daycare.class);
-        dAppt.setUsername(claims.get("username", String.class));
+        if(claims.get("isAdmin", Boolean.class) == true){
+               //keep GSON username
+        } else {
+            //change to token username
+             dAppt.setUsername(claims.get("username", String.class));
+        }
         dAppt.setType("daycare");
         AppointmentService as = new AppointmentService();
         if(as.insert(dAppt)){

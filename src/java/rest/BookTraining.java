@@ -44,7 +44,12 @@ public class BookTraining {
         //create appointment object from json
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         Training tAppt = gson.fromJson(content, Training.class);
-        tAppt.setUsername(claims.get("username", String.class));
+        if(claims.get("isAdmin", Boolean.class) == true){
+               //keep GSON username
+        } else {
+            //change to token username
+             tAppt.setUsername(claims.get("username", String.class));
+        }
         tAppt.setType("training");
         AppointmentService as = new AppointmentService();
         if(as.insert(tAppt)){

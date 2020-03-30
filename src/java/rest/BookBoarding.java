@@ -44,7 +44,12 @@ public class BookBoarding {
         Boarding bAppt = gson.fromJson(content, Boarding.class);
         bAppt.setAmountPaid(0);
         bAppt.setType("boarding");
-        bAppt.setUsername(claims.get("username", String.class));
+        if(claims.get("isAdmin", Boolean.class) == true){
+               //keep GSON username
+        } else {
+            //change to token username
+             bAppt.setUsername(claims.get("username", String.class));
+        }
         AppointmentService as = new AppointmentService();
         if(as.insert(bAppt)){
             return "Successfully added appointment";
