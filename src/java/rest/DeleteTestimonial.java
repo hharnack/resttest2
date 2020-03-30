@@ -5,10 +5,7 @@
  */
 package rest;
 
-import javax.json.stream.JsonParser;
 import io.jsonwebtoken.Claims;
-import java.io.StringReader;
-import javax.json.Json;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;

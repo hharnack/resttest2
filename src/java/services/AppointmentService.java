@@ -18,7 +18,7 @@ import models.Training;
  */
 public class AppointmentService {
 
-    AppointmentDB adb;
+    private AppointmentDB adb;
 
     public AppointmentService() {
         adb = new AppointmentDB();
