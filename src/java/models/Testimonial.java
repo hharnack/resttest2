@@ -13,16 +13,16 @@ public class Testimonial {
 
     private int id;
     private String username;
-    private String content;
+    private String contents;
     private boolean approved;
 
     public Testimonial() {
     }
 
-    public Testimonial(int id, String username, String content, boolean approved) {
+    public Testimonial(int id, String username, String contents, boolean approved) {
         this.id = id;
         this.username = username;
-        this.content = content;
+        this.contents = contents;
         this.approved = approved;
     }
 
@@ -43,11 +43,11 @@ public class Testimonial {
     }
 
     public String getContent() {
-        return content;
+        return contents;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContent(String contents) {
+        this.contents = contents;
     }
 
     public boolean isApproved() {
