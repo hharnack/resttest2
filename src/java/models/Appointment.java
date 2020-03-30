@@ -23,7 +23,18 @@ public class Appointment {
     String type;
     String additionalComments;
     String dogNames;
+    boolean deleted;
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+
+    
     public String getDogNames() {
         return dogNames;
     }

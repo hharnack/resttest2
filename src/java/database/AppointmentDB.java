@@ -27,7 +27,7 @@ public class AppointmentDB {
     public boolean insert(Boarding bAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid, approved, cancelled, ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid, approved, cancelled, ispaid,comments, deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
         String queryBoarding = "INSERT INTO BOARDING(BOARDING_ID,GROOMING) VALUES(?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment, Statement.RETURN_GENERATED_KEYS);
@@ -68,7 +68,7 @@ public class AppointmentDB {
     public boolean insert(Training tAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid,approved,cancelled,ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid,approved,cancelled,ispaid,comments, deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
         String queryTraining = "INSERT INTO training(TRAINING_ID,BARKING,CHEWINGDESTRUCTION,"
                 + "COUNTERSURFING,DIGGING,JUMPING,PULLINGONLEASH,BUILDINGCONFIDENCE,CHEWING,"
                 + "HANDLING,HOUSETRAINING,MOUTHING,SOCIALIZATION,CHILDRENANDDOGS,DISTRACTIONSTRATEGIES,"
@@ -139,7 +139,7 @@ public class AppointmentDB {
     public boolean insert(Daycare dAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid,approved,cancelled,ispaid,comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid,approved,cancelled,ispaid,comments, deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, dAppt.getDogIdNumber());
@@ -191,6 +191,7 @@ public class AppointmentDB {
                 appt.setIsCancelled(rs.getBoolean("CANCELLED"));
                 appt.setIsPaid(rs.getBoolean("ISPAID"));
                 appt.setAdditionalComments(rs.getString("COMMENTS"));
+                appt.setDeleted(rs.getBoolean("DELETED"));
                 if (appt.getType().equals("daycare")) {
                     aList.add(appt);
                 } else if (appt.getType().equals("training")) {
@@ -279,7 +280,7 @@ public class AppointmentDB {
     public boolean update(Boarding bAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "UPDATE APPOINTMENTS SET DOG_ID = ?, USERNAME = ?, type = ?, date_start = ?, date_end = ?, total_cost = ?, amount_paid = ?, approved = ?, cancelled = ?, ispaid = ?, comments=? WHERE APPT_ID = ?";
+        String queryAppointment = "UPDATE APPOINTMENTS SET DOG_ID = ?, USERNAME = ?, type = ?, date_start = ?, date_end = ?, total_cost = ?, amount_paid = ?, approved = ?, cancelled = ?, ispaid = ?, comments=?. deleted=? WHERE APPT_ID = ?";
         String queryBoarding = "UPDATE BOARDING SET GROOMING=? WHERE BOARDING_ID = ?";
         try {
             PreparedStatement ps = connection.prepareCall(queryAppointment);
@@ -294,7 +295,9 @@ public class AppointmentDB {
             ps.setBoolean(9, bAppt.isCancelled());
             ps.setBoolean(10, bAppt.isPaid());
             ps.setString(11, bAppt.getAdditionalComments());
-            ps.setInt(12, bAppt.getIdNumber());
+            ps.setBoolean(12, bAppt.isDeleted());
+            ps.setInt(13, bAppt.getIdNumber());
+            
             if (ps.executeUpdate() != 0) {
                 ps = connection.prepareCall(queryBoarding);
                 ps.setBoolean(1, bAppt.isGrooming());
@@ -316,7 +319,7 @@ public class AppointmentDB {
     public Boolean update(Training tAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "UPDATE APPOINTMENTS SET DOG_ID = ?, USERNAME = ?, type = ?, date_start = ?, date_end = ?, total_cost = ?, amount_paid = ?, approved = ?, cancelled = ?, ispaid = ?, comments=? WHERE APPT_ID = ?";
+        String queryAppointment = "UPDATE APPOINTMENTS SET DOG_ID = ?, USERNAME = ?, type = ?, date_start = ?, date_end = ?, total_cost = ?, amount_paid = ?, approved = ?, cancelled = ?, ispaid = ?, comments=?, deleted=? WHERE APPT_ID = ?";
         String queryTraining = "UPDATE Training SET barking=?, chewingdestruction=?,countersurfing=?,digging=?,jumping=?,pullingonleash=?,buildingconfidence=?,chewing=?,handling=?,housetraining=?,mouthing=?,socialization=?,childrenanddogs=?,distractionstrategies=?,exercise=?,focusstrategies=?,looseleashwalking=?,matwork=?,play=?,stealingitemschasegame=?,newhouseholdmembers=?,newbaby=?,newcat=?,newdog=?,newhome=?,newsignificantother=? WHERE Training_ID = ?";
         try {
             PreparedStatement ps = connection.prepareCall(queryAppointment);
@@ -331,7 +334,8 @@ public class AppointmentDB {
             ps.setBoolean(9, tAppt.isCancelled());
             ps.setBoolean(10, tAppt.isPaid());
             ps.setString(11, tAppt.getAdditionalComments());
-            ps.setInt(12, tAppt.getIdNumber());
+            ps.setBoolean(12, tAppt.isDeleted());
+            ps.setInt(13, tAppt.getIdNumber());
             if (ps.executeUpdate() != 0) {
                 ps = connection.prepareCall(queryTraining);
                 ps.setBoolean(1, tAppt.isBarking());
@@ -397,6 +401,7 @@ public class AppointmentDB {
                 appt.setIsCancelled(rs.getBoolean("CANCELLED"));
                 appt.setIsPaid(rs.getBoolean("ISPAID"));
                 appt.setAdditionalComments(rs.getString("COMMENTS"));
+                appt.setDeleted(rs.getBoolean("deleted"));
                 if (appt.getType().equals("daycare")) {
                     aList.add(appt);
                 } else if (appt.getType().equals("training")) {
@@ -419,6 +424,7 @@ public class AppointmentDB {
                     train.setIsCancelled(appt.isCancelled());
                     train.setIsPaid(appt.isPaid());
                     train.setAdditionalComments(appt.getAdditionalComments());
+                    train.setDeleted(appt.isDeleted());
                     rst.next();
                     train.setBarking(rst.getBoolean("BARKING"));
                     train.setChewingDestruction(rst.getBoolean("CHEWINGDESTRUCTION"));
@@ -467,6 +473,7 @@ public class AppointmentDB {
                     board.setIsCancelled(appt.isCancelled());
                     board.setIsPaid(appt.isPaid());
                     board.setAdditionalComments(appt.getAdditionalComments());
+                    board.setDeleted(appt.isDeleted());
                     rsb.next();
                     board.setGrooming(rsb.getBoolean("GROOMING"));
                     aList.add(board);
@@ -485,7 +492,7 @@ public class AppointmentDB {
     public boolean update(Daycare dAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "UPDATE APPOINTMENTS SET DOG_ID = ?, USERNAME = ?, type = ?, date_start = ?, date_end = ?, total_cost = ?, amount_paid = ?, approved = ?, cancelled = ?, ispaid = ?, comments=? WHERE APPT_ID = ?";
+        String queryAppointment = "UPDATE APPOINTMENTS SET DOG_ID = ?, USERNAME = ?, type = ?, date_start = ?, date_end = ?, total_cost = ?, amount_paid = ?, approved = ?, cancelled = ?, ispaid = ?, comments=?, deleted=? WHERE APPT_ID = ?";
         try {
             PreparedStatement ps = connection.prepareCall(queryAppointment);
             ps.setString(1, dAppt.getDogIdNumber());
@@ -499,7 +506,8 @@ public class AppointmentDB {
             ps.setBoolean(9, dAppt.isCancelled());
             ps.setBoolean(10, dAppt.isPaid());
             ps.setString(11, dAppt.getAdditionalComments());
-            ps.setInt(12, dAppt.getIdNumber());
+            ps.setBoolean(12, dAppt.isDeleted());
+            ps.setInt(13, dAppt.getIdNumber());
 
             if (ps.executeUpdate() != 0) {
                 return true;

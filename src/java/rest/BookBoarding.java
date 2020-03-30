@@ -43,9 +43,6 @@ public class BookBoarding {
         Gson gson = new Gson();
         Boarding bAppt = gson.fromJson(content, Boarding.class);
         bAppt.setAmountPaid(0);
-        bAppt.setIsApproved(false);
-        bAppt.setIsCancelled(false);
-        bAppt.setIsPaid(false);
         bAppt.setType("boarding");
         bAppt.setUsername(claims.get("username", String.class));
         AppointmentService as = new AppointmentService();
