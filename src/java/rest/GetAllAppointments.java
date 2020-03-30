@@ -15,7 +15,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import models.Appointment;
+import models.Dog;
 import services.AppointmentService;
+import services.DogService;
 import services.JWT;
 
 /**
@@ -49,6 +51,21 @@ public class GetAllAppointments {
         
         AppointmentService as = new AppointmentService();
         ArrayList<Appointment> aList = as.getAllAppointments();
+        DogService ds = new DogService();
+        String dogNames = "";
+        for (int x = 0; x < aList.size(); x++) {
+            dogNames = "";
+            String[] id = aList.get(x).getDogIdNumber().split(",");
+            for (int i = 0; i < id.length; i++) {
+                if (i != 0) {
+                    dogNames += ",";
+                }
+                Dog dog = ds.getDogByID(Integer.parseInt(id[i]));
+                dogNames += dog.getName();
+                
+            }
+            aList.get(x).setDogNames(dogNames);
+        }
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         String gsonList = gson.toJson(aList);
         return gsonList;
