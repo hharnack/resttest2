@@ -34,6 +34,7 @@ public class SubmitTestimonial {
         }
         Gson gson = new GsonBuilder().create();
         Testimonial testimonial = gson.fromJson(contents, Testimonial.class);
+        testimonial.setUsername(claims.get("username", String.class));
         if (new TestimonialService().insert(testimonial)) {
             return "yes";
         }

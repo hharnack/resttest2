@@ -34,7 +34,7 @@ public class GetDogs {
             return null;
         }
         
-        if(claims.get("admin", Boolean.class)) {
+        if(claims.get("isAdmin", Boolean.class)) {
             return null;
         }
         
