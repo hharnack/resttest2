@@ -38,7 +38,7 @@ public class RetrieveUsers {
         } catch (Exception e) {
             return null;
         }
-        if (claims.get("admin", Boolean.class)) {
+        if (claims.get("isAdmin", Boolean.class)) {
             return new AccountService().getUsers();
         }
         

@@ -30,7 +30,7 @@ public class TestimonialService {
     }
     
     public boolean disapprove(int id) {
-        return false;
+        return tdb.disapprove(id) > 0;
     }
     
     public ArrayList<Testimonial> getApproved() {

@@ -15,7 +15,7 @@ import models.Dog;
  */
 public class DogService {
     
-    DogDB ddb;
+    private DogDB ddb;
     
     public DogService() {
         ddb = new DogDB();

@@ -32,7 +32,7 @@ public class ApproveTestimonial {
             return "Authentication error, bad token";
         }
         
-        if (!claims.get("admin", Boolean.class)) {
+        if (!claims.get("isAdmin", Boolean.class)) {
             return "not admin";
         }
     

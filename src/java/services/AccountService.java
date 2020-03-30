@@ -16,17 +16,12 @@ import models.User;
  */
 public class AccountService {
 
-    UserDB udb;
+    private UserDB udb;
     
     public AccountService() {
         udb = new UserDB();
     }
 
-    /**
-     *
-     * @param username
-     * @return true if an account with the specified username exists
-     */
     public boolean checkUsername(String username) {
         return udb.checkUsername(username);
     }
