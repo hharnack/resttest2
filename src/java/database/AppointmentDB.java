@@ -43,6 +43,7 @@ public class AppointmentDB {
             ps.setBoolean(9, bAppt.isCancelled());
             ps.setBoolean(10, bAppt.isPaid());
             ps.setString(11, bAppt.getAdditionalComments());
+            ps.setBoolean(12, bAppt.isDeleted());
             if (ps.executeUpdate() != 0) {
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
@@ -89,6 +90,7 @@ public class AppointmentDB {
             ps.setBoolean(9, tAppt.isCancelled());
             ps.setBoolean(10, tAppt.isPaid());
             ps.setString(11, tAppt.getAdditionalComments());
+            ps.setBoolean(12, tAppt.isDeleted());
             if (ps.executeUpdate() != 0) {
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
@@ -153,7 +155,7 @@ public class AppointmentDB {
             ps.setBoolean(9, dAppt.isCancelled());
             ps.setBoolean(10, dAppt.isPaid());
             ps.setString(11, dAppt.getAdditionalComments());
-
+            ps.setBoolean(12, dAppt.isDeleted());
             if (ps.executeUpdate() != 0) {
                 return true;
             } else {
