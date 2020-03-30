@@ -34,11 +34,10 @@ public class GetDogs {
             return null;
         }
         
-        if(claims.get("isAdmin", Boolean.class)) {
+        if(!claims.get("isAdmin", Boolean.class)) {
             return null;
         }
         
-        // TODO add account type authentication
         return new DogService().getDogs();
     }
 }
