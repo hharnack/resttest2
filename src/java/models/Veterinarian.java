@@ -1,11 +1,8 @@
 package models;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-
 /**
  * 
- * @author 703174
+ * @author Hans Cabrera
  */
 public class Veterinarian {
 
@@ -54,13 +51,5 @@ public class Veterinarian {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public javax.json.JsonObject toJSON() {
-        // TODO
-        JsonObject jo = Json.createObjectBuilder()
-                .add("TODO", "Not Yet Implemented")
-                .build();
-        return jo;
     }
 }
