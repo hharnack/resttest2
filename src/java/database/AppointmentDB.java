@@ -524,4 +524,26 @@ public class AppointmentDB {
         }
         return false;
     }
+
+    public boolean delete(int id) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryAppointment = "UPDATE APPOINTMENTS SET DELETED = ? WHERE APPT_ID = ?";
+        PreparedStatement ps;
+        try {
+            ps = connection.prepareCall(queryAppointment);
+            ps.setBoolean(1, true);
+            ps.setInt(2, id);
+            if(ps.executeUpdate() != 0){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppointmentDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        return false;
+    }
 }

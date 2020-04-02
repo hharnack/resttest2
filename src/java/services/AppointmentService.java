@@ -55,4 +55,8 @@ public class AppointmentService {
     public boolean update(Daycare dAppt) {
         return adb.update(dAppt);
     }
+
+    public boolean delete(int id) {
+        return adb.delete(id);
+    }
 }
