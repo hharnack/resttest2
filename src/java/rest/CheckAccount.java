@@ -9,21 +9,19 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import services.AccountService;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author 703174
  */
 @Path("verify")
 public class CheckAccount {
+
     /**
-     * PUT method for updating or creating an instance of RegisterAccount
+     * API that allows for a user to check if an account under their desired
+     * username and password already exists.
      *
-     * @param content representation for the resource
+     * @param content JSON with the desired username, password, and email
+     * address.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
