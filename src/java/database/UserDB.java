@@ -186,7 +186,7 @@ public class UserDB {
     public ArrayList<User> getUsers() {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String query = "SELECT * FROM users";
+        String query = "SELECT * FROM users WHERE isactive = true";
 
         try {
             ResultSet rs = connection.prepareStatement(query).executeQuery();
@@ -202,6 +202,7 @@ public class UserDB {
                 user.setEmergencyName(rs.getString("emergency_name"));
                 user.setEmergencyPhone(rs.getString("emergency_phone"));
                 user.setIsActive(rs.getBoolean("isactive"));
+                user.setIsDisabled(rs.getBoolean("isdisabled"));
                 user.setAdmin(rs.getBoolean("isadmin"));
                 user.setAddress(getUserAddress(user.getUsername()));
                 users.add(user);
