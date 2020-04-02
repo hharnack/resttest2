@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rest;
 
 import io.jsonwebtoken.Claims;
@@ -18,16 +13,19 @@ import services.AccountService;
 import services.JWT;
 
 /**
+ * API that allows for a user to perform a soft delete on their account.
  *
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("deleteAccount")
 public class DeleteAccount {
+
     /**
-     * Retrieves representation of an instance of rest.
+     * API that allows for a user to perform a soft delete on their account.
      *
-     * @param content
-     * @return an instance of java.lang.String
+     * @param content JSON containing the username of the account to delete, and
+     * password for confirmation.
+     * @return A string of any errors or if the delete was successful.
      */
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
@@ -44,22 +42,22 @@ public class DeleteAccount {
         } catch (Exception e) {
             return "Authentication error";
         }
-        
+
         //username
         parser.next(); // KEY_NAME
         parser.next(); // VALUE_STRING
         String username = parser.getString();
-        
+
         // password
         parser.next();       // KEY_NAME
         parser.next();       // VALUE_STRING
         String passwordEntered = parser.getString();
-        
+
         AccountService as = new AccountService();
         User user = as.getUser(username);
         String currentPassword = user.getPassword();
-        
-        if (!passwordEntered.equals(currentPassword)){
+
+        if (!passwordEntered.equals(currentPassword)) {
             return "Password is incorrect";
         }
 

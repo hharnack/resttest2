@@ -31,7 +31,6 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(filters.NewCrossOriginResourceSharingFilter.class);
         resources.add(rest.ApproveTestimonial.class);
-        resources.add(rest.Base.class);
         resources.add(rest.BookBoarding.class);
         resources.add(rest.BookDaycare.class);
         resources.add(rest.BookTraining.class);

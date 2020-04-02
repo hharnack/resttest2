@@ -10,9 +10,23 @@ import java.util.logging.Logger;
 import models.Address;
 import models.User;
 
+/**
+ * This class contains all of the operations to manage data associated with user
+ * data.
+ *
+ * @author Hans Cabrera
+ */
 public class UserDB {
 
     //SELECT QUERIES
+    /**
+     * Queries the database to check if a login attempt is valid and the account
+     * is active.
+     *
+     * @param username The entered username.
+     * @param password The entered password.
+     * @return true if the login credentials match.
+     */
     public boolean login(String username, String password) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -34,12 +48,19 @@ public class UserDB {
         }
         return false;
     }
-    
+
+    /**
+     * Queries the database to check if the account is an administrative
+     * account.
+     *
+     * @param username The entered username.
+     * @return true if the account is of administrative type.
+     */
     public boolean checkAdmin(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "SELECT isadmin FROM users WHERE username = ?";
-        
+
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, username);
@@ -49,10 +70,16 @@ public class UserDB {
         } finally {
             pool.freeConnection(connection);
         }
-        
+
         return false;
     }
 
+    /**
+     * Queries the database to select a user based on the specified username.
+     *
+     * @param username The specified username.
+     * @return A user object.
+     */
     public User getUser(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -86,6 +113,14 @@ public class UserDB {
         return null;
     }
 
+    /**
+     * Queries the database to retrieve the user's address information. This
+     * method called by the getUser and getUsers methods to instantiate the
+     * Address object within the user class.
+     *
+     * @param username The username that is associated with the address.
+     * @return An address object.
+     */
     public Address getUserAddress(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -115,9 +150,11 @@ public class UserDB {
     }
 
     /**
+     * Queries the database to check if an account under the specified username
+     * already exists.
      *
-     * @param username
-     * @return true if the specified username is already in use
+     * @param username The username to check.
+     * @return true if the specified username is already in use.
      */
     public boolean checkUsername(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -140,6 +177,12 @@ public class UserDB {
         return false;
     }
 
+    /**
+     * Queries the database to return all user information, including users
+     * whose isactive column is set to false.
+     *
+     * @return A list of all users in the database.
+     */
     public ArrayList<User> getUsers() {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -172,10 +215,11 @@ public class UserDB {
         return null;
     }
 
-    //INSERT QUERIES
     /**
+     * Queries the database to check if an account under the specified email
+     * address already exists.
      *
-     * @param email
+     * @param email The email to check.
      * @return true if the specified email is already in use
      */
     public boolean checkEmail(String email) {
@@ -199,10 +243,12 @@ public class UserDB {
         return false;
     }
 
+    //INSERT QUERIES
     /**
+     * Queries the database to insert a new user.
      *
-     * @param user
-     * @return
+     * @param user A user object.
+     * @return The number of rows inserted, should only be 0 or 1.
      */
     public int insert(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -244,6 +290,12 @@ public class UserDB {
     }
 
     //UPDATE QUERIES
+    /**
+     * Queries the database to update user information.
+     *
+     * @param user A user object.
+     * @return The number of rows updated, should only be 0 or 1.
+     */
     public int updateUser(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -285,6 +337,13 @@ public class UserDB {
         return 0;
     }
 
+    /**
+     * Queries the database to change the password under the specified username.
+     *
+     * @param username The username of the password to change.
+     * @param password The new password.
+     * @return The number of rows updated, should only be 0 or 1.
+     */
     public int changePassword(String username, String password) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -302,13 +361,21 @@ public class UserDB {
         }
         return 0;
     }
-    
+
     //PSEUDO DELETE QUERIES
+    /**
+     * This method is used to perform a pseudo delete on a row in the database
+     * by setting the isactive column to false in the row where the specified
+     * username is given.
+     *
+     * @param username the username of the account to pseudo delete
+     * @return the number of rows update, should only ever be 0 or 1
+     */
     public int deleteUser(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "UPDATE users SET isactive = false WHERE username = ?";
-        
+
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, username);
@@ -318,7 +385,7 @@ public class UserDB {
         } finally {
             pool.freeConnection(connection);
         }
-        
+
         return 0;
     }
 }

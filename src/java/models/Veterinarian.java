@@ -3,6 +3,10 @@ package models;
 import javax.json.Json;
 import javax.json.JsonObject;
 
+/**
+ * 
+ * @author 703174
+ */
 public class Veterinarian {
 
     private int idNumber;

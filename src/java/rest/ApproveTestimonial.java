@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rest;
 
 import io.jsonwebtoken.Claims;
@@ -15,12 +10,20 @@ import services.JWT;
 import services.TestimonialService;
 
 /**
+ * API that allows for an administrator to approve a testimonial.
  *
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("ApproveTestimonial")
 public class ApproveTestimonial {
-    
+
+    /**
+     * API that allows for an administrator to approve a testimonial.
+     *
+     * @param token the token generated upon logging in.
+     * @param testimonialID the id number of the testimonial to approve.
+     * @return A string to indicate and token error, authentication error, a successful update, or unsuccessful update.
+     */
     @PUT
     @Path("{token}/{testimonialID}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -31,15 +34,15 @@ public class ApproveTestimonial {
         } catch (Exception e) {
             return "Authentication error, bad token";
         }
-        
+
         if (!claims.get("isAdmin", Boolean.class)) {
             return "not admin";
         }
-    
+
         if (new TestimonialService().approve(Integer.parseInt(testimonialID))) {
             return "yes";
         }
-        
+
         return "no";
     }
 }
