@@ -50,6 +50,9 @@ public class BookDaycare {
              dAppt.setUsername(claims.get("username", String.class));
         }
         dAppt.setType("daycare");
+        if (dAppt.getTotal() == dAppt.getAmountPaid()) {
+            dAppt.setIsPaid(true);
+        }
         AppointmentService as = new AppointmentService();
         if(as.insert(dAppt)){
             return "Succsessfully added appointment";

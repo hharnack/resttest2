@@ -51,6 +51,9 @@ public class BookTraining {
              tAppt.setUsername(claims.get("username", String.class));
         }
         tAppt.setType("training");
+        if (tAppt.getTotal() == tAppt.getAmountPaid()) {
+            tAppt.setIsPaid(true);
+        }
         AppointmentService as = new AppointmentService();
         if(as.insert(tAppt)){
             return "Successfully added appointment";
