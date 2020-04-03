@@ -168,7 +168,7 @@ public class AppointmentDB {
     public ArrayList<Appointment> getAppointmentsByUsername(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "SELECT * FROM appointments WHERE username = ?";
+        String queryAppointment = "SELECT * FROM appointments WHERE username = ? AND deleted = false";
         ArrayList<Appointment> aList = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment);
