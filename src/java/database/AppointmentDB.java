@@ -277,7 +277,7 @@ public class AppointmentDB {
     public boolean update(Boarding bAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "UPDATE APPOINTMENTS SET DOG_ID = ?, USERNAME = ?, type = ?, date_start = ?, date_end = ?, total_cost = ?, amount_paid = ?, approved = ?, cancelled = ?, ispaid = ?, comments=?. deleted=? WHERE APPT_ID = ?";
+        String queryAppointment = "UPDATE APPOINTMENTS SET DOG_ID = ?, USERNAME = ?, type = ?, date_start = ?, date_end = ?, total_cost = ?, amount_paid = ?, approved = ?, cancelled = ?, ispaid = ?, comments=?, deleted=? WHERE APPT_ID = ?";
         String queryBoarding = "UPDATE BOARDING SET GROOMING=? WHERE BOARDING_ID = ?";
         try {
             PreparedStatement ps = connection.prepareCall(queryAppointment);
