@@ -20,6 +20,7 @@ import models.Training;
 public class AppointmentDB {
 
     public boolean insert(Boarding bAppt) {
+        //System.out.println(bAppt.getAmountPaid());
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid, approved, cancelled, ispaid,comments, deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
