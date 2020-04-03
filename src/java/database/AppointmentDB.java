@@ -379,7 +379,7 @@ public class AppointmentDB {
     public ArrayList<Appointment> getAllAppointments() {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "SELECT * FROM appointments";
+        String queryAppointment = "SELECT * FROM appointments WHERE deleted = false";
         ArrayList<Appointment> aList = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment);
