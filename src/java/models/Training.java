@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
 /**
  *
  * @author 640195
  */
-public class Training extends Appointment{
+public class Training extends Appointment {
+
     boolean barking;
     boolean chewingDestruction;
     boolean counterSurfing;
@@ -70,7 +66,7 @@ public class Training extends Appointment{
     public Training() {
         super();
     }
-    
+
     public boolean isBarking() {
         return barking;
     }

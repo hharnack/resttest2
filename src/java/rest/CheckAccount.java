@@ -10,8 +10,10 @@ import javax.ws.rs.core.MediaType;
 import services.AccountService;
 
 /**
+ * API that allows for a user to check if an account under their desired
+ * username and password already exists.
  *
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("verify")
 public class CheckAccount {

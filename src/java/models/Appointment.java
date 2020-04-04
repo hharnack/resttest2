@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
 /**
@@ -10,6 +5,7 @@ package models;
  * @author 640195
  */
 public class Appointment {
+
     int idNumber;
     String dogIdNumber;
     String username;
@@ -33,8 +29,6 @@ public class Appointment {
         this.deleted = deleted;
     }
 
-
-    
     public String getDogNames() {
         return dogNames;
     }
@@ -42,10 +36,10 @@ public class Appointment {
     public void setDogNames(String dogNames) {
         this.dogNames = dogNames;
     }
-    
+
     public Appointment(int idNumber, String dogIdNumber, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String type, String additionalComments, String dogNames) {
         this.idNumber = idNumber;
-        this.dogIdNumber=dogIdNumber;
+        this.dogIdNumber = dogIdNumber;
         this.username = username;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -67,7 +61,6 @@ public class Appointment {
         this.type = type;
     }
 
-
     public Appointment() {
     }
 
@@ -78,8 +71,6 @@ public class Appointment {
     public void setDogIdNumber(String dogIdNumber) {
         this.dogIdNumber = dogIdNumber;
     }
-    
-
 
     public int getIdNumber() {
         return idNumber;
@@ -160,5 +151,5 @@ public class Appointment {
     public void setAdditionalComments(String additionalComments) {
         this.additionalComments = additionalComments;
     }
-       
+
 }

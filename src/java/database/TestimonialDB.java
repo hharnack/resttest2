@@ -31,7 +31,7 @@ public class TestimonialDB {
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, testimonial.getUsername());
-            ps.setString(2, testimonial.getContent());
+            ps.setString(2, testimonial.getContents());
             ps.setBoolean(3, false);
             return ps.executeUpdate();
         } catch (SQLException ex) {
