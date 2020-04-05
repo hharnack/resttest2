@@ -17,7 +17,8 @@ import services.JWT;
 import services.TestimonialService;
 
 /**
- *
+ * API that allows for a user to submit their testimonial to the website
+ * 
  * @author 703174
  */
 @Path("SubmitTestimonial")
