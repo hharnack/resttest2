@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import database.AppointmentDB;
@@ -13,12 +8,14 @@ import models.Daycare;
 import models.Training;
 
 /**
+ * This class is used to allow the RESTful API classes to access the database
+ * and tables that are associated with appointment information.
  *
  * @author 640195
  */
 public class AppointmentService {
 
-    private AppointmentDB adb;
+    private final AppointmentDB adb;
 
     public AppointmentService() {
         adb = new AppointmentDB();
