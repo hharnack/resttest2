@@ -17,7 +17,8 @@ import services.AccountService;
 import services.JWT;
 
 /**
- *
+ * API that allows for updating the users accounts
+ * 
  * @author 703174
  */
 @Path("update")
