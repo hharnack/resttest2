@@ -18,7 +18,8 @@ import services.DogService;
 import services.JWT;
 
 /**
- *
+ * API that allows for a user to register a new dog under their account
+ * 
  * @author 703174
  */
 @Path("registerDog")
