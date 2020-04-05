@@ -16,7 +16,7 @@ import services.DogService;
 import services.JWT;
 
 /**
- *
+ * REST Web Service
  *
  * @author 703174
  */
