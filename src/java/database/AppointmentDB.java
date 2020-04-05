@@ -1,3 +1,6 @@
+/**
+ * database access package
+ */
 package database;
 
 import java.sql.Connection;
@@ -14,13 +17,18 @@ import models.Daycare;
 import models.Training;
 
 /**
- *
- * @author 640195
+ *  Database broker class for appointments
+ * @author 640195 Carsen Johns
+ * 
  */
 public class AppointmentDB {
 
+    /**
+     * inserts a boarding appointment
+     * @param bAppt
+     * @return boolean
+     */
     public boolean insert(Boarding bAppt) {
-        //System.out.println(bAppt.getAmountPaid());
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String queryAppointment = "INSERT INTO appointments(dog_id, username, type, date_start,date_end,total_cost,amount_paid, approved, cancelled, ispaid,comments, deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
@@ -62,6 +70,11 @@ public class AppointmentDB {
         return false;
     }
 
+    /**
+     * inserts a training appointment
+     * @param tAppt
+     * @return boolean
+     */
     public boolean insert(Training tAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -134,6 +147,11 @@ public class AppointmentDB {
 
     }
 
+    /**
+     *inserts a daycare appointment
+     * @param dAppt
+     * @return boolean
+     */
     public boolean insert(Daycare dAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -166,6 +184,11 @@ public class AppointmentDB {
         return false;
     }
 
+    /**
+     *gets all appointments by username
+     * @param username
+     * @return aList array list of appointments found
+     */
     public ArrayList<Appointment> getAppointmentsByUsername(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -275,6 +298,11 @@ public class AppointmentDB {
         return aList;
     }
 
+    /**
+     * updates a boarding appointment
+     * @param bAppt
+     * @return boolean
+     */
     public boolean update(Boarding bAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -314,6 +342,11 @@ public class AppointmentDB {
         return false;
     }
 
+    /**
+     *updates a training appointment
+     * @param tAppt
+     * @return boolean
+     */
     public Boolean update(Training tAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -377,6 +410,10 @@ public class AppointmentDB {
         return false;
     }
 
+    /**
+     * gets all appointments in the database, used by the admin
+     * @return aList array list of appointments
+     */
     public ArrayList<Appointment> getAllAppointments() {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -487,6 +524,11 @@ public class AppointmentDB {
         return aList;
     }
 
+    /**
+     * update a daycare appointment
+     * @param dAppt
+     * @return boolean
+     */
     public boolean update(Daycare dAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -521,6 +563,11 @@ public class AppointmentDB {
         return false;
     }
 
+    /**
+     * soft deletes an appointment by ID
+     * @param id
+     * @return boolean
+     */
     public boolean delete(int id) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
