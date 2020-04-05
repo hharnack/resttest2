@@ -17,6 +17,8 @@ import services.JWT;
 
 /**
  *
+ * API that allows to retrieve the user information
+ * 
  * @author 703174
  */
 @Path("RetrieveUser")
