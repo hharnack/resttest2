@@ -15,7 +15,8 @@ import models.User;
 import services.AccountService;
 
 /**
- *
+ * API that allows for a user to register their account
+ * 
  * @author 703174
  */
 @Path("register")
