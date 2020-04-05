@@ -14,7 +14,8 @@ import models.Testimonial;
 import services.TestimonialService;
 
 /**
- *
+ * API that allows for a admin to approve the submitted testimonial
+ * 
  * @author 703174
  */
 @Path("Testimonials")
