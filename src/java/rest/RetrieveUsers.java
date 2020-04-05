@@ -17,7 +17,8 @@ import services.AccountService;
 import services.JWT;
 
 /**
- *
+ * API that allows to retrive the information about all the users of the system
+ * 
  * @author 703174
  */
 @Path("RetrieveUsers")
