@@ -11,8 +11,10 @@ import java.util.logging.Logger;
 import models.Testimonial;
 
 /**
+ * This class is used to perform all queries required by the system to manage
+ * all information regarding testimonials.
  *
- * @author 703174
+ * @author Hans Cabrera
  */
 public class TestimonialDB {
 

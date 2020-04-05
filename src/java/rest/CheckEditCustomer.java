@@ -24,7 +24,7 @@ public class CheckEditCustomer {
      * API that checks for user credentials before allowing any edits.
      *
      * @param content JSON containing user information.
-     * @return A string containing the type of error if the change was
+     * @return A string containing the type of error or if the change was
      * successful.
      */
     @PUT

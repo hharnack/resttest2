@@ -24,6 +24,8 @@ public class CheckAccount {
      *
      * @param content JSON with the desired username, password, and email
      * address.
+     * @return A string containing details of any error or if the check was
+     * successful.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

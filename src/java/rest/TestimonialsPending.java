@@ -12,12 +12,21 @@ import services.JWT;
 import services.TestimonialService;
 
 /**
+ * API that allows and administrator to retrieve all pending testimonials from
+ * the database.
  *
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("PendingTestimonials")
 public class TestimonialsPending {
-    
+
+    /**
+     * API that allows and administrator to retrieve all pending testimonials
+     * from the database.
+     *
+     * @param token The authentication token created on login.
+     * @return A list of all pending testimonials.
+     */
     @GET
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -31,7 +40,7 @@ public class TestimonialsPending {
         if (claims.get("isAdmin", Boolean.class)) {
             return new TestimonialService().getPending();
         }
-        
+
         return null;
     }
 }

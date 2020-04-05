@@ -22,7 +22,7 @@ public class ApproveTestimonial {
      *
      * @param token the token generated upon logging in.
      * @param testimonialID the id number of the testimonial to approve.
-     * @return A string to indicate and token error, authentication error, a successful update, or unsuccessful update.
+     * @return A string to indicate any token error, authentication error, a successful update, or unsuccessful update.
      */
     @PUT
     @Path("{token}/{testimonialID}")

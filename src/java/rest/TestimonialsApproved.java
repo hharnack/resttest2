@@ -9,15 +9,18 @@ import models.Testimonial;
 import services.TestimonialService;
 
 /**
+ * API that allows for retrieving all approved testimonials from the database.
  *
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("Testimonials")
 public class TestimonialsApproved {
 
     /**
-     * 
-     * @return all approved testimonials
+     * API that allows for retrieving all approved testimonials from the
+     * database.
+     *
+     * @return A list of all approved testimonials.
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

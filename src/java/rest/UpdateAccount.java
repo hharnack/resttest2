@@ -12,16 +12,20 @@ import services.AccountService;
 import services.JWT;
 
 /**
+ * API that allows a user to update their account information.
  *
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("update")
 public class UpdateAccount {
+
     /**
-     * PUT method for updating or creating an instance of
+     * API that allows a user to update their account information.
      *
-     * @param content representation for the resource
-     * @return
+     * @param content JSON containing an authentication token and updated user
+     * information.
+     * @return A string containing details of any error or if the update was
+     * successful.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

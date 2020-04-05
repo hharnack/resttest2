@@ -12,13 +12,21 @@ import services.JWT;
 import models.Dog;
 
 /**
- * REST Web Service
+ * API that allows a user to retrieve all dogs that belong to that user fromm
+ * the database.
  *
- * @author 769217
+ * @author Hans Cabrera
  */
 @Path("RetrieveDogs")
 public class RetrieveDogs {
 
+    /**
+     * API that allows a user to retrieve all dogs that belong to that user
+     * fromm the database.
+     *
+     * @param token the authentication token created on login.
+     * @return A list of all the dogs that belong to the requesting user.
+     */
     @GET
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)

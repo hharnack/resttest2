@@ -12,16 +12,18 @@ import services.AccountService;
 import services.JWT;
 
 /**
+ * API that allows an administrator to retrieve all users from the database.
  *
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("RetrieveUsers")
 public class RetrieveUsers {
+
     /**
-     * Retrieves representation of an instance of rest.
+     * API that allows an administrator to retrieve all users from the database.
      *
-     * @param token
-     * @return an instance of java.lang.String
+     * @param token The authentication token created on login.
+     * @return A list of all users in the database.
      */
     @GET
     @Path("{token}")
@@ -36,7 +38,7 @@ public class RetrieveUsers {
         if (claims.get("isAdmin", Boolean.class)) {
             return new AccountService().getUsers();
         }
-        
+
         return null;
     }
 }
