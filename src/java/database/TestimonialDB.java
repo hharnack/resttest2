@@ -11,7 +11,9 @@ import java.util.logging.Logger;
 import models.Testimonial;
 
 /**
- *
+ * This class contains all of the operations to manage data associated with testimonials
+ * data.
+ * 
  * @author 703174
  */
 public class TestimonialDB {
