@@ -17,7 +17,8 @@ import services.JWT;
 import services.TestimonialService;
 
 /**
- *
+ * API that for the pending testimonials
+ * 
  * @author 703174
  */
 @Path("PendingTestimonials")
