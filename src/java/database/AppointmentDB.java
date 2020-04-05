@@ -34,9 +34,9 @@ public class AppointmentDB {
             ps.setString(5, bAppt.getEndTime());
             ps.setDouble(6, bAppt.getTotal());
             ps.setDouble(7, bAppt.getAmountPaid());
-            ps.setBoolean(8, bAppt.IsApproved());
-            ps.setBoolean(9, bAppt.isCancelled());
-            ps.setBoolean(10, bAppt.isPaid());
+            ps.setBoolean(8, bAppt.isIsApproved());
+            ps.setBoolean(9, bAppt.isIsCancelled());
+            ps.setBoolean(10, bAppt.isIsPaid());
             ps.setString(11, bAppt.getAdditionalComments());
             ps.setBoolean(12, bAppt.isDeleted());
             if (ps.executeUpdate() != 0) {
@@ -81,9 +81,9 @@ public class AppointmentDB {
             ps.setString(5, tAppt.getEndTime());
             ps.setDouble(6, tAppt.getTotal());
             ps.setDouble(7, tAppt.getAmountPaid());
-            ps.setBoolean(8, tAppt.IsApproved());
-            ps.setBoolean(9, tAppt.isCancelled());
-            ps.setBoolean(10, tAppt.isPaid());
+            ps.setBoolean(8, tAppt.isIsApproved());
+            ps.setBoolean(9, tAppt.isIsCancelled());
+            ps.setBoolean(10, tAppt.isIsPaid());
             ps.setString(11, tAppt.getAdditionalComments());
             ps.setBoolean(12, tAppt.isDeleted());
             if (ps.executeUpdate() != 0) {
@@ -146,9 +146,9 @@ public class AppointmentDB {
             ps.setString(5, dAppt.getEndTime());
             ps.setDouble(6, dAppt.getTotal());
             ps.setDouble(7, dAppt.getAmountPaid());
-            ps.setBoolean(8, dAppt.IsApproved());
-            ps.setBoolean(9, dAppt.isCancelled());
-            ps.setBoolean(10, dAppt.isPaid());
+            ps.setBoolean(8, dAppt.isIsApproved());
+            ps.setBoolean(9, dAppt.isIsCancelled());
+            ps.setBoolean(10, dAppt.isIsPaid());
             ps.setString(11, dAppt.getAdditionalComments());
             ps.setBoolean(12, dAppt.isDeleted());
             if (ps.executeUpdate() != 0) {
@@ -207,9 +207,9 @@ public class AppointmentDB {
                     train.setEndTime(appt.getEndTime());
                     train.setTotal(appt.getTotal());
                     train.setAmountPaid(appt.getAmountPaid());
-                    train.setIsApproved(appt.IsApproved());
-                    train.setIsCancelled(appt.isCancelled());
-                    train.setIsPaid(appt.isPaid());
+                    train.setIsApproved(appt.isIsApproved());
+                    train.setIsCancelled(appt.isIsCancelled());
+                    train.setIsPaid(appt.isIsPaid());
                     train.setAdditionalComments(appt.getAdditionalComments());
                     rst.next();
                     train.setBarking(rst.getBoolean("BARKING"));
@@ -255,9 +255,9 @@ public class AppointmentDB {
                     board.setEndTime(appt.getEndTime());
                     board.setTotal(appt.getTotal());
                     board.setAmountPaid(appt.getAmountPaid());
-                    board.setIsApproved(appt.IsApproved());
-                    board.setIsCancelled(appt.isCancelled());
-                    board.setIsPaid(appt.isPaid());
+                    board.setIsApproved(appt.isIsApproved());
+                    board.setIsCancelled(appt.isIsCancelled());
+                    board.setIsPaid(appt.isIsPaid());
                     board.setAdditionalComments(appt.getAdditionalComments());
                     rsb.next();
                     board.setGrooming(rsb.getBoolean("GROOMING"));
@@ -288,9 +288,9 @@ public class AppointmentDB {
             ps.setString(5, bAppt.getEndTime());
             ps.setDouble(6, bAppt.getTotal());
             ps.setDouble(7, bAppt.getAmountPaid());
-            ps.setBoolean(8, bAppt.IsApproved());
-            ps.setBoolean(9, bAppt.isCancelled());
-            ps.setBoolean(10, bAppt.isPaid());
+            ps.setBoolean(8, bAppt.isIsApproved());
+            ps.setBoolean(9, bAppt.isIsCancelled());
+            ps.setBoolean(10, bAppt.isIsPaid());
             ps.setString(11, bAppt.getAdditionalComments());
             ps.setBoolean(12, bAppt.isDeleted());
             ps.setInt(13, bAppt.getIdNumber());
@@ -327,9 +327,9 @@ public class AppointmentDB {
             ps.setString(5, tAppt.getEndTime());
             ps.setDouble(6, tAppt.getTotal());
             ps.setDouble(7, tAppt.getAmountPaid());
-            ps.setBoolean(8, tAppt.IsApproved());
-            ps.setBoolean(9, tAppt.isCancelled());
-            ps.setBoolean(10, tAppt.isPaid());
+            ps.setBoolean(8, tAppt.isIsApproved());
+            ps.setBoolean(9, tAppt.isIsCancelled());
+            ps.setBoolean(10, tAppt.isIsPaid());
             ps.setString(11, tAppt.getAdditionalComments());
             ps.setBoolean(12, tAppt.isDeleted());
             ps.setInt(13, tAppt.getIdNumber());
@@ -417,9 +417,9 @@ public class AppointmentDB {
                     train.setEndTime(appt.getEndTime());
                     train.setTotal(appt.getTotal());
                     train.setAmountPaid(appt.getAmountPaid());
-                    train.setIsApproved(appt.IsApproved());
-                    train.setIsCancelled(appt.isCancelled());
-                    train.setIsPaid(appt.isPaid());
+                    train.setIsApproved(appt.isIsApproved());
+                    train.setIsCancelled(appt.isIsCancelled());
+                    train.setIsPaid(appt.isIsPaid());
                     train.setAdditionalComments(appt.getAdditionalComments());
                     train.setDeleted(appt.isDeleted());
                     rst.next();
@@ -466,9 +466,9 @@ public class AppointmentDB {
                     board.setEndTime(appt.getEndTime());
                     board.setTotal(appt.getTotal());
                     board.setAmountPaid(appt.getAmountPaid());
-                    board.setIsApproved(appt.IsApproved());
-                    board.setIsCancelled(appt.isCancelled());
-                    board.setIsPaid(appt.isPaid());
+                    board.setIsApproved(appt.isIsApproved());
+                    board.setIsCancelled(appt.isIsCancelled());
+                    board.setIsPaid(appt.isIsPaid());
                     board.setAdditionalComments(appt.getAdditionalComments());
                     board.setDeleted(appt.isDeleted());
                     rsb.next();
@@ -499,9 +499,9 @@ public class AppointmentDB {
             ps.setString(5, dAppt.getEndTime());
             ps.setDouble(6, dAppt.getTotal());
             ps.setDouble(7, dAppt.getAmountPaid());
-            ps.setBoolean(8, dAppt.IsApproved());
-            ps.setBoolean(9, dAppt.isCancelled());
-            ps.setBoolean(10, dAppt.isPaid());
+            ps.setBoolean(8, dAppt.isIsApproved());
+            ps.setBoolean(9, dAppt.isIsCancelled());
+            ps.setBoolean(10, dAppt.isIsPaid());
             ps.setString(11, dAppt.getAdditionalComments());
             ps.setBoolean(12, dAppt.isDeleted());
             ps.setInt(13, dAppt.getIdNumber());

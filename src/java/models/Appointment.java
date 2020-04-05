@@ -1,8 +1,8 @@
 package models;
 
 /**
- *
- * @author 640195
+ * 
+ * @author Carsen Johns
  */
 public class Appointment {
 
