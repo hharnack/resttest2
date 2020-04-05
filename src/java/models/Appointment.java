@@ -20,21 +20,9 @@ public class Appointment {
     String additionalComments;
     String dogNames;
     boolean deleted;
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public String getDogNames() {
-        return dogNames;
-    }
-
-    public void setDogNames(String dogNames) {
-        this.dogNames = dogNames;
+    
+    public Appointment() {
+        
     }
 
     public Appointment(int idNumber, String dogIdNumber, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String type, String additionalComments, String dogNames) {
@@ -53,15 +41,12 @@ public class Appointment {
         this.dogNames = dogNames;
     }
 
-    public String getType() {
-        return type;
+    public int getIdNumber() {
+        return idNumber;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Appointment() {
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
     }
 
     public String getDogIdNumber() {
@@ -70,14 +55,6 @@ public class Appointment {
 
     public void setDogIdNumber(String dogIdNumber) {
         this.dogIdNumber = dogIdNumber;
-    }
-
-    public int getIdNumber() {
-        return idNumber;
-    }
-
-    public void setIdNumber(int idNumber) {
-        this.idNumber = idNumber;
     }
 
     public String getUsername() {
@@ -120,7 +97,7 @@ public class Appointment {
         this.amountPaid = amountPaid;
     }
 
-    public boolean IsApproved() {
+    public boolean isIsApproved() {
         return isApproved;
     }
 
@@ -128,7 +105,7 @@ public class Appointment {
         this.isApproved = isApproved;
     }
 
-    public boolean isCancelled() {
+    public boolean isIsCancelled() {
         return isCancelled;
     }
 
@@ -136,12 +113,20 @@ public class Appointment {
         this.isCancelled = isCancelled;
     }
 
-    public boolean isPaid() {
+    public boolean isIsPaid() {
         return isPaid;
     }
 
     public void setIsPaid(boolean isPaid) {
         this.isPaid = isPaid;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getAdditionalComments() {
@@ -152,4 +137,22 @@ public class Appointment {
         this.additionalComments = additionalComments;
     }
 
+    public String getDogNames() {
+        return dogNames;
+    }
+
+    public void setDogNames(String dogNames) {
+        this.dogNames = dogNames;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    
+    
 }
