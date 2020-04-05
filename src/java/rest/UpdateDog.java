@@ -17,7 +17,8 @@ import services.DogService;
 import services.JWT;
 
 /**
- *
+ * API that allows for updating the dog information under the user account
+ * 
  * @author 703174
  */
 @Path("updateDog")
