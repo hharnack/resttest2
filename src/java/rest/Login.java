@@ -16,7 +16,8 @@ import services.JWT;
  * and open the template in the editor.
  */
 /**
- *
+ *API that allows a user to login to the system.
+ * 
  * @author 703174
  */
 @Path("login")
