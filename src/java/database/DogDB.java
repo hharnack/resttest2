@@ -24,10 +24,10 @@ public class DogDB {
     // SELECT QUERIES
     /**
      * Queries the database to return the information of a dog with the
-     * specified ID number
+     * specified ID number.
      *
-     * @param petID the ID of the dog
-     * @return a dog with the specified ID number
+     * @param petID the ID of the dog.
+     * @return a dog with the specified ID number.
      */
     public Dog getDogByID(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -70,10 +70,10 @@ public class DogDB {
 
     /**
      * Queries the database to return the information of all dogs that belong to
-     * a specified user
+     * a specified user.
      *
-     * @param username the username of the owner of the dogs
-     * @return a list of dogs that belong to the username specified
+     * @param username the username of the owner of the dogs.
+     * @return a list of dogs that belong to the username specified.
      */
     public ArrayList<Dog> getDogsByUsername(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -121,10 +121,10 @@ public class DogDB {
     }
 
     /**
-     * Queries the database to return all of the dog information
+     * Queries the database to return all of the dog information.
      *
      * @return a list containing all the dogs that have not been soft deleted in
-     * the database
+     * the database.
      */
     public ArrayList<Dog> getAllDogs() {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -168,10 +168,10 @@ public class DogDB {
 
     /**
      * Queries the database to return the allergy information of a dog with the
-     * specified ID number
+     * specified ID number.
      *
-     * @param petID the ID of the dog
-     * @return a list of allergies that belong to the dog
+     * @param petID the ID of the dog.
+     * @return a list of allergies that belong to the dog.
      */
     private ArrayList<String> getDogAllergies(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -195,10 +195,10 @@ public class DogDB {
 
     /**
      * Queries the database to return the medication information of a dog with
-     * the specified ID number
+     * the specified ID number.
      *
-     * @param petID the ID of the dog
-     * @return a list of medications that belong to the dog
+     * @param petID the ID of the dog.
+     * @return a list of medications that belong to the dog.
      */
     private ArrayList<String> getDogMedications(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -222,10 +222,10 @@ public class DogDB {
 
     /**
      * Queries the database to return the vaccine information of a dog with the
-     * specified ID number
+     * specified ID number.
      *
-     * @param petID the ID of the dog
-     * @return a list of vaccines that belong to the dog
+     * @param petID the ID of the dog.
+     * @return a list of vaccines that belong to the dog.
      */
     private Vaccines getDogVaccine(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -247,10 +247,10 @@ public class DogDB {
 
     /**
      * Queries the database to return the veterinarian information of a dog with
-     * the specified ID number
+     * the specified ID number.
      *
-     * @param petID the ID of the dog
-     * @return a veterinarian object that belong to the dog
+     * @param petID the ID of the dog.
+     * @return a veterinarian object that belong to the dog.
      */
     private Veterinarian getDogVeterinarian(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -279,12 +279,12 @@ public class DogDB {
 
     // INSERT QUERIES
     /**
-     * Queries the database to insert a dog into the database
+     * Queries the database to insert a dog into the system.
      *
-     * @param username the username that the dog belongs to
-     * @param dog a dog object to insert into the database
+     * @param username the username that the dog belongs to.
+     * @param dog a dog object to insert into the database.
      * @return the number of row(s) inserted to the database, should always be
-     * either 0 or 1
+     * either 0 or 1.
      */
     public int insert(String username, Dog dog) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -332,11 +332,11 @@ public class DogDB {
     }
 
     /**
-     * Queries the database to insert the allergy information for a dog
+     * Queries the database to insert the allergy information for a dog.
      *
      * @param petID the ID number of the pet that the allergy information
-     * belongs to
-     * @param allergies a list of allergies that belong to the dog
+     * belongs to.
+     * @param allergies a list of allergies that belong to the dog.
      */
     private void insertDogAllergies(int petID, ArrayList<String> allergies) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -360,11 +360,11 @@ public class DogDB {
     }
 
     /**
-     * Queries the database to insert the medication information for a dog
+     * Queries the database to insert the medication information for a dog.
      *
      * @param petID the ID number of the pet that the medication information
-     * belongs to
-     * @param medications a list of medications that belong to the dog
+     * belongs to.
+     * @param medications a list of medications that belong to the dog.
      */
     private void insertDogMedications(int petID, ArrayList<String> medications) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -388,11 +388,11 @@ public class DogDB {
     }
 
     /**
-     * Queries the database to insert the vaccine information for a dog
+     * Queries the database to insert the vaccine information for a dog.
      *
      * @param petID the ID number of the pet that the vaccine information
-     * belongs to
-     * @param vaccines the vaccine information that belongs to the dog
+     * belongs to.
+     * @param vaccines the vaccine information that belongs to the dog.
      */
     private void insertDogVaccines(int petID, Vaccines vaccines) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -413,10 +413,10 @@ public class DogDB {
     }
 
     /**
-     * Queries the database to insert the veterinarian information for a dog
+     * Queries the database to insert the veterinarian information for a dog.
      *
-     * @param petID the ID number of the pet that the veterinarian belongs to
-     * @param vet a veterinarian object that belongs to the dog
+     * @param petID the ID number of the pet that the veterinarian belongs to.
+     * @param vet a veterinarian object that belongs to the dog.
      */
     private void insertDogVeterinarian(int petID, Veterinarian vet) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -439,11 +439,11 @@ public class DogDB {
 
     // UPDATE QUERIES
     /**
-     * Queries a database to update a dog based on the pet ID specified
+     * Queries a database to update a dog based on the pet ID specified.
      *
-     * @param dog a dog object with all the dog information
+     * @param dog a dog object with all the dog information.
      * @return the number of rows inserted into the database, should always be
-     * either 0 or 1
+     * either 0 or 1.
      */
     public int updateDog(Dog dog) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -498,10 +498,10 @@ public class DogDB {
 
     /**
      * Queries a database to update a dog's medications based on the pet ID
-     * specified
+     * specified.
      *
-     * @param petID the ID number of the dog
-     * @param medications the list of medications that belong to the dog
+     * @param petID the ID number of the dog.
+     * @param medications the list of medications that belong to the dog.
      */
     private void updateDogMed(int petID, ArrayList<String> medications) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -523,10 +523,10 @@ public class DogDB {
 
     /**
      * Queries a database to update a dog's allergies based on the pet ID
-     * specified
+     * specified.
      *
-     * @param petID the ID number of the dog
-     * @param allergies the list of allergies that belong to the dog
+     * @param petID the ID number of the dog.
+     * @param allergies the list of allergies that belong to the dog.
      */
     private void updateDogAlgy(int petID, ArrayList<String> allergies) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -548,10 +548,10 @@ public class DogDB {
 
     /**
      * Queries a database to update a dog's vaccines based on the pet ID
-     * specified
+     * specified.
      *
-     * @param petID the ID number of the dog
-     * @param vaccines a vaccine object
+     * @param petID the ID number of the dog.
+     * @param vaccines a vaccine object.
      */
     private void updateDogVac(int petID, Vaccines vaccines) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -575,9 +575,9 @@ public class DogDB {
 
     /**
      * Queries a database to update a dog's veterinarian based on the pet ID
-     * specified
+     * specified.
      *
-     * @param verterinarian a veterinarian object
+     * @param verterinarian a veterinarian object.
      */
     private void updateDogVet(Veterinarian veterinarian) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -600,11 +600,11 @@ public class DogDB {
     // DELETE QUERIES
     /**
      * Queries the database to perform a soft delete on a dog, this method will
-     * only set the value of the isactive column to false
+     * only set the value of the isactive column to false.
      *
-     * @param petID the dog's ID number
+     * @param petID the dog's ID number.
      * @return the number of rows inserted into the database, should always be
-     * either 0 or 1
+     * either 0 or 1.
      */
     public int deleteDog(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();

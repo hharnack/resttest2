@@ -21,8 +21,8 @@ public class TestimonialDB {
     /**
      * Queries the database to insert a testimonial.
      *
-     * @param testimonial a testimonial object
-     * @return the number of rows insert, should only be 0 or 1
+     * @param testimonial a testimonial object.
+     * @return the number of rows insert, should only be 0 or 1.
      */
     public int insert(Testimonial testimonial) {
         ConnectionPool pool = ConnectionPool.getInstance();

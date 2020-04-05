@@ -1,7 +1,9 @@
 package models;
 
 /**
- * 
+ * Base class for an appointment object. Contains all of the attributes shared
+ * by all appointment types.
+ *
  * @author Carsen Johns
  */
 public class Appointment {
@@ -20,11 +22,30 @@ public class Appointment {
     String additionalComments;
     String dogNames;
     boolean deleted;
-    
+
+    /**
+     * Default constructor.
+     */
     public Appointment() {
-        
+
     }
 
+    /**
+     * Constructor to instantiate all of the attributes.
+     * @param idNumber The appointment id number.
+     * @param dogIdNumber The dog id number.
+     * @param username The username that the dog belongs to.
+     * @param startTime The starting time for the appointment.
+     * @param endTime The ending time for the appointment.
+     * @param total The total cost of the appointment.
+     * @param amountPaid The amount currently paid.
+     * @param isApproved If the appointment has been approved by an administrator.
+     * @param isCancelled If the user or administrator has canceled the appointment.
+     * @param isPaid If the appointment has been paid in full.
+     * @param type The type of appointment.
+     * @param additionalComments Any additional comments left by the booker.
+     * @param dogNames If any other dogs are sharing an appointment.
+     */
     public Appointment(int idNumber, String dogIdNumber, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String type, String additionalComments, String dogNames) {
         this.idNumber = idNumber;
         this.dogIdNumber = dogIdNumber;
@@ -153,6 +174,4 @@ public class Appointment {
         this.deleted = deleted;
     }
 
-    
-    
 }

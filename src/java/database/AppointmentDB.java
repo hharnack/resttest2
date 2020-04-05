@@ -14,11 +14,20 @@ import models.Daycare;
 import models.Training;
 
 /**
+ * This class is used to perform all queries required by the system to manage
+ * all information regarding appointments.
  *
- * @author 640195
+ * @author Carsen Johns
  */
 public class AppointmentDB {
 
+    /**
+     * Queries the database to insert a boarding appointment into the system.
+     *
+     * @param bAppt A boarding appointment object.
+     * @return true if the appointment was successfully inserted into the
+     * database.
+     */
     public boolean insert(Boarding bAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -61,6 +70,13 @@ public class AppointmentDB {
         return false;
     }
 
+    /**
+     * Queries the database to insert a training appointment into the system.
+     *
+     * @param tAppt A training appointment object.
+     * @return true if the appointment was successfully inserted into the
+     * database.
+     */
     public boolean insert(Training tAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -133,6 +149,13 @@ public class AppointmentDB {
 
     }
 
+    /**
+     * Queries the database to insert a daycare appointment into the system.
+     *
+     * @param dAppt A daycare appointment object.
+     * @return true if the appointment was successfully inserted into the
+     * database.
+     */
     public boolean insert(Daycare dAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -165,6 +188,13 @@ public class AppointmentDB {
         return false;
     }
 
+    /**
+     * Queries the database to get all the appointments associated with the
+     * specified username.
+     *
+     * @param username The username to get all appointments for.
+     * @return A list of appointment objects.
+     */
     public ArrayList<Appointment> getAppointmentsByUsername(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -274,6 +304,11 @@ public class AppointmentDB {
         return aList;
     }
 
+    /**
+     * Queries the database to update a boarding appointment in the system.
+     * @param bAppt An updated boarding appointment object.
+     * @return true if the appointment was successfully updated.
+     */
     public boolean update(Boarding bAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -294,7 +329,7 @@ public class AppointmentDB {
             ps.setString(11, bAppt.getAdditionalComments());
             ps.setBoolean(12, bAppt.isDeleted());
             ps.setInt(13, bAppt.getIdNumber());
-            
+
             if (ps.executeUpdate() != 0) {
                 ps = connection.prepareCall(queryBoarding);
                 ps.setBoolean(1, bAppt.isGrooming());
@@ -313,6 +348,11 @@ public class AppointmentDB {
         return false;
     }
 
+    /**
+     * Queries the database to update a training appointment in the system.
+     * @param tAppt An updated training appointment object.
+     * @return true if the appointment was successfully updated.
+     */
     public Boolean update(Training tAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -376,6 +416,10 @@ public class AppointmentDB {
         return false;
     }
 
+    /**
+     * Queries the database to select all of the appointments in the system.
+     * @return A list of all the appointments in the database.
+     */
     public ArrayList<Appointment> getAllAppointments() {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -486,6 +530,11 @@ public class AppointmentDB {
         return aList;
     }
 
+    /**
+     * Queries the database to update a daycare appointment in the system.
+     * @param dAppt An updated daycare appointment.
+     * @return true if the appointment was successfully updated.
+     */
     public boolean update(Daycare dAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
