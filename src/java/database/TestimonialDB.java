@@ -11,8 +11,7 @@ import java.util.logging.Logger;
 import models.Testimonial;
 
 /**
- * This class contains all of the operations to manage data associated with testimonials
- * data.
+ * Database broker class for testimonials
  * 
  * @author 703174
  */
