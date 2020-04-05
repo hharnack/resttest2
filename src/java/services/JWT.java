@@ -15,17 +15,21 @@ import javax.json.Json;
 import javax.json.stream.JsonParser;
 import models.User;
 
-/*
-    Our simple static class that demonstrates how to create and decode JWTs.
+/**
+ *
+ * @author Carsen Johns
  */
 public class JWT {
 
-    // The secret key. This should be in a property file NOT under source
-    // control and not hard coded in real life. We're putting it here for
-    // simplicity.
     private static String SECRET_KEY = "oeRaYY7Wo24sDqKSX3IM9ASGmdGPmkTd9jo1QTy4b7P9Ze5_9hKolVX8xNrQDcNRfVEdTZNOuOyqEGhXEbdJI-ZQ19k_o9MI0y3eZN2lp9jow55FfXMiINEdt1XR85VipRLSOkT6kSpzs2x-jbLDiz9iFVzkd81YKxMgPA7VfZeQUm4n-mOmnWMaVX30zGFU4L3oPBctYKkl4dYfqYWqRNfrgPJVi5DGFjywgxx0ASEiJHtV72paI3fDR2XwlSkyhhmY-ICjCRmsJN4fX1pdoL8a18-aQrvyu4j0Os6dVPYIoPvvY0SAZtWYKHfM15g7A3HD4cVREf9cUsprCRK93w";
 
-    //Sample method to construct a JWT
+    /**
+     * Creates a token with the specified username.
+     *
+     * @param username The username.
+     * @param ttlMillis The token expiration.
+     * @return A token.
+     */
     public static String createJWT(String username, long ttlMillis) {
 
         //The JWT signature algorithm we will be using to sign the token
@@ -39,7 +43,6 @@ public class JWT {
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         //Let's set the JWT Claims
-        
         AccountService as = new AccountService();
         User user = as.getUser(username);
         JwtBuilder builder = Jwts.builder().claim("username", username)
@@ -58,6 +61,12 @@ public class JWT {
         return builder.compact();
     }
 
+    /**
+     * Decodes the token.
+     *
+     * @param jwt The token.
+     * @return A claims object.
+     */
     public static Claims decodeJWT(String jwt) {
 
         //This line will throw an exception if it is not a signed JWS (as expected)
@@ -67,6 +76,12 @@ public class JWT {
         return claims;
     }
 
+    /**
+     * Parses JSON to retrieve the token.
+     *
+     * @param content JSON sent from the Node.js server.
+     * @return A token.
+     */
     public static String getToken(String content) {
         JsonParser parser = Json.createParser(new StringReader(content));
 
