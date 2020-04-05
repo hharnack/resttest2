@@ -458,11 +458,10 @@ public class DogDB {
                 + "large_friendly = ?, "
                 + "small_friendly = ?, "
                 + "puppy_friendly = ?, "
-                + "phys_limit = ?,"
-                + "photo_path = ?"
-                + "training_done = ?"
+                + "phys_limit = ?, "
+                + "photo_path = ?, "
+                + "training_done = ? "
                 + "WHERE pet_id = ?";
-
         try {
             PreparedStatement ps = connection.prepareStatement(queryDog);
             ps.setString(1, dog.getName());
@@ -478,7 +477,7 @@ public class DogDB {
             ps.setString(11, dog.getPhysLimit());
             ps.setString(12, dog.getPhotoPath());
             ps.setBoolean(13, dog.isTrainingDone());
-            ps.setInt(13, dog.getIdNumber());
+            ps.setInt(14, dog.getIdNumber());
             if (dog.getAllergies().size() > 0) {
                 updateDogAlgy(dog.getIdNumber(), dog.getAllergies());
             }
