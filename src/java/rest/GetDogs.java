@@ -18,6 +18,8 @@ import services.JWT;
 
 /**
  *
+ * REST Web Service
+ * 
  * @author 703174
  */
 @Path("GetDogs")
