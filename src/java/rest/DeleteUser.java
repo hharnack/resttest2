@@ -17,12 +17,19 @@ import services.AccountService;
 import services.JWT;
 
 /**
+ * API that allows an administrator to perform a soft delete on an account.
  *
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("DeleteUser")
 public class DeleteUser {
-    
+
+    /**
+     * API that allows an administrator to perform a soft delete on an account.
+     *
+     * @param content JSON containing the token and the username to delete.
+     * @return Any errors or if the operation was successful.
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
@@ -31,25 +38,25 @@ public class DeleteUser {
 
         parser.next(); // KEY_NAME
         parser.next(); // VALUE_STRING
-        
+
         Claims claims;
         try {
             claims = JWT.decodeJWT(parser.getString());
         } catch (Exception e) {
             return "Authentication error, bad token";
         }
-        
+
         if (!claims.get("isAdmin", Boolean.class)) {
             return "not admin";
         }
-        
+
         parser.next(); // KEY_NAME
         parser.next(); // VALUE_STRING
-        
+
         if (new AccountService().delete(parser.getString())) {
             return "yes";
         }
-        
+
         return "no";
     }
 }
