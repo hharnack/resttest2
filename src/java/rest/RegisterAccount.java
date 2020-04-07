@@ -31,6 +31,8 @@ public class RegisterAccount {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
+        System.out.println(content);
+        
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         User user = gson.fromJson(content, User.class);
         AccountService as = new AccountService();
