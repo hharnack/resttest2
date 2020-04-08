@@ -13,6 +13,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import models.Dog;
+import models.Vaccines;
+import models.Veterinarian;
 import services.DogService;
 import services.JWT;
 
@@ -46,6 +48,8 @@ public class UpdateDog {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
         dog.setOwner(username);
+        dog.setVeterinarian(gson.fromJson(content, Veterinarian.class));
+        dog.setVaccines(gson.fromJson(content, Vaccines.class));
         DogService ds = new DogService();
         if (ds.updateDog(dog)) {
             return "Updated";
