@@ -53,6 +53,7 @@ public class DogService {
     /**
      * Updates the dog's information.
      *
+     * @param username dog's owner
      * @param dog The updated dog object.
      * @return true if the dog information was successfully updated.
      */

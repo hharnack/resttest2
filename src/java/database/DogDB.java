@@ -444,6 +444,7 @@ public class DogDB {
     /**
      * Queries a database to update a dog based on the pet ID specified.
      *
+     * @param username dog's owner
      * @param dog a dog object with all the dog information.
      * @return the number of rows inserted into the database, should always be
      * either 0 or 1.
@@ -490,9 +491,10 @@ public class DogDB {
             if (!dog.getMedications().get(0).equals("")) {
                 updateDogMed(dog.getIdNumber(), dog.getMedications());
             }
+            int i = ps.executeUpdate();
             updateDogVac(dog.getIdNumber(), dog.getVaccines());
             updateDogVet(dog.getVeterinarian());
-            return ps.executeUpdate();
+            return i;
         } catch (SQLException e) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
