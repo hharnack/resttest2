@@ -452,7 +452,7 @@ public class DogDB {
         System.out.println(dog.getIdNumber());
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryDog = "UPDATE dogs SET owner = ?"
+        String queryDog = "UPDATE dogs SET owner = ?,"
                 + "name = ?, "
                 + "breed = ?, "
                 + "weight = ?, "
