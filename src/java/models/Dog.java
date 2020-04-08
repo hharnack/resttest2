@@ -18,8 +18,8 @@ public class Dog {
     private String gender;
     private double weight;
     private boolean spayedNeutered;
-    private ArrayList<String> medications;
-    private ArrayList<String> allergies;
+    private String medications;
+    private String allergies;
     private String physLimit;
     private Veterinarian veterinarian;
     private boolean strangerComfortable;
@@ -186,7 +186,7 @@ public class Dog {
      *
      * @return A list of medications.
      */
-    public ArrayList<String> getMedications() {
+    public String getMedications() {
         return medications;
     }
 
@@ -195,7 +195,7 @@ public class Dog {
      *
      * @param medications A list of medications.
      */
-    public void setMedications(ArrayList<String> medications) {
+    public void setMedications(String medications) {
         this.medications = medications;
     }
 
@@ -204,7 +204,7 @@ public class Dog {
      *
      * @return A list of allergies.
      */
-    public ArrayList<String> getAllergies() {
+    public String getAllergies() {
         return allergies;
     }
 
@@ -213,7 +213,7 @@ public class Dog {
      *
      * @param allergies A list of allergies.
      */
-    public void setAllergies(ArrayList<String> allergies) {
+    public void setAllergies(String allergies) {
         this.allergies = allergies;
     }
 
