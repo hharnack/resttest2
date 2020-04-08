@@ -2,9 +2,11 @@ package models;
 
 /**
  * Appointment object super class
+ *
  * @author 640195
  */
 public class Appointment {
+
     int idNumber;
     String dogIdNumber;
     String username;
@@ -22,6 +24,7 @@ public class Appointment {
 
     /**
      * getter for deleted
+     *
      * @return
      */
     public boolean isDeleted() {
@@ -29,7 +32,8 @@ public class Appointment {
     }
 
     /**
-     *setter for deleted
+     * setter for deleted
+     *
      * @param deleted
      */
     public void setDeleted(boolean deleted) {
@@ -37,7 +41,8 @@ public class Appointment {
     }
 
     /**
-     *getter for dogNames
+     * getter for dogNames
+     *
      * @return
      */
     public String getDogNames() {
@@ -45,17 +50,18 @@ public class Appointment {
     }
 
     /**
-     *setter for dogNames
+     * setter for dogNames
+     *
      * @param dogNames
      */
     public void setDogNames(String dogNames) {
         this.dogNames = dogNames;
     }
-    
+
     /**
-     *Constructor for appointment
-     * 
-     * 
+     * Constructor for appointment
+     *
+     *
      * @param idNumber
      * @param dogIdNumber
      * @param username
@@ -72,7 +78,7 @@ public class Appointment {
      */
     public Appointment(int idNumber, String dogIdNumber, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String type, String additionalComments, String dogNames) {
         this.idNumber = idNumber;
-        this.dogIdNumber=dogIdNumber;
+        this.dogIdNumber = dogIdNumber;
         this.username = username;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -87,7 +93,8 @@ public class Appointment {
     }
 
     /**
-     *getter for type
+     * getter for type
+     *
      * @return
      */
     public String getType() {
@@ -95,7 +102,8 @@ public class Appointment {
     }
 
     /**
-     *setter for type
+     * setter for type
+     *
      * @param type
      */
     public void setType(String type) {
@@ -103,13 +111,14 @@ public class Appointment {
     }
 
     /**
-     *default constructor
+     * default constructor
      */
     public Appointment() {
     }
 
     /**
-     *getter for dogIDNumber
+     * getter for dogIDNumber
+     *
      * @return
      */
     public String getDogIdNumber() {
@@ -117,15 +126,17 @@ public class Appointment {
     }
 
     /**
-     *setter for dogIdNumber
+     * setter for dogIdNumber
+     *
      * @param dogIdNumber
      */
     public void setDogIdNumber(String dogIdNumber) {
         this.dogIdNumber = dogIdNumber;
     }
-    
+
     /**
-     *getter for appointment idNumber
+     * getter for appointment idNumber
+     *
      * @return
      */
     public int getIdNumber() {
@@ -133,7 +144,8 @@ public class Appointment {
     }
 
     /**
-     *setter for idNumber
+     * setter for idNumber
+     *
      * @param idNumber
      */
     public void setIdNumber(int idNumber) {
@@ -141,7 +153,8 @@ public class Appointment {
     }
 
     /**
-     *getter for userName
+     * getter for userName
+     *
      * @return
      */
     public String getUsername() {
@@ -149,7 +162,8 @@ public class Appointment {
     }
 
     /**
-     *setter for userName
+     * setter for userName
+     *
      * @param username
      */
     public void setUsername(String username) {
@@ -157,7 +171,8 @@ public class Appointment {
     }
 
     /**
-     *getter for startTime
+     * getter for startTime
+     *
      * @return
      */
     public String getStartTime() {
@@ -165,7 +180,8 @@ public class Appointment {
     }
 
     /**
-     *setter for startTime
+     * setter for startTime
+     *
      * @param startTime
      */
     public void setStartTime(String startTime) {
@@ -173,7 +189,8 @@ public class Appointment {
     }
 
     /**
-     *getter for endTime
+     * getter for endTime
+     *
      * @return
      */
     public String getEndTime() {
@@ -181,7 +198,8 @@ public class Appointment {
     }
 
     /**
-     *setter for endTime
+     * setter for endTime
+     *
      * @param endTime
      */
     public void setEndTime(String endTime) {
@@ -189,7 +207,8 @@ public class Appointment {
     }
 
     /**
-     *getter for total
+     * getter for total
+     *
      * @return
      */
     public double getTotal() {
@@ -197,7 +216,8 @@ public class Appointment {
     }
 
     /**
-     *setter for total
+     * setter for total
+     *
      * @param total
      */
     public void setTotal(double total) {
@@ -205,7 +225,8 @@ public class Appointment {
     }
 
     /**
-     *getter for ammountPaid
+     * getter for ammountPaid
+     *
      * @return
      */
     public double getAmountPaid() {
@@ -213,7 +234,8 @@ public class Appointment {
     }
 
     /**
-     *setter for amountPaid
+     * setter for amountPaid
+     *
      * @param amountPaid
      */
     public void setAmountPaid(double amountPaid) {
@@ -221,7 +243,8 @@ public class Appointment {
     }
 
     /**
-     *getter for approved
+     * getter for approved
+     *
      * @return
      */
     public boolean IsApproved() {
@@ -229,7 +252,8 @@ public class Appointment {
     }
 
     /**
-     *setter for approved
+     * setter for approved
+     *
      * @param isApproved
      */
     public void setIsApproved(boolean isApproved) {
@@ -237,7 +261,8 @@ public class Appointment {
     }
 
     /**
-     *getter for isCancelled
+     * getter for isCancelled
+     *
      * @return
      */
     public boolean isCancelled() {
@@ -245,7 +270,8 @@ public class Appointment {
     }
 
     /**
-     *setter for isCancelled
+     * setter for isCancelled
+     *
      * @param isCancelled
      */
     public void setIsCancelled(boolean isCancelled) {
@@ -253,7 +279,8 @@ public class Appointment {
     }
 
     /**
-     *getter for paid
+     * getter for paid
+     *
      * @return
      */
     public boolean isPaid() {
@@ -261,7 +288,8 @@ public class Appointment {
     }
 
     /**
-     *setter for isPaid
+     * setter for isPaid
+     *
      * @param isPaid
      */
     public void setIsPaid(boolean isPaid) {
@@ -269,7 +297,8 @@ public class Appointment {
     }
 
     /**
-     *getter for additionalComments
+     * getter for additionalComments
+     *
      * @return
      */
     public String getAdditionalComments() {
@@ -277,7 +306,8 @@ public class Appointment {
     }
 
     /**
-     *setter for additionalComments
+     * setter for additionalComments
+     *
      * @param additionalComments
      */
     public void setAdditionalComments(String additionalComments) {

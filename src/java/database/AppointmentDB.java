@@ -17,9 +17,10 @@ import models.Daycare;
 import models.Training;
 
 /**
- *  Database broker class for appointments
+ * Database broker class for appointments
+ *
  * @author 640195 Carsen Johns
- * 
+ *
  */
 public class AppointmentDB {
 
@@ -45,9 +46,9 @@ public class AppointmentDB {
             ps.setString(5, bAppt.getEndTime());
             ps.setDouble(6, bAppt.getTotal());
             ps.setDouble(7, bAppt.getAmountPaid());
-            ps.setBoolean(8, bAppt.isIsApproved());
-            ps.setBoolean(9, bAppt.isIsCancelled());
-            ps.setBoolean(10, bAppt.isIsPaid());
+            ps.setBoolean(8, bAppt.IsApproved());
+            ps.setBoolean(9, bAppt.isCancelled());
+            ps.setBoolean(10, bAppt.isPaid());
             ps.setString(11, bAppt.getAdditionalComments());
             ps.setBoolean(12, bAppt.isDeleted());
             if (ps.executeUpdate() != 0) {
@@ -99,9 +100,9 @@ public class AppointmentDB {
             ps.setString(5, tAppt.getEndTime());
             ps.setDouble(6, tAppt.getTotal());
             ps.setDouble(7, tAppt.getAmountPaid());
-            ps.setBoolean(8, tAppt.isIsApproved());
-            ps.setBoolean(9, tAppt.isIsCancelled());
-            ps.setBoolean(10, tAppt.isIsPaid());
+            ps.setBoolean(8, tAppt.IsApproved());
+            ps.setBoolean(9, tAppt.isCancelled());
+            ps.setBoolean(10, tAppt.isPaid());
             ps.setString(11, tAppt.getAdditionalComments());
             ps.setBoolean(12, tAppt.isDeleted());
             if (ps.executeUpdate() != 0) {
@@ -173,9 +174,9 @@ public class AppointmentDB {
             ps.setString(5, dAppt.getEndTime());
             ps.setDouble(6, dAppt.getTotal());
             ps.setDouble(7, dAppt.getAmountPaid());
-            ps.setBoolean(8, dAppt.isIsApproved());
-            ps.setBoolean(9, dAppt.isIsCancelled());
-            ps.setBoolean(10, dAppt.isIsPaid());
+            ps.setBoolean(8, dAppt.IsApproved());
+            ps.setBoolean(9, dAppt.isCancelled());
+            ps.setBoolean(10, dAppt.isPaid());
             ps.setString(11, dAppt.getAdditionalComments());
             ps.setBoolean(12, dAppt.isDeleted());
             if (ps.executeUpdate() != 0) {
@@ -194,6 +195,7 @@ public class AppointmentDB {
 
     /**
      * gets all appointments by username
+     *
      * @param username The username to get all appointments for.
      * @return aList array list of appointments found
      */
@@ -239,9 +241,9 @@ public class AppointmentDB {
                     train.setEndTime(appt.getEndTime());
                     train.setTotal(appt.getTotal());
                     train.setAmountPaid(appt.getAmountPaid());
-                    train.setIsApproved(appt.isIsApproved());
-                    train.setIsCancelled(appt.isIsCancelled());
-                    train.setIsPaid(appt.isIsPaid());
+                    train.setIsApproved(appt.IsApproved());
+                    train.setIsCancelled(appt.isCancelled());
+                    train.setIsPaid(appt.isPaid());
                     train.setAdditionalComments(appt.getAdditionalComments());
                     rst.next();
                     train.setBarking(rst.getBoolean("BARKING"));
@@ -287,9 +289,9 @@ public class AppointmentDB {
                     board.setEndTime(appt.getEndTime());
                     board.setTotal(appt.getTotal());
                     board.setAmountPaid(appt.getAmountPaid());
-                    board.setIsApproved(appt.isIsApproved());
-                    board.setIsCancelled(appt.isIsCancelled());
-                    board.setIsPaid(appt.isIsPaid());
+                    board.setIsApproved(appt.IsApproved());
+                    board.setIsCancelled(appt.isCancelled());
+                    board.setIsPaid(appt.isPaid());
                     board.setAdditionalComments(appt.getAdditionalComments());
                     rsb.next();
                     board.setGrooming(rsb.getBoolean("GROOMING"));
@@ -308,6 +310,7 @@ public class AppointmentDB {
 
     /**
      * updates a boarding appointment
+     *
      * @param bAppt An updated boarding appointment object.
      * @return true if the appointment was successfully updated.
      */
@@ -325,9 +328,9 @@ public class AppointmentDB {
             ps.setString(5, bAppt.getEndTime());
             ps.setDouble(6, bAppt.getTotal());
             ps.setDouble(7, bAppt.getAmountPaid());
-            ps.setBoolean(8, bAppt.isIsApproved());
-            ps.setBoolean(9, bAppt.isIsCancelled());
-            ps.setBoolean(10, bAppt.isIsPaid());
+            ps.setBoolean(8, bAppt.IsApproved());
+            ps.setBoolean(9, bAppt.isCancelled());
+            ps.setBoolean(10, bAppt.isPaid());
             ps.setString(11, bAppt.getAdditionalComments());
             ps.setBoolean(12, bAppt.isDeleted());
             ps.setInt(13, bAppt.getIdNumber());
@@ -352,6 +355,7 @@ public class AppointmentDB {
 
     /**
      * updates a training appointment
+     *
      * @param tAppt An updated training appointment object.
      * @return true if the appointment was successfully updated.
      */
@@ -369,9 +373,9 @@ public class AppointmentDB {
             ps.setString(5, tAppt.getEndTime());
             ps.setDouble(6, tAppt.getTotal());
             ps.setDouble(7, tAppt.getAmountPaid());
-            ps.setBoolean(8, tAppt.isIsApproved());
-            ps.setBoolean(9, tAppt.isIsCancelled());
-            ps.setBoolean(10, tAppt.isIsPaid());
+            ps.setBoolean(8, tAppt.IsApproved());
+            ps.setBoolean(9, tAppt.isCancelled());
+            ps.setBoolean(10, tAppt.isPaid());
             ps.setString(11, tAppt.getAdditionalComments());
             ps.setBoolean(12, tAppt.isDeleted());
             ps.setInt(13, tAppt.getIdNumber());
@@ -420,6 +424,7 @@ public class AppointmentDB {
 
     /**
      * gets all appointments in the database, used by the admin
+     *
      * @return aList array list of appointments
      */
     public ArrayList<Appointment> getAllAppointments() {
@@ -463,9 +468,9 @@ public class AppointmentDB {
                     train.setEndTime(appt.getEndTime());
                     train.setTotal(appt.getTotal());
                     train.setAmountPaid(appt.getAmountPaid());
-                    train.setIsApproved(appt.isIsApproved());
-                    train.setIsCancelled(appt.isIsCancelled());
-                    train.setIsPaid(appt.isIsPaid());
+                    train.setIsApproved(appt.IsApproved());
+                    train.setIsCancelled(appt.isCancelled());
+                    train.setIsPaid(appt.isPaid());
                     train.setAdditionalComments(appt.getAdditionalComments());
                     train.setDeleted(appt.isDeleted());
                     rst.next();
@@ -512,9 +517,9 @@ public class AppointmentDB {
                     board.setEndTime(appt.getEndTime());
                     board.setTotal(appt.getTotal());
                     board.setAmountPaid(appt.getAmountPaid());
-                    board.setIsApproved(appt.isIsApproved());
-                    board.setIsCancelled(appt.isIsCancelled());
-                    board.setIsPaid(appt.isIsPaid());
+                    board.setIsApproved(appt.IsApproved());
+                    board.setIsCancelled(appt.isCancelled());
+                    board.setIsPaid(appt.isPaid());
                     board.setAdditionalComments(appt.getAdditionalComments());
                     board.setDeleted(appt.isDeleted());
                     rsb.next();
@@ -534,6 +539,7 @@ public class AppointmentDB {
 
     /**
      * update a daycare appointment
+     *
      * @param dAppt An updated daycare appointment.
      * @return true if the appointment was successfully updated.
      */
@@ -550,9 +556,9 @@ public class AppointmentDB {
             ps.setString(5, dAppt.getEndTime());
             ps.setDouble(6, dAppt.getTotal());
             ps.setDouble(7, dAppt.getAmountPaid());
-            ps.setBoolean(8, dAppt.isIsApproved());
-            ps.setBoolean(9, dAppt.isIsCancelled());
-            ps.setBoolean(10, dAppt.isIsPaid());
+            ps.setBoolean(8, dAppt.IsApproved());
+            ps.setBoolean(9, dAppt.isCancelled());
+            ps.setBoolean(10, dAppt.isPaid());
             ps.setString(11, dAppt.getAdditionalComments());
             ps.setBoolean(12, dAppt.isDeleted());
             ps.setInt(13, dAppt.getIdNumber());
@@ -573,6 +579,7 @@ public class AppointmentDB {
 
     /**
      * soft deletes an appointment by ID
+     *
      * @param id
      * @return boolean
      */
@@ -585,7 +592,7 @@ public class AppointmentDB {
             ps = connection.prepareCall(queryAppointment);
             ps.setBoolean(1, true);
             ps.setInt(2, id);
-            if(ps.executeUpdate() != 0){
+            if (ps.executeUpdate() != 0) {
                 return true;
             } else {
                 return false;

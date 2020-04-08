@@ -1,7 +1,7 @@
 package models;
 
 /**
- * 
+ *
  * @author Hans Cabrera
  */
 public class Veterinarian {
