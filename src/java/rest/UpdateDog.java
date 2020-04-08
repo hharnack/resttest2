@@ -47,9 +47,9 @@ public class UpdateDog {
         Dog dog = gson.fromJson(content, Dog.class);
         DogService ds = new DogService();
         System.out.println(content);
-//        if (ds.updateDog(username, dog)) {
-//            return "Updated";
-//        }
+        if (ds.updateDog(username, dog)) {
+            return "Updated";
+        }
 
         return "Not Updated";
     }
