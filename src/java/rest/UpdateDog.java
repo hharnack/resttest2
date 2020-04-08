@@ -48,8 +48,6 @@ public class UpdateDog {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
         dog.setOwner(username);
-        dog.setVeterinarian(gson.fromJson(content, Veterinarian.class));
-        dog.setVaccines(gson.fromJson(content, Vaccines.class));
         DogService ds = new DogService();
         if (ds.updateDog(dog)) {
             return "Updated";
