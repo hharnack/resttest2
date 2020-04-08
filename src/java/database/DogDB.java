@@ -173,7 +173,7 @@ public class DogDB {
      * @param petID the ID of the dog.
      * @return a list of allergies that belong to the dog.
      */
-    private ArrayList<String> getDogAllergies(int petID) {
+    private String getDogAllergies(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "SELECT allergy FROM dogs_allergy WHERE pet_id = ?";
@@ -183,14 +183,14 @@ public class DogDB {
             ResultSet rs = ps.executeQuery();
             rs.last();
             if (rs.getRow() > 0) {
-                return new ArrayList<>(Arrays.asList(rs.getString("allergy").split(",")));
+                return rs.getString("allergy");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             pool.freeConnection(connection);
         }
-        return new ArrayList<>(Arrays.asList(""));
+        return "";
     }
 
     /**
@@ -200,7 +200,7 @@ public class DogDB {
      * @param petID the ID of the dog.
      * @return a list of medications that belong to the dog.
      */
-    private ArrayList<String> getDogMedications(int petID) {
+    private String getDogMedications(int petID) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "SELECT medication FROM dogs_medication WHERE pet_id = ?";
@@ -210,14 +210,14 @@ public class DogDB {
             ResultSet rs = ps.executeQuery();
             rs.last();
             if (rs.getRow() > 0) {
-                return new ArrayList<>(Arrays.asList(rs.getString("medication").split(",")));
+                return rs.getString("medication");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             pool.freeConnection(connection);
         }
-        return new ArrayList<>(Arrays.asList(""));
+        return "";
     }
 
     /**
@@ -314,10 +314,10 @@ public class DogDB {
             rs.next();
             dog.setIdNumber(rs.getInt(1));
 
-            if (!dog.getAllergies().get(0).equals("")) {
+            if (!dog.getAllergies().equals("")) {
                 insertDogAllergies(dog.getIdNumber(), dog.getAllergies());
             }
-            if (!dog.getMedications().get(0).equals("")) {
+            if (!dog.getMedications().equals("")) {
                 insertDogMedications(dog.getIdNumber(), dog.getMedications());
             }
             insertDogVaccines(dog.getIdNumber(), dog.getVaccines());
@@ -338,21 +338,14 @@ public class DogDB {
      * belongs to.
      * @param allergies a list of allergies that belong to the dog.
      */
-    private void insertDogAllergies(int petID, ArrayList<String> allergies) {
+    private void insertDogAllergies(int petID, String allergies) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "INSERT INTO dogs_allergy VALUES (?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < allergies.size(); i++) {
-                sb.append(allergies.get(i));
-                if ((i + 1) != allergies.size()) {
-                    sb.append(",");
-                }
-            }
-            ps.setString(2, sb.toString());
+            ps.setString(2, allergies);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -368,21 +361,14 @@ public class DogDB {
      * belongs to.
      * @param medications a list of medications that belong to the dog.
      */
-    private void insertDogMedications(int petID, ArrayList<String> medications) {
+    private void insertDogMedications(int petID, String medications) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "INSERT INTO dogs_medication VALUES (?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < medications.size(); i++) {
-                sb.append(medications.get(i));
-                if ((i + 1) != medications.size()) {
-                    sb.append(",");
-                }
-            }
-            ps.setString(2, sb.toString());
+            ps.setString(2, medications);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -450,7 +436,6 @@ public class DogDB {
      * either 0 or 1.
      */
     public int updateDog(String username, Dog dog) {
-        System.out.println(dog.getIdNumber());
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String queryDog = "UPDATE dogs SET owner = ?,"
@@ -486,14 +471,14 @@ public class DogDB {
             ps.setBoolean(14, dog.isTrainingDone());
             ps.setInt(15, dog.getIdNumber());
             int i = ps.executeUpdate();
-            if (!dog.getAllergies().get(0).equals("")) {
+            if (!dog.getAllergies().equals("")) {
                 updateDogAlgy(dog.getIdNumber(), dog.getAllergies());
             }
-            if (!dog.getMedications().get(0).equals("")) {
+            if (!dog.getMedications().equals("")) {
                 updateDogMed(dog.getIdNumber(), dog.getMedications());
             }
             updateDogVac(dog.getIdNumber(), dog.getVaccines());
-            updateDogVet(dog.getVeterinarian());
+            updateDogVet(dog.getIdNumber(), dog.getVeterinarian());
             return i;
         } catch (SQLException e) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, e);
@@ -510,22 +495,17 @@ public class DogDB {
      * @param petID the ID number of the dog.
      * @param medications the list of medications that belong to the dog.
      */
-    private void updateDogMed(int petID, ArrayList<String> medications) {
+    private void updateDogMed(int petID, String medications) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String queryMed = "UPDATE dogs_medication SET medication = ? WHERE pet_id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(queryMed);
+            ps.setString(1, medications);
             ps.setInt(2, petID);
-            StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < medications.size(); i++) {
-                sb.append(medications.get(i));
-                if ((i + 1) != medications.size()) {
-                    sb.append(",");
-                }
+            if (ps.executeUpdate() == 0) {
+                insertDogMedications(petID, medications);
             }
-            ps.setString(1, sb.toString());
-            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -540,22 +520,17 @@ public class DogDB {
      * @param petID the ID number of the dog.
      * @param allergies the list of allergies that belong to the dog.
      */
-    private void updateDogAlgy(int petID, ArrayList<String> allergies) {
+    private void updateDogAlgy(int petID, String allergies) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "UPDATE dogs_allergy SET allergy = ? WHERE pet_id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, allergies);
             ps.setInt(2, petID);
-            StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < allergies.size(); i++) {
-                sb.append(allergies.get(i));
-                if ((i + 1) != allergies.size()) {
-                    sb.append(",");
-                }
+            if (ps.executeUpdate() == 0) {
+                insertDogAllergies(petID, allergies);
             }
-            ps.setString(1, sb.toString());
-            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -583,6 +558,7 @@ public class DogDB {
             ps.setDate(2, vaccines.getRabies());
             ps.setDate(3, vaccines.getBordetella());
             ps.setInt(4, petID);
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -596,16 +572,16 @@ public class DogDB {
      *
      * @param verterinarian a veterinarian object.
      */
-    private void updateDogVet(Veterinarian veterinarian) {
+    private void updateDogVet(int petId, Veterinarian veterinarian) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String query = "UPDATE veterinarians SET name = ?, clinic = ?, phone_number = ? WHERE vet_id = ?";
+        String query = "UPDATE veterinarians SET name = ?, clinic = ?, phone_number = ? WHERE pet_id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, veterinarian.getVetName());
             ps.setString(2, veterinarian.getClinic());
             ps.setString(3, veterinarian.getPhoneNumber());
-            ps.setInt(4, veterinarian.getIdNumber());
+            ps.setInt(4, petId);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);

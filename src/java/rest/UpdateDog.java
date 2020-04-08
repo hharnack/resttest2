@@ -48,7 +48,6 @@ public class UpdateDog {
         if (new DogService().updateDog(username, dog)) {
             return "Updated";
         }
-
         return "Not Updated";
     }
 }
