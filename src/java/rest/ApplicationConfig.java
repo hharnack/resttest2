@@ -1,13 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package rest;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
 /**
- * Configuration class that contains all of the RESTful services provided by the
- * server.
  *
- * @author Levon Rose
+ * @author 553185
  */
 @javax.ws.rs.ApplicationPath("webresources")
 public class ApplicationConfig extends Application {
@@ -20,9 +23,10 @@ public class ApplicationConfig extends Application {
     }
 
     /**
-     * Do not modify addRestResourceClasses() method. It is automatically
-     * populated with all resources defined in the project. If required, comment
-     * out calling this method in getClasses().
+     * Do not modify addRestResourceClasses() method.
+     * It is automatically populated with
+     * all resources defined in the project.
+     * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(filters.NewCrossOriginResourceSharingFilter.class);
@@ -35,8 +39,10 @@ public class ApplicationConfig extends Application {
         resources.add(rest.CheckAccount.class);
         resources.add(rest.CheckEditCustomer.class);
         resources.add(rest.DeleteAccount.class);
+        resources.add(rest.DeleteAppointment.class);
         resources.add(rest.DeleteDog.class);
         resources.add(rest.DeleteTestimonial.class);
+        resources.add(rest.DeleteUser.class);
         resources.add(rest.EditBoarding.class);
         resources.add(rest.EditDaycare.class);
         resources.add(rest.EditTraining.class);
@@ -56,5 +62,5 @@ public class ApplicationConfig extends Application {
         resources.add(rest.UpdateAccount.class);
         resources.add(rest.UpdateDog.class);
     }
-
+    
 }

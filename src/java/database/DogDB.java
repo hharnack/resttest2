@@ -264,7 +264,7 @@ public class DogDB {
             if (rs.getRow() > 0) {
                 Veterinarian vet = new Veterinarian();
                 vet.setIdNumber(rs.getInt("vet_id"));
-                vet.setName(rs.getString("name"));
+                vet.setVetName(rs.getString("name"));
                 vet.setClinic(rs.getString("clinic"));
                 vet.setPhoneNumber(rs.getString("phone_number"));
                 return vet;
@@ -426,7 +426,7 @@ public class DogDB {
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
-            ps.setString(2, vet.getName());
+            ps.setString(2, vet.getVetName());
             ps.setString(3, vet.getClinic());
             ps.setString(4, vet.getPhoneNumber());
             ps.executeUpdate();
@@ -458,11 +458,10 @@ public class DogDB {
                 + "large_friendly = ?, "
                 + "small_friendly = ?, "
                 + "puppy_friendly = ?, "
-                + "phys_limit = ?,"
-                + "photo_path = ?"
-                + "training_done = ?"
+                + "phys_limit = ?, "
+                + "photo_path = ?, "
+                + "training_done = ? "
                 + "WHERE pet_id = ?";
-
         try {
             PreparedStatement ps = connection.prepareStatement(queryDog);
             ps.setString(1, dog.getName());
@@ -478,7 +477,7 @@ public class DogDB {
             ps.setString(11, dog.getPhysLimit());
             ps.setString(12, dog.getPhotoPath());
             ps.setBoolean(13, dog.isTrainingDone());
-            ps.setInt(13, dog.getIdNumber());
+            ps.setInt(14, dog.getIdNumber());
             if (dog.getAllergies().size() > 0) {
                 updateDogAlgy(dog.getIdNumber(), dog.getAllergies());
             }
@@ -585,7 +584,7 @@ public class DogDB {
         String query = "UPDATE veterinarians SET name = ?, clinic = ?, phone_number = ? WHERE vet_id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, veterinarian.getName());
+            ps.setString(1, veterinarian.getVetName());
             ps.setString(2, veterinarian.getClinic());
             ps.setString(3, veterinarian.getPhoneNumber());
             ps.setInt(4, veterinarian.getIdNumber());

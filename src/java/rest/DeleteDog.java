@@ -12,21 +12,12 @@ import services.DogService;
 import services.JWT;
 
 /**
- * API that allows a user to delete a dog from their account.
  *
- * @author Hans Cabrera
+ * @author 703174
  */
 @Path("deleteDog")
 public class DeleteDog {
 
-    /**
-     * API that allows a user to delete a dog from their account.
-     *
-     * @param content JSON containing the user's login token and dog
-     * information.
-     * @return A string containing the type of error if the change was
-     * successful.
-     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {

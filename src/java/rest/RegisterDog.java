@@ -1,5 +1,10 @@
 package rest;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.jsonwebtoken.Claims;
@@ -13,8 +18,8 @@ import services.DogService;
 import services.JWT;
 
 /**
- * API that allows a user to add a new dog into the database.
- *
+ * API that allows for a user to register a new dog into the database.
+ * 
  * @author Hans Cabrera
  */
 @Path("registerDog")

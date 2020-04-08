@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package rest;
 
 import com.google.gson.Gson;
@@ -37,13 +42,16 @@ public class BookBoarding {
         //create appointment object from json
         Gson gson = new Gson();
         Boarding bAppt = gson.fromJson(content, Boarding.class);
-        bAppt.setAmountPaid(0);
+        //bAppt.setAmountPaid(0);//don't think this should be here
         bAppt.setType("boarding");
         if(claims.get("isAdmin", Boolean.class) == true){
                //keep GSON username
         } else {
             //change to token username
              bAppt.setUsername(claims.get("username", String.class));
+        }
+        if (bAppt.getTotal() == bAppt.getAmountPaid()) {
+            bAppt.setIsPaid(true);
         }
         AppointmentService as = new AppointmentService();
         if(as.insert(bAppt)){

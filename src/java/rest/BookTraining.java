@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package rest;
 
 import com.google.gson.Gson;
@@ -46,6 +51,9 @@ public class BookTraining {
              tAppt.setUsername(claims.get("username", String.class));
         }
         tAppt.setType("training");
+        if (tAppt.getTotal() == tAppt.getAmountPaid()) {
+            tAppt.setIsPaid(true);
+        }
         AppointmentService as = new AppointmentService();
         if(as.insert(tAppt)){
             return "Successfully added appointment";

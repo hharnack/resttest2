@@ -10,6 +10,11 @@ import javax.ws.rs.core.MediaType;
 import services.AccountService;
 import services.JWT;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 /**
  * API that allows a user to login to the system.
  *

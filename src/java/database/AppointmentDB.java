@@ -1,3 +1,6 @@
+/**
+ * database access package
+ */
 package database;
 
 import java.sql.Connection;
@@ -14,15 +17,14 @@ import models.Daycare;
 import models.Training;
 
 /**
- * This class is used to perform all queries required by the system to manage
- * all information regarding appointments.
- *
- * @author Carsen Johns
+ *  Database broker class for appointments
+ * @author 640195 Carsen Johns
+ * 
  */
 public class AppointmentDB {
 
     /**
-     * Queries the database to insert a boarding appointment into the system.
+     * inserts a boarding appointment
      *
      * @param bAppt A boarding appointment object.
      * @return true if the appointment was successfully inserted into the
@@ -71,7 +73,7 @@ public class AppointmentDB {
     }
 
     /**
-     * Queries the database to insert a training appointment into the system.
+     * inserts a training appointment
      *
      * @param tAppt A training appointment object.
      * @return true if the appointment was successfully inserted into the
@@ -150,11 +152,13 @@ public class AppointmentDB {
     }
 
     /**
-     * Queries the database to insert a daycare appointment into the system.
+     * inserts a daycare appointment
      *
      * @param dAppt A daycare appointment object.
      * @return true if the appointment was successfully inserted into the
      * database.
+     * @param dAppt
+     * @return boolean
      */
     public boolean insert(Daycare dAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -189,16 +193,14 @@ public class AppointmentDB {
     }
 
     /**
-     * Queries the database to get all the appointments associated with the
-     * specified username.
-     *
+     * gets all appointments by username
      * @param username The username to get all appointments for.
-     * @return A list of appointment objects.
+     * @return aList array list of appointments found
      */
     public ArrayList<Appointment> getAppointmentsByUsername(String username) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "SELECT * FROM appointments WHERE username = ?";
+        String queryAppointment = "SELECT * FROM appointments WHERE username = ? AND deleted = false";
         ArrayList<Appointment> aList = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(queryAppointment);
@@ -305,14 +307,14 @@ public class AppointmentDB {
     }
 
     /**
-     * Queries the database to update a boarding appointment in the system.
+     * updates a boarding appointment
      * @param bAppt An updated boarding appointment object.
      * @return true if the appointment was successfully updated.
      */
     public boolean update(Boarding bAppt) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAppointment = "UPDATE APPOINTMENTS SET DOG_ID = ?, USERNAME = ?, type = ?, date_start = ?, date_end = ?, total_cost = ?, amount_paid = ?, approved = ?, cancelled = ?, ispaid = ?, comments=?. deleted=? WHERE APPT_ID = ?";
+        String queryAppointment = "UPDATE APPOINTMENTS SET DOG_ID = ?, USERNAME = ?, type = ?, date_start = ?, date_end = ?, total_cost = ?, amount_paid = ?, approved = ?, cancelled = ?, ispaid = ?, comments=?, deleted=? WHERE APPT_ID = ?";
         String queryBoarding = "UPDATE BOARDING SET GROOMING=? WHERE BOARDING_ID = ?";
         try {
             PreparedStatement ps = connection.prepareCall(queryAppointment);
@@ -349,7 +351,7 @@ public class AppointmentDB {
     }
 
     /**
-     * Queries the database to update a training appointment in the system.
+     * updates a training appointment
      * @param tAppt An updated training appointment object.
      * @return true if the appointment was successfully updated.
      */
@@ -417,8 +419,8 @@ public class AppointmentDB {
     }
 
     /**
-     * Queries the database to select all of the appointments in the system.
-     * @return A list of all the appointments in the database.
+     * gets all appointments in the database, used by the admin
+     * @return aList array list of appointments
      */
     public ArrayList<Appointment> getAllAppointments() {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -531,7 +533,7 @@ public class AppointmentDB {
     }
 
     /**
-     * Queries the database to update a daycare appointment in the system.
+     * update a daycare appointment
      * @param dAppt An updated daycare appointment.
      * @return true if the appointment was successfully updated.
      */
@@ -561,6 +563,33 @@ public class AppointmentDB {
                 return false;
             }
 
+        } catch (SQLException ex) {
+            Logger.getLogger(AppointmentDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            pool.freeConnection(connection);
+        }
+        return false;
+    }
+
+    /**
+     * soft deletes an appointment by ID
+     * @param id
+     * @return boolean
+     */
+    public boolean delete(int id) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String queryAppointment = "UPDATE APPOINTMENTS SET DELETED = ? WHERE APPT_ID = ?";
+        PreparedStatement ps;
+        try {
+            ps = connection.prepareCall(queryAppointment);
+            ps.setBoolean(1, true);
+            ps.setInt(2, id);
+            if(ps.executeUpdate() != 0){
+                return true;
+            } else {
+                return false;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(AppointmentDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

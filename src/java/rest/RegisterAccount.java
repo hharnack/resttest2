@@ -1,5 +1,10 @@
 package rest;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javax.ws.rs.Consumes;
@@ -27,6 +32,8 @@ public class RegisterAccount {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
+        System.out.println(content);
+        
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         User user = gson.fromJson(content, User.class);
         AccountService as = new AccountService();

@@ -1,13 +1,10 @@
 package models;
 
 /**
- * Base class for an appointment object. Contains all of the attributes shared
- * by all appointment types.
- *
- * @author Carsen Johns
+ * Appointment object super class
+ * @author 640195
  */
 public class Appointment {
-
     int idNumber;
     String dogIdNumber;
     String username;
@@ -24,154 +21,266 @@ public class Appointment {
     boolean deleted;
 
     /**
-     * Default constructor.
+     * getter for deleted
+     * @return
      */
-    public Appointment() {
-
-    }
-
-    /**
-     * Constructor to instantiate all of the attributes.
-     * @param idNumber The appointment id number.
-     * @param dogIdNumber The dog id number.
-     * @param username The username that the dog belongs to.
-     * @param startTime The starting time for the appointment.
-     * @param endTime The ending time for the appointment.
-     * @param total The total cost of the appointment.
-     * @param amountPaid The amount currently paid.
-     * @param isApproved If the appointment has been approved by an administrator.
-     * @param isCancelled If the user or administrator has canceled the appointment.
-     * @param isPaid If the appointment has been paid in full.
-     * @param type The type of appointment.
-     * @param additionalComments Any additional comments left by the booker.
-     * @param dogNames If any other dogs are sharing an appointment.
-     */
-    public Appointment(int idNumber, String dogIdNumber, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String type, String additionalComments, String dogNames) {
-        this.idNumber = idNumber;
-        this.dogIdNumber = dogIdNumber;
-        this.username = username;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.total = total;
-        this.amountPaid = amountPaid;
-        this.isApproved = isApproved;
-        this.isCancelled = isCancelled;
-        this.isPaid = isPaid;
-        this.additionalComments = additionalComments;
-        this.type = type;
-        this.dogNames = dogNames;
-    }
-
-    public int getIdNumber() {
-        return idNumber;
-    }
-
-    public void setIdNumber(int idNumber) {
-        this.idNumber = idNumber;
-    }
-
-    public String getDogIdNumber() {
-        return dogIdNumber;
-    }
-
-    public void setDogIdNumber(String dogIdNumber) {
-        this.dogIdNumber = dogIdNumber;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
-
-    public double getAmountPaid() {
-        return amountPaid;
-    }
-
-    public void setAmountPaid(double amountPaid) {
-        this.amountPaid = amountPaid;
-    }
-
-    public boolean isIsApproved() {
-        return isApproved;
-    }
-
-    public void setIsApproved(boolean isApproved) {
-        this.isApproved = isApproved;
-    }
-
-    public boolean isIsCancelled() {
-        return isCancelled;
-    }
-
-    public void setIsCancelled(boolean isCancelled) {
-        this.isCancelled = isCancelled;
-    }
-
-    public boolean isIsPaid() {
-        return isPaid;
-    }
-
-    public void setIsPaid(boolean isPaid) {
-        this.isPaid = isPaid;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getAdditionalComments() {
-        return additionalComments;
-    }
-
-    public void setAdditionalComments(String additionalComments) {
-        this.additionalComments = additionalComments;
-    }
-
-    public String getDogNames() {
-        return dogNames;
-    }
-
-    public void setDogNames(String dogNames) {
-        this.dogNames = dogNames;
-    }
-
     public boolean isDeleted() {
         return deleted;
     }
 
+    /**
+     *setter for deleted
+     * @param deleted
+     */
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 
+    /**
+     *getter for dogNames
+     * @return
+     */
+    public String getDogNames() {
+        return dogNames;
+    }
+
+    /**
+     *setter for dogNames
+     * @param dogNames
+     */
+    public void setDogNames(String dogNames) {
+        this.dogNames = dogNames;
+    }
+    
+    /**
+     *Constructor for appointment
+     * 
+     * 
+     * @param idNumber
+     * @param dogIdNumber
+     * @param username
+     * @param startTime
+     * @param endTime
+     * @param total
+     * @param amountPaid
+     * @param isApproved
+     * @param isCancelled
+     * @param isPaid
+     * @param type
+     * @param additionalComments
+     * @param dogNames
+     */
+    public Appointment(int idNumber, String dogIdNumber, String username, String startTime, String endTime, double total, double amountPaid, boolean isApproved, boolean isCancelled, boolean isPaid, String type, String additionalComments, String dogNames) {
+        this.idNumber = idNumber;
+        this.dogIdNumber=dogIdNumber;
+        this.username = username;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.total = total;
+        this.amountPaid = amountPaid;
+        this.isApproved = isApproved;
+        this.isCancelled = isCancelled;
+        this.isPaid = isPaid;
+        this.additionalComments = additionalComments;
+        this.type = type;
+        this.dogNames = dogNames;
+    }
+
+    /**
+     *getter for type
+     * @return
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     *setter for type
+     * @param type
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     *default constructor
+     */
+    public Appointment() {
+    }
+
+    /**
+     *getter for dogIDNumber
+     * @return
+     */
+    public String getDogIdNumber() {
+        return dogIdNumber;
+    }
+
+    /**
+     *setter for dogIdNumber
+     * @param dogIdNumber
+     */
+    public void setDogIdNumber(String dogIdNumber) {
+        this.dogIdNumber = dogIdNumber;
+    }
+    
+    /**
+     *getter for appointment idNumber
+     * @return
+     */
+    public int getIdNumber() {
+        return idNumber;
+    }
+
+    /**
+     *setter for idNumber
+     * @param idNumber
+     */
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    /**
+     *getter for userName
+     * @return
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     *setter for userName
+     * @param username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     *getter for startTime
+     * @return
+     */
+    public String getStartTime() {
+        return startTime;
+    }
+
+    /**
+     *setter for startTime
+     * @param startTime
+     */
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    /**
+     *getter for endTime
+     * @return
+     */
+    public String getEndTime() {
+        return endTime;
+    }
+
+    /**
+     *setter for endTime
+     * @param endTime
+     */
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    /**
+     *getter for total
+     * @return
+     */
+    public double getTotal() {
+        return total;
+    }
+
+    /**
+     *setter for total
+     * @param total
+     */
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    /**
+     *getter for ammountPaid
+     * @return
+     */
+    public double getAmountPaid() {
+        return amountPaid;
+    }
+
+    /**
+     *setter for amountPaid
+     * @param amountPaid
+     */
+    public void setAmountPaid(double amountPaid) {
+        this.amountPaid = amountPaid;
+    }
+
+    /**
+     *getter for approved
+     * @return
+     */
+    public boolean IsApproved() {
+        return isApproved;
+    }
+
+    /**
+     *setter for approved
+     * @param isApproved
+     */
+    public void setIsApproved(boolean isApproved) {
+        this.isApproved = isApproved;
+    }
+
+    /**
+     *getter for isCancelled
+     * @return
+     */
+    public boolean isCancelled() {
+        return isCancelled;
+    }
+
+    /**
+     *setter for isCancelled
+     * @param isCancelled
+     */
+    public void setIsCancelled(boolean isCancelled) {
+        this.isCancelled = isCancelled;
+    }
+
+    /**
+     *getter for paid
+     * @return
+     */
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    /**
+     *setter for isPaid
+     * @param isPaid
+     */
+    public void setIsPaid(boolean isPaid) {
+        this.isPaid = isPaid;
+    }
+
+    /**
+     *getter for additionalComments
+     * @return
+     */
+    public String getAdditionalComments() {
+        return additionalComments;
+    }
+
+    /**
+     *setter for additionalComments
+     * @param additionalComments
+     */
+    public void setAdditionalComments(String additionalComments) {
+        this.additionalComments = additionalComments;
+    }
 }
