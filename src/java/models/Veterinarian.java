@@ -7,16 +7,16 @@ package models;
 public class Veterinarian {
 
     private int idNumber;
-    private String name;
+    private String vetName;
     private String clinic;
     private String phoneNumber;
 
     public Veterinarian() {
     }
 
-    public Veterinarian(int idNumber, String name, String clinic, String phoneNumber) {
+    public Veterinarian(int idNumber, String vetName, String clinic, String phoneNumber) {
         this.idNumber = idNumber;
-        this.name = name;
+        this.vetName = vetName;
         this.clinic = clinic;
         this.phoneNumber = phoneNumber;
     }
@@ -29,12 +29,12 @@ public class Veterinarian {
         this.idNumber = idNumber;
     }
 
-    public String getName() {
-        return name;
+    public String getVetName() {
+        return vetName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setVetName(String vetName) {
+        this.vetName = vetName;
     }
 
     public String getClinic() {
