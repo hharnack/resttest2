@@ -300,8 +300,20 @@ public class UserDB {
     public int updateUser(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryAcctUpdate = "UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ?, emergency_phone = ?, emergency_name = ? WHERE username = ?";
-        String queryAddrUpdate = "UPDATE user_address SET building_num = ?, house_apt_num = ?, street = ?, city = ?, province = ?, postal = ? WHERE username = ?";
+        String queryAcctUpdate = "UPDATE users SET first_name = ?, "
+                + "last_name = ?, "
+                + "email = ?, "
+                + "phone_number = ?, "
+                + "emergency_phone = ?, "
+                + "emergency_name = ? "
+                + "WHERE username = ?";
+        String queryAddrUpdate = "UPDATE user_address SET building_num = ?, "
+                + "house_apt_num = ?, "
+                + "street = ?, "
+                + "city = ?, "
+                + "province = ?, "
+                + "postal = ? "
+                + "WHERE username = ?";
 
         try {
             // Query account update

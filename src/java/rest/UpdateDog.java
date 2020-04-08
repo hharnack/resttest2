@@ -45,9 +45,7 @@ public class UpdateDog {
         String username = claims.get("username", String.class);
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
-        DogService ds = new DogService();
-        System.out.println(content);
-        if (ds.updateDog(username, dog)) {
+        if (new DogService().updateDog(username, dog)) {
             return "Updated";
         }
 

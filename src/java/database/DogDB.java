@@ -308,7 +308,7 @@ public class DogDB {
             ps.setString(13, dog.getPhotoPath());
             ps.setBoolean(14, true);
             ps.setBoolean(15, dog.isTrainingDone());
-            ps.executeUpdate();
+            int i = ps.executeUpdate();
             // Get the primary key
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
@@ -322,7 +322,7 @@ public class DogDB {
             }
             insertDogVaccines(dog.getIdNumber(), dog.getVaccines());
             insertDogVeterinarian(dog.getIdNumber(), dog.getVeterinarian());
-            return 1;
+            return i;
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -346,9 +346,9 @@ public class DogDB {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < allergies.size(); ++i) {
+            for (int i = 0; i < allergies.size(); i++) {
                 sb.append(allergies.get(i));
-                if (i != allergies.size()) {
+                if ((i + 1) != allergies.size()) {
                     sb.append(",");
                 }
             }
@@ -376,9 +376,9 @@ public class DogDB {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < medications.size(); ++i) {
+            for (int i = 0; i < medications.size(); i++) {
                 sb.append(medications.get(i));
-                if (i != medications.size()) {
+                if ((i + 1) != medications.size()) {
                     sb.append(",");
                 }
             }
@@ -518,9 +518,9 @@ public class DogDB {
             PreparedStatement ps = connection.prepareStatement(queryMed);
             ps.setInt(2, petID);
             StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < medications.size(); ++i) {
+            for(int i = 0; i < medications.size(); i++) {
                 sb.append(medications.get(i));
-                if (i != medications.size()) {
+                if ((i + 1) != medications.size()) {
                     sb.append(",");
                 }
             }
@@ -548,9 +548,9 @@ public class DogDB {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(2, petID);
             StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < allergies.size(); ++i) {
+            for(int i = 0; i < allergies.size(); i++) {
                 sb.append(allergies.get(i));
-                if (i != allergies.size()) {
+                if ((i + 1) != allergies.size()) {
                     sb.append(",");
                 }
             }
@@ -577,7 +577,6 @@ public class DogDB {
                 + "rabies = ?, "
                 + "bordetella = ?"
                 + "WHERE pet_id = ?";
-        System.out.println("updateDogVac()");
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setDate(1, vaccines.getDa2pp());
@@ -601,7 +600,6 @@ public class DogDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "UPDATE veterinarians SET name = ?, clinic = ?, phone_number = ? WHERE vet_id = ?";
-        System.out.println("updateDogVet()");
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, veterinarian.getVetName());
