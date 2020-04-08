@@ -13,8 +13,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import models.Dog;
-import models.Vaccines;
-import models.Veterinarian;
 import services.DogService;
 import services.JWT;
 
@@ -47,9 +45,9 @@ public class UpdateDog {
         String username = claims.get("username", String.class);
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
-        dog.setOwner(username);
+        System.out.println(dog.getVaccines().getDa2pp().toString());
         DogService ds = new DogService();
-        if (ds.updateDog(dog)) {
+        if (ds.updateDog(username, dog)) {
             return "Updated";
         }
 

@@ -444,11 +444,12 @@ public class DogDB {
      * @return the number of rows inserted into the database, should always be
      * either 0 or 1.
      */
-    public int updateDog(Dog dog) {
+    public int updateDog(String username, Dog dog) {
         System.out.println(dog.getIdNumber());
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String queryDog = "UPDATE dogs SET name = ?, "
+        String queryDog = "UPDATE dogs SET owner = ?"
+                + "name = ?, "
                 + "breed = ?, "
                 + "weight = ?, "
                 + "birth_date = ?, "
@@ -464,20 +465,21 @@ public class DogDB {
                 + "WHERE pet_id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(queryDog);
-            ps.setString(1, dog.getName());
-            ps.setString(2, dog.getBreed());
-            ps.setDouble(3, dog.getWeight());
-            ps.setDate(4, dog.getDateOfBirth());
-            ps.setString(5, dog.getGender());
-            ps.setBoolean(6, dog.isSpayedNeutered());
-            ps.setBoolean(7, dog.isStrangerComfortable());
-            ps.setBoolean(8, dog.isLargeDogFriendly());
-            ps.setBoolean(9, dog.isSmallDogFriendly());
-            ps.setBoolean(10, dog.isPuppyFriendly());
-            ps.setString(11, dog.getPhysLimit());
-            ps.setString(12, dog.getPhotoPath());
-            ps.setBoolean(13, dog.isTrainingDone());
-            ps.setInt(14, dog.getIdNumber());
+            ps.setString(1, username);
+            ps.setString(2, dog.getName());
+            ps.setString(3, dog.getBreed());
+            ps.setDouble(4, dog.getWeight());
+            ps.setDate(5, dog.getDateOfBirth());
+            ps.setString(6, dog.getGender());
+            ps.setBoolean(7, dog.isSpayedNeutered());
+            ps.setBoolean(8, dog.isStrangerComfortable());
+            ps.setBoolean(9, dog.isLargeDogFriendly());
+            ps.setBoolean(10, dog.isSmallDogFriendly());
+            ps.setBoolean(11, dog.isPuppyFriendly());
+            ps.setString(12, dog.getPhysLimit());
+            ps.setString(13, dog.getPhotoPath());
+            ps.setBoolean(14, dog.isTrainingDone());
+            ps.setInt(15, dog.getIdNumber());
             if (dog.getAllergies().size() > 0) {
                 updateDogAlgy(dog.getIdNumber(), dog.getAllergies());
             }
@@ -559,6 +561,7 @@ public class DogDB {
                 + "rabies = ?, "
                 + "bordetella = ?"
                 + "WHERE pet_id = ?";
+        System.out.println("updateDogVac()");
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setDate(1, vaccines.getDa2pp());
@@ -582,6 +585,7 @@ public class DogDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "UPDATE veterinarians SET name = ?, clinic = ?, phone_number = ? WHERE vet_id = ?";
+        System.out.println("updateDogVet()");
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, veterinarian.getVetName());
