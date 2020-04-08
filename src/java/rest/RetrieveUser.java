@@ -16,19 +16,19 @@ import services.AccountService;
 import services.JWT;
 
 /**
+ * API that allows a user to retrieve their own information from the database.
  *
- * API that allows to retrieve the user information
- * 
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("RetrieveUser")
 public class RetrieveUser {
 
     /**
-     * Retrieves representation of an instance of rest.
+     * API that allows a user to retrieve their own information from the
+     * database.
      *
-     * @param token
-     * @return an instance of java.lang.String
+     * @param token The authentication token created on login.
+     * @return A user object.
      */
     @GET
     @Path("{token}")

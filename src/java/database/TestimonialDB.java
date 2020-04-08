@@ -11,17 +11,18 @@ import java.util.logging.Logger;
 import models.Testimonial;
 
 /**
- * Database broker class for testimonials
- * 
- * @author 703174
+ * This class is used to perform all queries required by the system to manage
+ * all information regarding testimonials.
+ *
+ * @author Hans Cabrera
  */
 public class TestimonialDB {
 
     /**
      * Queries the database to insert a testimonial.
      *
-     * @param testimonial a testimonial object
-     * @return the number of rows insert, should only be 0 or 1
+     * @param testimonial a testimonial object.
+     * @return the number of rows insert, should only be 0 or 1.
      */
     public int insert(Testimonial testimonial) {
         ConnectionPool pool = ConnectionPool.getInstance();

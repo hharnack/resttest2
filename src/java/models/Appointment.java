@@ -21,7 +21,7 @@ public class Appointment {
     boolean deleted;
 
     /**
-     *getter for deleted
+     * getter for deleted
      * @return
      */
     public boolean isDeleted() {
@@ -283,5 +283,4 @@ public class Appointment {
     public void setAdditionalComments(String additionalComments) {
         this.additionalComments = additionalComments;
     }
-       
 }

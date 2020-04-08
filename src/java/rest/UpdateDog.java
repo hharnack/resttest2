@@ -17,29 +17,38 @@ import services.DogService;
 import services.JWT;
 
 /**
- * API that allows for updating the dog information under the user account
- * 
- * @author 703174
+ * API that allows a user to update dog information.
+ *
+ * @author Hans Cabrera
  */
 @Path("updateDog")
 public class UpdateDog {
+
+    /**
+     * API that allows a user to update dog information.
+     *
+     * @param content JSON containing an authentication token and updated dog
+     * information.
+     * @return A string containing details of any error or if the update was
+     * successful.
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
         String token = JWT.getToken(content);
         Claims claims;
-        try{
-        claims = JWT.decodeJWT(token);
-        } catch(Exception e){
+        try {
+            claims = JWT.decodeJWT(token);
+        } catch (Exception e) {
             return "Authentication error, bad token";
-        } 
+        }
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
         DogService ds = new DogService();
         if (ds.updateDog(dog)) {
             return "Updated";
         }
-        
+
         return "Not Updated";
     }
 }

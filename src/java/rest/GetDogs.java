@@ -17,14 +17,19 @@ import services.DogService;
 import services.JWT;
 
 /**
+ * API that allows and administrator to retrieve all dogs in the system.
  *
- * REST Web Service
- * 
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("GetDogs")
 public class GetDogs {
-    
+
+    /**
+     * API that allows and administrator to retrieve all dogs in the system.
+     *
+     * @param token The authentication token created on login.
+     * @return A list containing all dogs in the system.
+     */
     @GET
     @Path("{token}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -35,11 +40,11 @@ public class GetDogs {
         } catch (Exception e) {
             return null;
         }
-        
-        if(!claims.get("isAdmin", Boolean.class)) {
+
+        if (!claims.get("isAdmin", Boolean.class)) {
             return null;
         }
-        
+
         return new DogService().getDogs();
     }
 }

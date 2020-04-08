@@ -17,13 +17,21 @@ import services.JWT;
 import services.TestimonialService;
 
 /**
- * API that allows for a user to submit their testimonial to the website
- * 
- * @author 703174
+ * API that allows a user to submit a testimonial.
+ *
+ * @author Hans Cabrera
  */
 @Path("SubmitTestimonial")
 public class SubmitTestimonial {
-    
+
+    /**
+     * API that allows a user to submit a testimonial.
+     *
+     * @param contents JSON containing an authentication token and a
+     * testimonial.
+     * @return A string containing details of any error or if the submission was
+     * successful.
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String contents) {

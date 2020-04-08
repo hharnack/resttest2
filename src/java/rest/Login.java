@@ -16,17 +16,19 @@ import services.JWT;
  * and open the template in the editor.
  */
 /**
- *API that allows a user to login to the system.
- * 
- * @author 703174
+ * API that allows a user to login to the system.
+ *
+ * @author Hans Cabrera
  */
 @Path("login")
 public class Login {
 
     /**
-     * Retrieves representation of an instance of rest.CheckAccount
+     * API that allows a user to login to the system.
      *
-     * @return an instance of java.lang.String
+     * @param content JSON containing login information.
+     * @return A string containing details of any error or an authentication
+     * token if the login was successful.
      */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -46,7 +48,7 @@ public class Login {
         String password = parser.getString();
 
         AccountService as = new AccountService();
-        
+
         // Add isadmin boolean to token
         if (as.login(username, password)) {
             return JWT.createJWT(username, 86400000);

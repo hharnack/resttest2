@@ -15,18 +15,19 @@ import models.User;
 import services.AccountService;
 
 /**
- * API that allows for a user to register their account
- * 
- * @author 703174
+ * API that allows a user to register an account.
+ *
+ * @author Hans Cabrera
  */
 @Path("register")
 public class RegisterAccount {
-    
+
     /**
-     * PUT method for updating or creating an instance of RegisterAccountV2
+     * API that allows a user to register an account.
      *
-     * @param content representation for the resource
-     * @return
+     * @param content JSON containing new account details.
+     * @return A string containing details of any error or if the creation was
+     * successful.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

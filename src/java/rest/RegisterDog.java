@@ -18,18 +18,20 @@ import services.DogService;
 import services.JWT;
 
 /**
- * API that allows for a user to register a new dog under their account
+ * API that allows for a user to register a new dog into the database.
  * 
- * @author 703174
+ * @author Hans Cabrera
  */
 @Path("registerDog")
 public class RegisterDog {
 
     /**
-     * PUT method for updating or creating an instance of
+     * API that allows a user to add a new dog into the database.
      *
-     * @param content representation for the resource
-     * @return
+     * @param content JSON containing an authentication token and dog
+     * information.
+     * @return A string containing details of any error or if the update was
+     * successful.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

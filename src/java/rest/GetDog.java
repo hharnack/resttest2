@@ -16,25 +16,25 @@ import services.DogService;
 import services.JWT;
 
 /**
- * REST Web Service
+ * API that allows a user to retrieve a dog from the database.
  *
- * @author 703174
+ * @author Levon Rose
  */
 @Path("GetDog")
 public class GetDog {
 
     /**
-     * Retrieves representation of an instance of rest.
+     * API that allows a user to retrieve a dog from the database.
      *
-     * @param token
-     * @param idString
-     * @return an instance of java.lang.String
+     * @param token The authentication token created on login.
+     * @param idString The id number of the dog to retrieve.
+     * @return A dog object.
      */
     @GET
     @Path("{token}/{idString}")
     @Produces(MediaType.APPLICATION_JSON)
     public Dog getJson(@PathParam("token") String token, @PathParam("idString") String idString) {
-        
+
         try {
             Claims claims = JWT.decodeJWT(token);
         } catch (Exception e) {

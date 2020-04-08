@@ -6,16 +6,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
- * Connecting the database with a pool
+ * This class allows connection to the database through a pool through the user
+ * of a Singleton patter.
  *
- * @author our great managers :)
+ * @author Levon Rose
  */
 public class ConnectionPool {
 
-    /**
-     * @param pool ConnectionPool set to null
-     * @param dataSource DataSource set to null
-     */
     private static ConnectionPool pool = null;
     private static DataSource dataSource = null;
 
@@ -33,9 +30,9 @@ public class ConnectionPool {
     }
 
     /**
-     * If the connection pool is null(default) it will create the connection
+     * Creates a connection pool if an instance of one does not already exists.
      *
-     * @return the connection pool
+     * @return The connection pool
      */
     public static synchronized ConnectionPool getInstance() {
         if (pool == null) {
@@ -45,9 +42,9 @@ public class ConnectionPool {
     }
 
     /**
-     * Gets the connection, catches SQLException
+     * Gets the connection.
      *
-     * @return returns the connection
+     * @return returns The connection
      */
     public Connection getConnection() {
         try {
@@ -62,7 +59,7 @@ public class ConnectionPool {
     /**
      * Closes the connection so more users can connect at once.
      *
-     * @param c connection that is passed in
+     * @param c The connection to close.
      */
     public void freeConnection(Connection c) {
         try {
