@@ -485,13 +485,13 @@ public class DogDB {
             ps.setString(13, dog.getPhotoPath());
             ps.setBoolean(14, dog.isTrainingDone());
             ps.setInt(15, dog.getIdNumber());
+            int i = ps.executeUpdate();
             if (!dog.getAllergies().get(0).equals("")) {
                 updateDogAlgy(dog.getIdNumber(), dog.getAllergies());
             }
             if (!dog.getMedications().get(0).equals("")) {
                 updateDogMed(dog.getIdNumber(), dog.getMedications());
             }
-            int i = ps.executeUpdate();
             updateDogVac(dog.getIdNumber(), dog.getVaccines());
             updateDogVet(dog.getVeterinarian());
             return i;
