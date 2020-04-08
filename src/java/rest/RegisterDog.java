@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import models.Dog;
+import models.Vaccines;
 import models.Veterinarian;
 import services.DogService;
 import services.JWT;
@@ -51,10 +52,11 @@ public class RegisterDog {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
         // Create veterinarian from json and set 
+        dog.setOwner(username);
         dog.setVeterinarian(gson.fromJson(content, Veterinarian.class));
         // Veterinarian vet = gson.fromJson(content, Veterinarian.class);
         // dog.setVeterinarian(vet);
-        // dog.setVaccines(gson.fromJson(content, Vaccine.class));
+        // dog.setVaccines(gson.fromJson(content, Vaccines.class));
         if (new DogService().insert(username, dog)) {
             return "Successfully added";
         } else {

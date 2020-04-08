@@ -42,8 +42,10 @@ public class UpdateDog {
         } catch (Exception e) {
             return "Authentication error, bad token";
         }
+        String username = claims.get("username", String.class);
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
+        dog.setOwner(username);
         DogService ds = new DogService();
         if (ds.updateDog(dog)) {
             return "Updated";
