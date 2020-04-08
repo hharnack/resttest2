@@ -21,6 +21,9 @@ CREATE TABLE users (
 INSERT INTO users
 VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false, true);
 
+INSERT INTO users
+VALUES ('customer', 'password', 'Hans', 'Cabrera', 'hans@email.com', '1111111111', '1111111111', 'Nobody', true, false, false);
+
 -- user_address table
 CREATE TABLE user_address (
     USERNAME VARCHAR(20),
@@ -38,6 +41,9 @@ REFERENCES users (USERNAME);
 
 INSERT INTO user_address
 VALUES ('admin', '111a', '123b', 'Senator Burns', 'Calgary', 'Alberta', 'A1A1A1');
+
+INSERT INTO user_address
+VALUES ('customer', '1', '1', 'Nowhere', 'Calgary', 'Alberta', 'A1A1A1');
 
 -- dogs table
 CREATE TABLE dogs (

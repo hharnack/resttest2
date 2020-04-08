@@ -190,7 +190,7 @@ public class DogDB {
         } finally {
             pool.freeConnection(connection);
         }
-        return null;
+        return new ArrayList<>(Arrays.asList(""));
     }
 
     /**
@@ -217,7 +217,7 @@ public class DogDB {
         } finally {
             pool.freeConnection(connection);
         }
-        return null;
+        return new ArrayList<>(Arrays.asList(""));
     }
 
     /**
@@ -314,10 +314,10 @@ public class DogDB {
             rs.next();
             dog.setIdNumber(rs.getInt(1));
 
-            if (dog.getAllergies().size() > 0) {
+            if (!dog.getAllergies().get(0).equals("")) {
                 insertDogAllergies(dog.getIdNumber(), dog.getAllergies());
             }
-            if (dog.getMedications().size() > 0) {
+            if (!dog.getMedications().get(0).equals("")) {
                 insertDogMedications(dog.getIdNumber(), dog.getMedications());
             }
             insertDogVaccines(dog.getIdNumber(), dog.getVaccines());
@@ -346,9 +346,11 @@ public class DogDB {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
             StringBuilder sb = new StringBuilder();
-            for (String s : allergies) {
-                sb.append(s);
-                sb.append(",");
+            for (int i = 0; i < allergies.size(); ++i) {
+                sb.append(allergies.get(i));
+                if (i != allergies.size()) {
+                    sb.append(",");
+                }
             }
             ps.setString(2, sb.toString());
             ps.executeUpdate();
@@ -374,9 +376,11 @@ public class DogDB {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
             StringBuilder sb = new StringBuilder();
-            for (String s : medications) {
-                sb.append(s);
-                sb.append(",");
+            for (int i = 0; i < medications.size(); ++i) {
+                sb.append(medications.get(i));
+                if (i != medications.size()) {
+                    sb.append(",");
+                }
             }
             ps.setString(2, sb.toString());
             ps.executeUpdate();
@@ -480,10 +484,10 @@ public class DogDB {
             ps.setString(13, dog.getPhotoPath());
             ps.setBoolean(14, dog.isTrainingDone());
             ps.setInt(15, dog.getIdNumber());
-            if (dog.getAllergies().size() > 0) {
+            if (!dog.getAllergies().get(0).equals("")) {
                 updateDogAlgy(dog.getIdNumber(), dog.getAllergies());
             }
-            if (dog.getMedications().size() > 0) {
+            if (!dog.getMedications().get(0).equals("")) {
                 updateDogMed(dog.getIdNumber(), dog.getMedications());
             }
             updateDogVac(dog.getIdNumber(), dog.getVaccines());
@@ -511,10 +515,15 @@ public class DogDB {
         try {
             PreparedStatement ps = connection.prepareStatement(queryMed);
             ps.setInt(2, petID);
-            for (String s : medications) {
-                ps.setString(1, s);
-                ps.executeUpdate();
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < medications.size(); ++i) {
+                sb.append(medications.get(i));
+                if (i != medications.size()) {
+                    sb.append(",");
+                }
             }
+            ps.setString(1, sb.toString());
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -536,10 +545,15 @@ public class DogDB {
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(2, petID);
-            for (String s : allergies) {
-                ps.setString(1, s);
-                ps.executeUpdate();
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < allergies.size(); ++i) {
+                sb.append(allergies.get(i));
+                if (i != allergies.size()) {
+                    sb.append(",");
+                }
             }
+            ps.setString(1, sb.toString());
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DogDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

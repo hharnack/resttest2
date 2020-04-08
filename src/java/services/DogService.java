@@ -57,7 +57,6 @@ public class DogService {
      * @return true if the dog information was successfully updated.
      */
     public boolean updateDog(String username, Dog dog) {
-        System.out.println("updateDog()");
         return ddb.updateDog(username, dog) > 0;
     }
 

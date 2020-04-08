@@ -37,6 +37,7 @@ public class RegisterDog {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
+        System.out.println(content);
         //gets the token from the json
         String token = JWT.getToken(content);
         //return the token decoded

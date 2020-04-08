@@ -28,8 +28,6 @@ public class CheckAccount {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
-        System.out.println(content);
-
         JsonParser parser = Json.createParser(new StringReader(content));
 
         parser.next(); // START_OBJECT

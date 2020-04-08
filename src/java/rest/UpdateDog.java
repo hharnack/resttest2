@@ -45,11 +45,11 @@ public class UpdateDog {
         String username = claims.get("username", String.class);
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Dog dog = gson.fromJson(content, Dog.class);
-        System.out.println(dog.getVaccines().getDa2pp().toString());
         DogService ds = new DogService();
-        if (ds.updateDog(username, dog)) {
-            return "Updated";
-        }
+        System.out.println(content);
+//        if (ds.updateDog(username, dog)) {
+//            return "Updated";
+//        }
 
         return "Not Updated";
     }
