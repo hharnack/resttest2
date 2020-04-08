@@ -27,6 +27,7 @@ public class EditBoarding {
      * PUT method for updating or creating an instance of EditBoarding
      *
      * @param content representation for the resource
+     * @return 
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

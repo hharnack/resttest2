@@ -422,7 +422,6 @@ public class DogDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String query = "INSERT INTO veterinarians (PET_ID, NAME, CLINIC, PHONE_NUMBER) VALUES (?, ?, ?, ?)";
-
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, petID);
@@ -446,6 +445,7 @@ public class DogDB {
      * either 0 or 1.
      */
     public int updateDog(Dog dog) {
+        System.out.println(dog.getIdNumber());
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String queryDog = "UPDATE dogs SET name = ?, "
