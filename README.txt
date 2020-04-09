@@ -22,7 +22,14 @@ Prerequisists
     2.9 Name the pool dogsPool and select javax.sql.DataSource as the resource type
     2.10 Click next and copy type com.mysql.jdbc.jdbc2.optional.MysqlDataSource as the Datasource Classname and click finish
     2.11 Create a new JDBC resource named jdbc/dogsdb, select the dogspool pool and click next
-    2.12
+    2.12 Configure the following properties:
+        Port - 3306
+        Portnumber - 3306
+        User - root
+        Password - password
+        URL - jdbc:mysql://localhost:3306/DogsDB
+        Url - jdbc:mysql://localhost:3306/DogsDB
+    2.13 Click finish
 
 3. Deploying the project into Payara Glassfish Server
     3.1 Import the Java project into Netbeans
