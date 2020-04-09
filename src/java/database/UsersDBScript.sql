@@ -19,7 +19,7 @@ CREATE TABLE users (
 );
 
 INSERT INTO users
-VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false, true);
+VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'solid', true, false, true);
 
 INSERT INTO users
 VALUES ('customer', 'password', 'Hans', 'Cabrera', 'hans@email.com', '1111111111', '1111111111', 'Nobody', true, false, false);
