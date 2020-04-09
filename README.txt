@@ -1,10 +1,14 @@
+Contents
+Application Folder
+Payara Glassfish Server Folder
+
 How to Install
 
 Prerequisists
-    1. Payara Glassfish Server
+    1. Payara Glassfish Server (Provided)
     2. Netbeans IDE
     3. MySQL
-    4. JDBC Driver
+    4. JDBC Driver (Inside payara41.zip)
 
 1. Creating the Database
     1.1 Log into MySQL
