@@ -19,7 +19,7 @@ CREATE TABLE users (
 );
 
 INSERT INTO users
-VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'PeepeepoopooMan', true, false, true);
+VALUES ('admin', 'password', 'Carsen', 'Johns', 'example@email.com', '4031234567', '4037654321', 'John', true, false, true);
 
 -- user_address table
 CREATE TABLE user_address (
@@ -61,10 +61,10 @@ CREATE TABLE dogs (
 );
 
 INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH, ISACTIVE, TRAINING_DONE)
-VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2018-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', '1.png', true, false);
+VALUES ('Max', 'admin' ,'Boston Terrier', 4.20, '2018-12-25', 'Male', true, true, true, true, true, 'Can't run too fast', '1.png', true, false);
 
 INSERT INTO dogs (NAME, OWNER, BREED, WEIGHT, BIRTH_DATE, GENDER, SPAYED_NEUTERED, STRANGER_FRIENDLY, LARGE_FRIENDLY, SMALL_FRIENDLY, PUPPY_FRIENDLY, PHYS_LIMIT, PHOTO_PATH, ISACTIVE, TRAINING_DONE)
-VALUES ('Sparky', 'admin' ,'Corgi', 4.20, '2018-12-25', 'Male', true, true, true, true, true, 'Fallen and cant get up', '2.png', true, false);
+VALUES ('Sparky', 'admin' ,'Corgi', 4.20, '2018-12-25', 'Male', true, true, true, true, true, 'Can't run too fast', '2.png', true, false);
 
 -- dogs_allergy table
 CREATE TABLE dogs_allergy (
@@ -102,7 +102,7 @@ INSERT INTO dogs_medication
 VALUES (1, 'Advil');
 
 INSERT INTO dogs_medication
-VALUES (2, 'kikaine');
+VALUES (2, 'Antibiotics');
 
 --boarding
     CREATE TABLE BOARDING(
@@ -167,7 +167,7 @@ CREATE TABLE veterinarians (
 );
 
   INSERT INTO veterinarians (PET_ID, NAME, CLINIC, PHONE_NUMBER)
-  VALUES (1, 'Dr. Phil', 'The Dr.Phil Show', '4206912345');
+  VALUES (1, 'Dr. Vet', 'The Vet Clinic', '4206912345');
 
 -- testimonials table
 CREATE TABLE testimonials (
